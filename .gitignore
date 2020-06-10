@@ -1,3 +1,4 @@
 .flaskenv
 env-notes.txt
 /venv
+schema-notes.md
