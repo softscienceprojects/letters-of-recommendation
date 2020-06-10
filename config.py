@@ -6,8 +6,8 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] #or \
-        #'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] or \
+        'sqlite:///' + os.path.join(basedir, 'letters-development.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

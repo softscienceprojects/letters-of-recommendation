@@ -17,7 +17,8 @@ class User(db.Model):
     isMember = db.Column(db.Boolean, default=False, nullable=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
-    #awards = db.relationship() 
+    #awards = db.relationship()
+    #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     #comments = db.relationship('Comment', backref='writer', lazy='dynamic')
     followed = db.relationship(
