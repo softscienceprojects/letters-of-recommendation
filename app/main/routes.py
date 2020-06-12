@@ -12,6 +12,12 @@ def index():
     # get the title and first image of the most recent post
     return "HELLO"
 
+@bp.route('/path/<path:subpath>', methods=['GET'])
+def subpath_test(subpath):
+    # get the title and first image of the most recent post
+    return 'Subpath %s' % subpath
+
+
 @bp.route('/posts', methods=['GET'])
 def posts():
     # get all posts
