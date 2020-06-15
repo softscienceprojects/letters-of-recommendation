@@ -3,5 +3,6 @@
 {% block content %}
 Hello I am post
     <h1>{{ post.title }}</h1>
+    <h2>by {{ post.author.username }}</h2>
     <p>{{ post.body }}</p>
 {% endblock %}
