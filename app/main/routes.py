@@ -19,20 +19,27 @@ def subpath_test(subpath):
     return 'Subpath %s' % subpath
 
 
-@bp.route('/posts', methods=['GET'])
+@bp.route('/posts', methods=['GET', 'POST'])
 def posts():
-    posts = Post.query.all()
-    return render_template('posts.html', posts=posts)
+    if request.args:
+        if request.args.get('tag'):
+            posts = Post.query.filter_by(tag=request.args.get('tag'))
+            message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
+        elif request.args.get('user_id'):
+            posts = Post.query.filter_by(user_id=request.args.get('user_id'))
+            message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
+        else:
+            posts = Post.query.all()
+            message = "not found"
+    else:
+        posts = Post.query.all()
+        message = None
+    return render_template('posts.html', posts=posts, message=message)
 
 @bp.route('/posts/<post_id>', methods=['GET'])
 def post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     return render_template('post.html', post=post)
-
-@bp.route('/tags/<tagname>', methods=['GET', 'POST'])
-def tags():
-    # get all the posts for the given tagname
-    pass
 
 @bp.route('/user/<username>')
 @login_required
