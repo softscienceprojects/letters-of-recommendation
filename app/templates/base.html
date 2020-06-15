@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Letters</title>
+        {% block title %}
+            <title>{% if title %}{{ title }} - Letters{% else %}Letters of recommendation{% endif %}</title>
+        {% endblock %}
+
     </head>
     <body>
-        {% block content %}
-
-        {% endblock %}
+        <nav>
+            {% include '_nav.html' %}
+        </nav>
+        
+        {% block content %}{% endblock %}
     </body>
 </html>

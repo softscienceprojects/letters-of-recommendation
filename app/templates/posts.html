@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% block posts_list %}
+        <h1>SOME POSTS</h1>
+        {% if posts %}
+            {% for post in posts %}
+                <a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a>
+            {% endfor %}
+        {% else %}
+            <p> no posts</p>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

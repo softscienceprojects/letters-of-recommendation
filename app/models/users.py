@@ -53,7 +53,7 @@ class User(UserMixin, db.Model):
     #     self.isWriter = 0
     
     def __repr__(self):
-        return '{}'.format(self.username)
+        return '{} - {}'.format(self.id, self.username)
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)

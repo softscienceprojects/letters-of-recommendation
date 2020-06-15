@@ -1,6 +1,7 @@
 from datetime import datetime
-from flask import redirect, url_for, request, g, jsonify, current_app
+from flask import render_template, redirect, url_for, request, g, jsonify, current_app
 from flask_login import current_user, login_required
+from sqlalchemy.sql import text
 from app import db
 from app.main import bp
 from app.models import User, Post
@@ -10,7 +11,7 @@ from app.models import User, Post
 @bp.route('/index', methods=['GET'])
 def index():
     # get the title and first image of the most recent post
-    return "HELLO"
+    return render_template('index.html', title='index page')
 
 @bp.route('/path/<path:subpath>', methods=['GET'])
 def subpath_test(subpath):
@@ -20,8 +21,13 @@ def subpath_test(subpath):
 
 @bp.route('/posts', methods=['GET'])
 def posts():
-    # get all posts
-    pass
+    posts = Post.query.all()
+    return render_template('posts.html', posts=posts)
+
+@bp.route('/posts/<post_id>', methods=['GET'])
+def post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    return render_template('post.html', post=post)
 
 @bp.route('/tags/<tagname>', methods=['GET', 'POST'])
 def tags():
