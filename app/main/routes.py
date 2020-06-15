@@ -37,8 +37,8 @@ def tags():
 @bp.route('/user/<username>')
 @login_required
 def user(username):
-    # get the user's profile page
-    pass
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('user.html', user=user)
 
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])

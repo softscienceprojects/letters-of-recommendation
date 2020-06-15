@@ -23,9 +23,10 @@ class User(UserMixin, db.Model):
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
     #awards = db.relationship()
+    #liked_posts = db.relationship()
     #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    #comments = db.relationship('Comment', backref='writer', lazy='dynamic')
+    #comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),

@@ -20,7 +20,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.index')
+            next_page = url_for('main.user', username=user.username)
         return redirect(next_page)
     return render_template('auth/login.html', form=form)
     
@@ -40,7 +40,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.index'))
     return render_template('auth/register.html', form=form)
 
 
