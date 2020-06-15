@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, g, jsonify, current_app
 from flask_login import current_user, login_required
+from markupsafe import escape
 from sqlalchemy.sql import text
 from app import db
 from app.main import bp
@@ -47,6 +48,22 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
 
+@bp.route('/users', methods=['GET', 'POST'])
+@login_required
+def users():
+    if request.args:
+        if request.args.get('following'):
+            users = User.query.filter_by(username=request.args.get('following')).first().followed
+            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
+        elif request.args.get('followers'):
+            users = User.query.filter_by(username=request.args.get('followers')).first().followers
+            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
+        else:
+            return redirect(url_for('main.index'))
+    else:
+        return redirect(url_for('main.index'))
+    return render_template('users.html', users=users, message=message)
+
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -63,14 +80,26 @@ def delete_profile():
 @bp.route('/follow/<username>')
 @login_required
 def follow(username):
-    #follow provided user
-    pass
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return redirect(url_for('main.index'))
+    if user == current_user:
+        return redirect(url_for('main.user', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    return redirect(url_for('main.user', username=username))
 
 @bp.route('/unfollow/<username>')
 @login_required
 def unfollow(username):
-    # unfollow... should this be id instead?
-    pass
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return redirect(url_for('main.index'))
+    if user == current_user:
+        return redirect(url_for('main.user', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    return redirect(url_for('main.user', username=username))
 
 @bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
 @login_required

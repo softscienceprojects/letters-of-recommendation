@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if message %}
+        <div>
+            {{ message }}
+        </div>       
+    {% endif %}
+    {% if users %}
+        {% for user in users %}
+            {{ user.username }}
+        {% endfor %}
+    {% else %}
+        No users
+    {% endif %}
+
+
+{% endblock %}

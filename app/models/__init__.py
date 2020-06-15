@@ -1,2 +1,2 @@
-from app.models.users import User
+from app.models.users import User, followers
 from app.models.posts import Post
