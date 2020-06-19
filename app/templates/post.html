@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-Hello I am post
+    {% if post.author == current_user %}
+        <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
+    {% endif %}
     <h1>{{ post.title }}</h1>
     <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2>
+    <p>{{ moment(post.datePosted).fromNow() }}</p>
     <p>{{ post.body }}</p>
 {% endblock %}

@@ -12,3 +12,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return '{} - {}'.format(self.id, self.title)
+
+    def update_time_posted(self):
+        #when a post is made or edited, update the time
+        pass
