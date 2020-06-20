@@ -22,6 +22,7 @@ def subpath_test(subpath):
     return 'Subpath %s' % subpath
 
 
+## POSTS #####################################################
 @bp.route('/posts/', methods=['GET', 'POST'])
 def posts():
     if request.args:
@@ -54,6 +55,9 @@ def post_new():
 @bp.route('/posts/<post_id>/', methods=['GET'])
 def post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
+    # if request.args.get('following'):
+    # users = User.query.filter_by(username=request.args.get('following')).first().followed
+    # message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
     return render_template('post.html', post=post)
 
 @bp.route('/posts/<post_id>/edit/', methods=['GET', 'POST'])
@@ -71,6 +75,8 @@ def post_edit(post_id):
         form.body.data = post.body
     return render_template('_post.html', form=form, post=post)
 
+
+
 @bp.route('/posts/<int:post_id>/delete/', methods=['DELETE'])
 @login_required
 def post_delete(post_id):
@@ -80,6 +86,29 @@ def post_delete(post_id):
         db.session.delete(post)
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
+
+@bp.route('/like/<post_id>/')
+@login_required
+def like(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if post is None:
+        return redirect(url_for('main.index'))
+    current_user.like_post(post)
+    db.session.commit()
+    return redirect(url_for('main.post', post_id=post.id))
+
+@bp.route('/unlike/<post_id>/')
+@login_required
+def unlike(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if post is None:
+        return redirect(url_for('main.index'))
+    current_user.unlike_post(post)
+    db.session.commit()
+    return redirect(url_for('main.post', post_id=post.id))
+
+
+## USERS #####################################################
 
 @bp.route('/user/<username>/')
 @login_required

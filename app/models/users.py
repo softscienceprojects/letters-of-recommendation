@@ -27,7 +27,7 @@ class User(UserMixin, db.Model):
     isMember = db.Column(db.Boolean, default=False, nullable=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
-    liked_posts = db.relationship('Post', secondary=likedPosts, lazy='select', backref="liker")
+    liked_posts = db.relationship('Post', secondary=likedPosts, lazy='dynamic', backref="liker")
     profile_picture = db.Column(db.String(20), default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author')
@@ -151,9 +151,24 @@ class User(UserMixin, db.Model):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 # i want the posts from people where i am their follower
                 followers.c.follower_id == self.id)
-        own = Post.query.filter_by(user_id = self.id) #assign user_id (me) to self.id - try filter_by(self.id) - does this work?
-        return followed.union(own).order_by(Post.timestamp.desc())
+        own = Post.query.filter_by(user_id = self.id) 
+        #assign user_id (me) to self.id
+        return followed.union(own).order_by(Post.datePosted.desc())
 
+    def get_liked_posts(self, post):
+        """
+        our helper method to see if we already like this post or not
+        """
+        return self.liked_posts.filter(
+            likedPosts.c.post_id == post.id).count() > 0
+
+    def like_post(self, post):
+        if not self.get_liked_posts(post):
+            self.liked_posts.append(post)
+
+    def unlike_post(self, post):
+        if self.get_liked_posts(post):
+            self.liked_posts.remove(post)
 
 ## HELPER METHODS
 

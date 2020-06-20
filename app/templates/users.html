@@ -8,7 +8,9 @@
     {% endif %}
     {% if users %}
         {% for user in users %}
-            {{ user.username }}
+            <div class="user_card">
+                <a href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>
+            </div>
         {% endfor %}
     {% else %}
         No users

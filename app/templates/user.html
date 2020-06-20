@@ -8,7 +8,9 @@
         <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a>
         {% if user != current_user %} Send a message {% endif %}
         {% if user == current_user %}
-            <a href="{{ url_for('main.post_new') }}">Write a post</a>
+            {% if user.isWriter == True %}
+                <a href="{{ url_for('main.post_new') }}">Write a post</a>
+            {% endif %}
             <a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a>
             Change your password
 
