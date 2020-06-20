@@ -1,7 +1,8 @@
-from app.models.users import User, followers
+from app.models.users import User, followers, likedPosts
 from app.models.posts import Post
 from app.models.tags import Tag, postTags
-#from app.models.comments import Comment
+from app.models.comments import Comment
+from app.models.messages import Message
 
 def get_or_create(session, model, **kwargs):
     """

@@ -1,6 +1,7 @@
 
 from datetime import datetime
 from app import db
+from app.models.users import likedPosts
 
 class Post(db.Model):
     __tablename__ = "posts"
@@ -9,6 +10,8 @@ class Post(db.Model):
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    liker_users = db.relationship('User', secondary=likedPosts, lazy='select', backref="postLiked")
+
 
     def __repr__(self):
         return '{} - {}'.format(self.id, self.title)

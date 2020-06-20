@@ -11,6 +11,11 @@ followers = db.Table('followers', #since this is an association table no need to
   db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
+likedPosts = db.Table('postLikes',
+  db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+  db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
+)
+
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -23,10 +28,10 @@ class User(UserMixin, db.Model):
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
     #awards = db.relationship('Award', backref='winner')
-    ###liked_posts = db.relationship()
+    liked_posts = db.relationship('Post', secondary=likedPosts, lazy='select', backref="liker")
     #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    ###comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
+    usercomments = db.relationship('Comment', backref='commenter', lazy='dynamic')
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
