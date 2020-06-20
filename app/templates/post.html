@@ -13,6 +13,6 @@
     </div>
     <h1>{{ post.title }}</h1>
     <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2>
-    <p>{{ moment(post.datePosted).fromNow() }}</p>
-    <p>{{ post.body }}</p>
+    <p>{{ post.datePosted }}</p>
+    <p>{{ post.body | safe }}</p>
 {% endblock %}
