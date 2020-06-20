@@ -5,6 +5,7 @@ from markupsafe import escape
 from sqlalchemy.sql import text
 from app import db
 from app.main import bp
+from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post
 
@@ -43,10 +44,10 @@ def posts():
 def post_new():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, body=form.body.data, author=current_user)
+        post = Post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('main.post', post_id=post.id)) #want to go to the post, need the id
+        return redirect(url_for('main.post', post_id=post.id))
     return render_template('_post.html', form=form, post=None)
 
 
@@ -72,7 +73,7 @@ def post_edit(post_id):
 
 @bp.route('/posts/<int:post_id>/delete/', methods=['DELETE'])
 @login_required
-def post_destroy(post_id):
+def post_delete(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     if post:
         # Post.query.filter_by(id=post_id).delete()
@@ -120,11 +121,18 @@ def users():
 
 
 
-@bp.route('/delete_profile/', methods=['GET', 'DESTROY'])
+@bp.route('/delete_profile/<user>', methods=['DELETE'])
 @login_required
-def delete_profile():
+def delete_profile(user):
     # delete everything - danger zone!
-    pass
+    user = Post.query.filter_by(id=user.id).first_or_404()
+    if user:
+        # Post.query.filter_by(id=post_id).delete()
+        db.session.delete(user)
+        logout_user()
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
 
 @bp.route('/follow/<username>/')
 @login_required

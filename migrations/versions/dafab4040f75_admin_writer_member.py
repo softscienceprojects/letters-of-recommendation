@@ -1,8 +1,8 @@
 """admin/writer/member
 
-Revision ID: 4a0cae9198fb
-Revises: 9d6c44e3e262
-Create Date: 2020-06-09 21:09:08.306699
+Revision ID: dafab4040f75
+Revises: f4ff4ac2d0bb
+Create Date: 2020-06-20 09:50:17.426038
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4a0cae9198fb'
-down_revision = '9d6c44e3e262'
+revision = 'dafab4040f75'
+down_revision = 'f4ff4ac2d0bb'
 branch_labels = None
 depends_on = None
 

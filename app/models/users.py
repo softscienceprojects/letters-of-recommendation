@@ -7,8 +7,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import base64
 
 followers = db.Table('followers', #since this is an association table no need to make part of a class
-    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+  db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+  db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
 class User(UserMixin, db.Model):
@@ -22,11 +22,11 @@ class User(UserMixin, db.Model):
     isMember = db.Column(db.Boolean, default=False, nullable=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
-    #awards = db.relationship()
-    #liked_posts = db.relationship()
+    #awards = db.relationship('Award', backref='winner')
+    ###liked_posts = db.relationship()
     #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    #comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
+    ###comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
