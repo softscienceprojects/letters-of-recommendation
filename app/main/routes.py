@@ -7,37 +7,45 @@ from app import db
 from app.main import bp
 from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm
-from app.models import User, Post
+from app.models import User, Post, Message, Tag
 
 
 @bp.route('/', methods=['GET'])
 @bp.route('/index/', methods=['GET'])
 def index():
     # get the title and first image of the most recent post
-    return render_template('index.html', title='index page')
+    latest_post = Post.query.order_by(Post.datePosted.desc()).first()
+    return render_template('index.html', title='index page', post=latest_post)
 
 @bp.route('/path/<path:subpath>/', methods=['GET'])
 def subpath_test(subpath):
-    # get the title and first image of the most recent post
     return 'Subpath %s' % subpath
 
 
 ## POSTS #####################################################
 @bp.route('/posts/', methods=['GET', 'POST'])
 def posts():
+    """
+        render all the posts, filtered by:
+        - tag
+        - written by a user (with given user_id)
+        - liked by the current_user (to finish)
+    """
     if request.args:
         if request.args.get('tag'):
             posts = Post.query.filter_by(tag=request.args.get('tag'))
-            message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
         elif request.args.get('user_id'):
             posts = Post.query.filter_by(user_id=request.args.get('user_id'))
-            message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
+        # elif request.args.get('liked'):
+        #     posts = Post.query.filter_by()
         else:
-            posts = Post.query.all()
+            posts = None
             message = "not found"
     else:
         posts = Post.query.all()
         message = None
+    if posts:
+        message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
     return render_template('posts.html', posts=posts, message=message)
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])

@@ -33,3 +33,7 @@ class Post(db.Model):
     def number_of_likes(self):
         likes = self.liker_users.count()
         return likes
+
+    def get_latest_post():
+        latest_post = Post.query.order_by(Post.datePosted.desc()).first()        
+        return latest_post
