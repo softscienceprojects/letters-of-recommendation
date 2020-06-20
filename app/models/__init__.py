@@ -4,7 +4,9 @@ from app.models.tags import Tag, postTags
 from app.models.comments import Comment
 from app.models.messages import Message
 
-def get_or_create(session, model, **kwargs):
+
+## Before save functions
+def get_or_create_by(session, model, **kwargs):
     """
     from https://stackoverflow.com/questions/2546207/does-sqlalchemy-have-an-equivalent-of-djangos-get-or-create
     Suppose my model object is :
@@ -25,3 +27,6 @@ def get_or_create(session, model, **kwargs):
         session.commit()
         return instance
 
+
+def hash_string_value(string_text):
+    pass

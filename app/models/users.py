@@ -27,9 +27,8 @@ class User(UserMixin, db.Model):
     isMember = db.Column(db.Boolean, default=False, nullable=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
-    #awards = db.relationship('Award', backref='winner')
     liked_posts = db.relationship('Post', secondary=likedPosts, lazy='select', backref="liker")
-    #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
+    profile_picture = db.Column(db.String(20), default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author')
     followed = db.relationship(
@@ -59,6 +58,28 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return '{} - {}'.format(self.id, self.username)
+
+    def set_profile_photo(self, image_uri):
+        """
+        image gets uploaded to storage
+        get reference to filename
+        hash file name
+        save hashed filename to db.session.add(filename)
+        db.session.commit()
+
+        """
+        pass
+
+    def get_profile_photo(self, username):
+        """
+        find the user by their username
+        get result in users.profile_picture
+        if result == 'default.jpg'
+            url to image file is app/static/images/default.jpg
+        else 
+            url to image file is [wherever-host].com/
+        """
+        pass
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)
