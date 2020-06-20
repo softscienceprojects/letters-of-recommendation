@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
     liked_posts = db.relationship('Post', secondary=likedPosts, lazy='select', backref="liker")
     #profile_picture = db.Column(db.String(20), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    usercomments = db.relationship('Comment', backref='commenter', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author')
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
@@ -40,16 +40,15 @@ class User(UserMixin, db.Model):
     )
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-    #messages = db.relationship('Message', backref='user', lazy='dynamic')
-    # messages_sent = db.relationship('Message', 
-    #     foreign_keys='Message.sender_id', 
-    #     backref='author',
-    #     lazy='dynamic')
+    messages_sent = db.relationship('Message', 
+        foreign_keys='Message.sender_id', 
+        backref='author',
+        lazy='dynamic')
 
-    # messages_received = db.relationship('Message',
-    #     foreign_keys='Message.recipient_id',
-    #     backref='recipient',
-    #     lazy='dynamic')
+    messages_received = db.relationship('Message',
+        foreign_keys='Message.recipient_id',
+        backref='recipient',
+        lazy='dynamic')
 
     # def __init__(self, data):
     #     self.username = data.get('username')

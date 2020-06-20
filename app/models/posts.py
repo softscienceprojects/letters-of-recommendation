@@ -11,6 +11,7 @@ class Post(db.Model):
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     liker_users = db.relationship('User', secondary=likedPosts, lazy='select', backref="postLiked")
+    comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
 
     def __repr__(self):
