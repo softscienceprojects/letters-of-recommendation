@@ -5,6 +5,11 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_moment import Moment
 from config import Config
+from app.filters import make_erin, datetimeformat
+
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 db=SQLAlchemy()
 migrate = Migrate()
@@ -20,12 +25,15 @@ def create_app(config_class=Config):
     migrate.init_app(app, db) # remember it needs both app and db
     login.init_app(app)
     moment.init_app(app)
-    
+
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+    app.jinja_env.filters['erin'] = make_erin
+    app.jinja_env.filters['datetimeformat'] = datetimeformat
 
     return app
 
