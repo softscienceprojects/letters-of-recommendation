@@ -1,7 +1,12 @@
-from markupsafe import Markup
+import re
+from markupsafe import Markup, escape
 
-def make_erin(value):
-    return "Erin"
+_paragraph_re = re.compile(r'(?:\r\n|\r(?!\n)|\n){2,}')
+
+
+def display_blog_post(value):
+    #re.sub()
+    return value
 
 
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):

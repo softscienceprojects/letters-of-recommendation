@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_moment import Moment
 from config import Config
-from app.filters import make_erin, datetimeformat
+from app.filters import display_blog_post, datetimeformat
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -32,7 +32,7 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    app.jinja_env.filters['erin'] = make_erin
+    app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
 
     return app

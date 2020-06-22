@@ -8,6 +8,7 @@ from app.main import bp
 from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post, Message, Tag
+from werkzeug.http import HTTP_STATUS_CODES
 
 
 @bp.route('/', methods=['GET'])
@@ -45,19 +46,23 @@ def posts():
         posts = Post.query.all()
         message = None
     if posts:
-        message = "{} post{} found".format(posts.count(), "" if posts.count() == 1 else "s")
+        number = len(posts) if type(posts) == list else posts.count()
+        message = "{} post{} found".format(number, "" if number == 1 else "s")
     return render_template('posts.html', posts=posts, message=message)
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])
 @login_required
 def post_new():
-    form = PostForm()
-    if form.validate_on_submit():
-        post = Post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('main.post', post_id=post.id))
-    return render_template('_post.html', form=form, post=None)
+    if current_user.isWriter:
+        form = PostForm()
+        if form.validate_on_submit():
+            post = Post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('main.post', post_id=post.id))
+        return render_template('_post.html', form=form, post=None)
+    else:
+        return redirect(url_for('main.index'))
 
 
 @bp.route('/posts/<post_id>/', methods=['GET'])
@@ -74,8 +79,8 @@ def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
     if form.validate_on_submit():
-        post.title = form.title.data
-        post.body = form.body.data
+        post.title = escape(form.title.data)
+        post.body = escape(form.body.data)
         db.session.commit()
         return redirect(url_for('main.post', post_id=post.id))
     elif request.method == 'GET':
@@ -84,8 +89,7 @@ def post_edit(post_id):
     return render_template('_post.html', form=form, post=post)
 
 
-
-@bp.route('/posts/<int:post_id>/delete/', methods=['DELETE'])
+@bp.route('/posts/<post_id>/delete/', methods=['POST'])
 @login_required
 def post_delete(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -93,7 +97,12 @@ def post_delete(post_id):
         # Post.query.filter_by(id=post_id).delete()
         db.session.delete(post)
         db.session.commit()
-        return redirect(url_for('main.user', username=current_user.username))
+        response = jsonify({'current_user': current_user.id, 'next': url_for('main.user', username=current_user.username)})
+        response.status_code = 202
+        #response.headers['Location']
+        #redirect(url_for('main.user', username=current_user.username))
+        return response
+
 
 @bp.route('/like/<post_id>/')
 @login_required

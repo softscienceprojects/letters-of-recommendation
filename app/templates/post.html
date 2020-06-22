@@ -5,6 +5,7 @@
     <div>
     {% if post.author == current_user %}
         <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
+        <button id="delete-post" onclick="destroy()">Delete</button>
     {% elif current_user.get_liked_posts(post) %}
         <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
     {% else %}
