@@ -139,8 +139,8 @@ def user(username):
 def edit_user(username):
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.profile = form.profile.data
+        current_user.username = escape(form.username.data)
+        current_user.profile = escape(form.profile.data)
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
     elif request.method == 'GET':

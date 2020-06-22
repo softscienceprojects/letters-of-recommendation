@@ -170,6 +170,13 @@ class User(UserMixin, db.Model):
         if self.get_liked_posts(post):
             self.liked_posts.remove(post)
 
+    def toggle_writer(self, user):
+        if self.isWriter == False:
+            self.isWriter = True
+        else:
+            self.isWriter = False
+        
+
 ## HELPER METHODS
 
 @login.user_loader

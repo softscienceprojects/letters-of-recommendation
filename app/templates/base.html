@@ -6,15 +6,19 @@
         {% endblock %}
 
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" crossorigin="anonymous" integrity="">
-
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
+        </style>
     </head>
     <body>
         <nav>
             {% include '_nav.html' %}
         </nav>
         
+        <div class="container">
         {% block content %}{% endblock %}
-    
+        </div>
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
     </body>    
 </html>
