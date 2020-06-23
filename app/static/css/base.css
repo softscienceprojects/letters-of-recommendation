@@ -1,11 +1,10 @@
 body {
-    font-family: 'Germania One', monospace;
-    margin: 0;
-    padding: 0;
     display: flex;
+    margin: 0;
 }
 
 nav {
+    font-family: 'Germania One', monospace;
     /* display: none; */
     height: 100vh;
     width: 200px;
