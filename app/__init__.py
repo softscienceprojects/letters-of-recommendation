@@ -32,6 +32,9 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
+    from app.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
+
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
 

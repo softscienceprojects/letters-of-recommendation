@@ -37,4 +37,15 @@ class PostForm(FlaskForm):
         if original_post:
             self.original_post = original_post
 
+class CommentForm(FlaskForm):
+    #datePosted = db.Column(db.DateTime, default=datetime.utcnow)
+    #post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
+    submit = SubmitField('submit')
+
+    def __init__(self, original_message=None, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        if original_message:
+            self.original_message = original_message
 

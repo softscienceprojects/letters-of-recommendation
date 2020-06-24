@@ -8,7 +8,6 @@ class Comment(db.Model):
     datePosted = db.Column(db.DateTime, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     message = db.Column(db.Text)
     
     def __repr__(self):

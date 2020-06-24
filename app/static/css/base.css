@@ -17,6 +17,22 @@ nav ul {
 }
 .container {
     display: relative;
+    padding: 2rem;
+}
+
+dialog {
+    /* modal - its own element 
+      needs spec'ing on mobile 
+      so it doesn't look bad.
+      comes with pseudo class 
+      dialog::backdrop  */
+    border: 0;
+    padding: 20px;
+}
+
+.confirm-dialog-question {
+    /* text in modal */
+    
 }
 
 .edit-post input, .edit-post textarea {
@@ -24,9 +40,21 @@ nav ul {
     background-color: bisque;
 }
 
-#delete-post {
-    background-color: crimson;
-    color: #fff;
+.button-base {
     border: 0;
     padding: 10px 20px;
+}
+.button-danger {
+    background-color: crimson;
+    color: #fff;
+}
+
+.confirm-dialog-button {
+    /* each button in modal gets this class */
+}
+
+
+
+.confirm-dialog-button-group {
+    /* div holding two buttons in the dialogue */
 }

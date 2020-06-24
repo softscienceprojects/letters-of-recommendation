@@ -12,6 +12,7 @@
     </head>
     <body>
         <nav>
+            <button id="menu-button" class="button-base">MENU</button>
             {% include '_nav.html' %}
         </nav>        
         <div class="container">
@@ -19,7 +20,7 @@
         </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
-    {# <script type="text/javascript" src="{{ url_for('static', filename='js/components.js') }}"></script> #}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/components.js') }}"></script>
 
     </body>    
 </html>

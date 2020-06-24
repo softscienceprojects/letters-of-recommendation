@@ -13,10 +13,11 @@
             {% endif %}
             <a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a>
             Change your password
-
-            <p><a href="{{ url_for('main.posts', user_id=user.id) }}">See your written posts</a></p>
-
-            See the posts of the people you follow
+            
+            {% if user.isWriter == True %}
+                <p><a href="{{ url_for('main.posts', user_id=user.id) }}">See your written posts</a></p>
+            {% endif %}
+            
         {% elif not current_user.is_following(user) %}
             <p><a href="{{ url_for('main.follow', username=user.username) }}">follow</a></p>
         {% else %}

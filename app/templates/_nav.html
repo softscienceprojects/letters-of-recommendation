@@ -1,6 +1,10 @@
 
 <ul class="nav">
     <li><a href="{{ url_for('main.index') }}">Home</a></li>
+    <li><a href="{{ url_for('main.posts') }}">All posts</a></li>
+    {# Projects #}
+    {# Community #}
+    {# Events #}
     {% if current_user.is_anonymous %}
         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         <li><a href="{{ url_for('auth.register') }}">Register</a></li>

@@ -7,5 +7,4 @@ window.app = {
         .then(response=>window.location.replace(response.next))
         .catch(error=>console.error(error))
     }
-
 }

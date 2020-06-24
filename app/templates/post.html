@@ -3,16 +3,19 @@
 {% block content %}
     Likes: {{ post.number_of_likes() }}
     <div>
-    {% if post.author == current_user %}
-        <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
-        <button id="delete-post">Delete</button>
-        {# <button id="delete-post" onclick="destroy()">Delete</button> #}
+    {% if not current_user.is_anonymous %}
+        {% if post.author == current_user %}
+            <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
+            <button id="delete-post" class="button-base button-danger">Delete</button>
 
-    {% elif current_user.get_liked_posts(post) %}
-        <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
-    {% else %}
-        <a href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+        {% elif current_user.get_liked_posts(post) %}
+            <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
+        {% else %}
+            <a href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+        {% endif %}
     {% endif %}
+
+
     </div>
     <h1>{{ post.title }}</h1>
     <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2>
@@ -20,5 +23,10 @@
     <p>{{ post.body | safe }}</p>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
-
+    {% if not current_user.is_anonymous %}
+        Chat about this
+    {% endif %}
+    <div id="comments">
+        
+    </div>
 {% endblock %}

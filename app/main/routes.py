@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 from app import db
 from app.main import bp
 from app.auth import routes
-from app.main.forms import EditProfileForm, PostForm
+from app.main.forms import EditProfileForm, PostForm, CommentForm
 from app.models import User, Post, Message, Tag
 from werkzeug.http import HTTP_STATUS_CODES
 
@@ -123,6 +123,14 @@ def unlike(post_id):
     current_user.unlike_post(post)
     db.session.commit()
     return redirect(url_for('main.post', post_id=post.id))
+
+## COMMENTS ##################################################
+
+@bp.route('/comment/new/', methods=['GET', 'POST'])
+@login_required
+def comment():
+    form = CommentForm()
+    pass
 
 
 ## USERS #####################################################
