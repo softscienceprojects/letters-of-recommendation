@@ -14,7 +14,10 @@
         {% for error in form.body.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
+    <div id="tags"></div>
+    <p> {{ form.tags }}</p>
     <p>{{ form.submit() }}</p>
     </form>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/post-edit.js') }}"></script>
 {% endblock %}

@@ -28,14 +28,17 @@ class EditProfileForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
+    tags = StringField('tags: ', validators=[DataRequired()], render_kw={'placeholder': 'tag/s'})
     submit = SubmitField('submit')
 
-    def __init__(self, original_title=None, original_post=None, *args, **kwargs):
+    def __init__(self, original_title=None, original_post=None, original_tags=None, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         if original_title:
             self.original_title = original_title
         if original_post:
             self.original_post = original_post
+        if original_tags:
+            self.original_tags = original_tags
 
 class CommentForm(FlaskForm):
     #datePosted = db.Column(db.DateTime, default=datetime.utcnow)

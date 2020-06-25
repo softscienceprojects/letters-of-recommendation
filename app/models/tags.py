@@ -10,3 +10,14 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     posts = db.relationship('Post', secondary=postTags, lazy='dynamic', backref=db.backref('posttags', lazy='dynamic'))
+
+    def __repr__(self):
+        return '{} - {}'.format(self.id, self.name)
+
+    def get_all_tags(self):
+        return Tag.query.all()
+
+    
+
+
+

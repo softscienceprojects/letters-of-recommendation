@@ -3,6 +3,7 @@ from datetime import datetime
 from app import db
 from app.models.users import likedPosts
 
+
 class Post(db.Model):
     __tablename__ = "posts"
     id = db.Column(db.Integer, primary_key=True)
@@ -37,3 +38,6 @@ class Post(db.Model):
     def get_latest_post():
         latest_post = Post.query.order_by(Post.datePosted.desc()).first()        
         return latest_post
+
+
+        # gives you back a list

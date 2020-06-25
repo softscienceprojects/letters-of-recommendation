@@ -40,6 +40,12 @@ dialog {
     background-color: bisque;
 }
 
+.tag-list-highlight {
+    background-color: darkseagreen;
+    padding: 5px 10px;
+    margin: 2px 10px;
+}
+
 .button-base {
     border: 0;
     padding: 10px 20px;

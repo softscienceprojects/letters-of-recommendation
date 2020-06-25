@@ -22,11 +22,12 @@
     <p>{{ post.datePosted | datetimeformat }}</p>
     <p>{{ post.body | safe }}</p>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
     {% if not current_user.is_anonymous %}
         Chat about this
     {% endif %}
     <div id="comments">
         
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
+
 {% endblock %}
