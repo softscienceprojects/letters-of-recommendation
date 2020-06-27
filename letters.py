@@ -15,5 +15,7 @@ def make_shell_context():
         'postTags': postTags,
         'likedPosts': likedPosts,
         'Comment': Comment,
-        'Message': Message
+        'Message': Message,
+        'tags': Tag.query.all(),
+        'posts': Post.query.all()
     }

@@ -41,4 +41,4 @@ def create_app(config_class=Config):
     return app
 
 
-from app.models import User, Post
+from app.models import *

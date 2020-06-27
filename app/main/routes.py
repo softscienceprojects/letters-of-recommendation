@@ -7,7 +7,7 @@ from app import db
 from app.main import bp
 from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm, CommentForm
-from app.models import User, Post, Message, Tag, get_tags_for_post, get_or_create_by
+from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 
 
@@ -56,12 +56,10 @@ def post_new():
     if current_user.isWriter:
         form = PostForm()
         if form.validate_on_submit():
-            post = Post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
-            db.session.add(post)
-            db.session.commit()
-            tags = form.tags.data
-            get_or_create_by()
-            myCountry = get_or_create_by(session, Tag, name=countryName)
+            post = save_post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
+            print(post)
+            tags = escape(break_up_tags(post, form.tags.data))
+            print(tags)
             return redirect(url_for('main.post', post_id=post.id))
         return render_template('_post.html', form=form, post=None)
     else:
@@ -81,20 +79,22 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.body = form.body.data
-        # post.tags = form.tags.data
-        #print(form.tags.data) #comes through as a string, need to do something on the front end to split these up
-        db.session.commit()
-        return redirect(url_for('main.post', post_id=post.id))
-    elif request.method == 'GET':
-        form.title.data = post.title
-        form.body.data = post.body
-        form.tags.data = ':)'
-        print(get_tags_for_post(post.id))
-    return render_template('_post.html', form=form, post=post)
-
+    if post.author == current_user:
+        if form.validate_on_submit():
+            post.title = form.title.data
+            post.body = form.body.data
+            tags = escape(break_up_tags(post, form.tags.data))
+            print(tags)
+            db.session.commit()
+            return redirect(url_for('main.post', post_id=post.id))
+        elif request.method == 'GET':
+            form.title.data = post.title
+            form.body.data = post.body
+            form.tags.data = ':)'
+            print(get_tags_for_post(post.id))
+        return render_template('_post.html', form=form, post=post)
+    else:
+        return redirect(url_for('main.index'))
 
 @bp.route('/posts/<post_id>/delete/', methods=['POST'])
 @login_required

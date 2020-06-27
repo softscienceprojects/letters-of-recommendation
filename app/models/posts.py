@@ -2,6 +2,7 @@
 from datetime import datetime
 from app import db
 from app.models.users import likedPosts
+from app.models.tags import postTags
 
 
 class Post(db.Model):
@@ -39,5 +40,14 @@ class Post(db.Model):
         latest_post = Post.query.order_by(Post.datePosted.desc()).first()        
         return latest_post
 
-
-        # gives you back a list
+    def check_tag_for_this_post(self, tag):
+        return self.posttags.filter(
+            postTags.c.tag_id == tag.id).count() > 0
+    
+    def add_tag(self, tag):
+        if not self.check_tag_for_this_post(tag):
+            self.posttags.append(tag)
+    
+    # def unfollow(self, user):
+    #     if self.is_following(user):
+    #         self.followed.remove(user)
