@@ -15,7 +15,6 @@ class Post(db.Model):
     liker_users = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
-
     def __repr__(self):
         return '{} - {}'.format(self.id, self.title)
 
@@ -42,12 +41,12 @@ class Post(db.Model):
 
     def check_tag_for_this_post(self, tag):
         return self.posttags.filter(
-            postTags.c.tag_id == tag.id).count() > 0
+            postTags.c.tag_id == tag.id)
     
     def add_tag(self, tag):
-        if not self.check_tag_for_this_post(tag):
+        if not self.check_tag_for_this_post(tag).count() > 0:
             self.posttags.append(tag)
     
-    # def unfollow(self, user):
-    #     if self.is_following(user):
-    #         self.followed.remove(user)
+    def remove_tag(self, tag):
+        if self.check_tag_for_this_post(tag):
+            self.posttags.remove(tag)

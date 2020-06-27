@@ -57,9 +57,7 @@ def post_new():
         form = PostForm()
         if form.validate_on_submit():
             post = save_post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
-            print(post)
             tags = escape(break_up_tags(post, form.tags.data))
-            print(tags)
             return redirect(url_for('main.post', post_id=post.id))
         return render_template('_post.html', form=form, post=None)
     else:
@@ -84,14 +82,12 @@ def post_edit(post_id):
             post.title = form.title.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
-            print(tags)
             db.session.commit()
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
             form.body.data = post.body
-            form.tags.data = ':)'
-            print(get_tags_for_post(post.id))
+            form.tags.data = ','.join([tag.name for tag in post.posttags.all()])
         return render_template('_post.html', form=form, post=post)
     else:
         return redirect(url_for('main.index'))

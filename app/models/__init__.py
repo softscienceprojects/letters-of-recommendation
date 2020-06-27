@@ -20,7 +20,6 @@ def break_up_tags(post, tags):
     all_tags = []
     for tag in tags.split(','):
         tag = tag.strip().lower()
-        print("TAG: ", tag)
         if tag != '':
             found_or_made_tag = get_or_create_by(Tag, name=tag)
             all_tags.append(found_or_made_tag)    
@@ -33,35 +32,15 @@ def create_or_remove_postTag(tags_list, post):
     if the tag doesn't exist in posttags, add
     if there is a tag in posttags not here, remove (clean-up after)
     """
-    print("CREATE OR REMOVE******")
     this_post_tags = post.posttags.all()
-    print(this_post_tags)
     for tag in tags_list:
         post.add_tag(tag)
         db.session.commit()
     for tag in this_post_tags:
         if tag not in tags_list:
-            db.session.delete(tag)
+            post.remove_tag(tag)
             db.session.commit()
     
-        
-
-    # remove
-    # if postTags finds this post but not this tag
-    # add this tag
-    # if postTags finds this t
-    # search_for_existing_postTag = tag.posts.filter(postTags.c.post_id == post.id)
-    # if search_for_existing_postTag.count() > 0:
-    #     return #
-    # else:
-    #     new_postTag = tag.posts.append(post)
-    #     db.session.add(new_postTag)
-    #     print(new_postTag)
-    #     return new_postTag
-
-# def is_following(self, user): #helper method
-    # return self.followed.filter(
-        # followers.c.followed_id == user.id).count() > 0
 
 def get_or_create_by(model, **kwargs):
     """
@@ -78,13 +57,11 @@ def get_or_create_by(model, **kwargs):
     #instance = model.query.filter_by(**kwargs).first()
     instance = db.session.query(model).filter_by(**kwargs).first()
     if instance:
-        print("instance ", instance)
         return instance
     else:
         instance = model(**kwargs)
         db.session.add(instance)
         db.session.commit()
-        print('newly created: ', instance)
         return instance
 
 def find_tags(self, tag_name):
@@ -94,22 +71,6 @@ def find_tags(self, tag_name):
         pass
     # postTags.select(postTags.c.post_id==1)
     # postTags.select(postTags.c.tag_id==1)
-
-def get_join(model, join_table, join_query, query):
-    """
-    *****doesn't work - need to interpolate join_query
-    KeyError: 'join_query'
-    e.g. get tags for post
-    get_join(Tag, postTags, post_id, post.id)
-        return Tag.query.join(postTags, (postTags.c.post_id == post_id)).all()
-
-    get posts for tag
-    get_join(Post, postTags, 'tag_id', tag.id)
-        return Post.query.join(postTags, (postTags.c.tag_id == tag_id)).all()
-
-    returns a list
-    """
-    return model.query.join(join_table, (join_table.c.join_query == query)).all()
 
 
 ## can we be combined into one???
