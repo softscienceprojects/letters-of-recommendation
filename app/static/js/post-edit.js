@@ -23,6 +23,8 @@ tagsInput.addEventListener('input', function(e) {
         words.push(word.toLowerCase().trim())
         createButton(word.toLowerCase().trim())
         resetWord()
+    } else if (e.data === null || e.data === undefined) {
+        word = word.substring(0, word.length-1)
     } else {
         word += e.data
     }
