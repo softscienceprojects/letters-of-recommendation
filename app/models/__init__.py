@@ -64,14 +64,12 @@ def get_or_create_by(model, **kwargs):
         db.session.commit()
         return instance
 
-def find_tags(self, tag_name):
-        #assuming this is a string, from the form data
-        #if t.name in [tag.name for tag in tags]:
-        #    tag = 
-        pass
+def find_tag(tag_name):
+        #assuming this is a string, from request params
+    tag = Tag.query.filter_by(name=tag_name).first()
+    return tag
     # postTags.select(postTags.c.post_id==1)
     # postTags.select(postTags.c.tag_id==1)
-
 
 ## can we be combined into one???
 ## see above. Do we work? to test

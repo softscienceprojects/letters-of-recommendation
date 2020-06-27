@@ -17,7 +17,7 @@ class Tag(db.Model):
     def get_all_tags(self):
         return Tag.query.all()
 
-    
+
 
 
 

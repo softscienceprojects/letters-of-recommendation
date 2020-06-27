@@ -38,20 +38,20 @@ def posts():
     """
     if request.args:
         if request.args.get('tag'):
-            posts = Post.query.filter_by(tag=request.args.get('tag'))
+            tag = find_tag(request.args.get('tag'))
+            posts = get_posts_for_tag(tag.id)
         elif request.args.get('user_id'):
             posts = Post.query.filter_by(user_id=request.args.get('user_id'))
         # elif request.args.get('liked'):
         #     posts = Post.query.filter_by()
         else:
-            posts = None
+            posts = []
             message = "not found"
     else:
         posts = Post.query.all()
         message = None
-    if posts:
-        number = len(posts) if type(posts) == list else posts.count()
-        message = "{} post{} found".format(number, "" if number == 1 else "s")
+    number = len(posts) if type(posts) == list else posts.count()
+    message = "{} post{} found".format(number, "" if number == 1 else "s")
     return render_template('posts.html', posts=posts, message=message)
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])
