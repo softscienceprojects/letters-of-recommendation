@@ -2,7 +2,6 @@
 
 {% block content %}
     {% block splash %}
-        THIS IS THE INDEX
         {% if post %}
             <a href="{{ url_for('main.post', post_id=post.id) }}"><h1>{{ post.title }}</h1></a>
         {% endif %}

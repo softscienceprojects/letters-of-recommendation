@@ -12,7 +12,7 @@ from werkzeug.http import HTTP_STATUS_CODES
 
 
 @bp.route('/', methods=['GET'])
-@bp.route('/index/', methods=['GET'])
+@bp.route('/index/', methods=['GET']) #always put a trailing /
 def index():
     # get the title and first image of the most recent post
     latest_post = Post.query.order_by(Post.datePosted.desc()).first()
@@ -21,6 +21,10 @@ def index():
 @bp.route('/path/<path:subpath>/', methods=['GET'])
 def subpath_test(subpath):
     return 'Subpath %s' % subpath
+
+@bp.route('/about/', methods=['GET'])
+def about():
+    return render_template('about.html')
 
 
 ## POSTS #####################################################
