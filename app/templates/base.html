@@ -8,6 +8,12 @@
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" crossorigin="anonymous" integrity="">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
+            
+            @font-face {
+                font-family: 'Syne-Bold';
+                src: url({{ url_for("static", filename="Webfonts/Syne-Bold.woff") }}) format('woff');
+                font-weight: normal;
+            }
         </style>
     </head>
     <body>

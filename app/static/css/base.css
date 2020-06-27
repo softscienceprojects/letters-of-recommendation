@@ -4,7 +4,8 @@ body {
 }
 
 nav {
-    font-family: 'Germania One', monospace;
+    font-family: 'Syne-Bold', sans-serif;
+    /* 'Germania One', monospace; */
     /* display: none; */
     height: 100vh;
     width: 200px;
