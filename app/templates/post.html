@@ -28,9 +28,9 @@
     {% if not current_user.is_anonymous %}
         Chat about this
     {% endif %}
-    <div id="comments">
-        
-    </div>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
+    <div id="comments"></div>
 
+{% if post.author == current_user %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
+{% endif %}
 {% endblock %}

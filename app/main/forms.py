@@ -43,7 +43,7 @@ class PostForm(FlaskForm):
 class CommentForm(FlaskForm):
     #datePosted = db.Column(db.DateTime, default=datetime.utcnow)
     #post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    #user_id = db.Column(db.Integer, db.ForeignKey('users.id')) current_user
     message = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     submit = SubmitField('submit')
 

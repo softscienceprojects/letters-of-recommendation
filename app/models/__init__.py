@@ -5,10 +5,9 @@ from app.models.posts import Post
 from app.models.tags import Tag, postTags
 from app.models.comments import Comment
 from app.models.messages import Message
-import pdb
 
 
-## Before save functions
+# Before save functions
 
 def save_post(**kwargs):
     post = Post(**kwargs)

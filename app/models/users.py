@@ -11,7 +11,7 @@ followers = db.Table('followers', #since this is an association table no need to
   db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
-likedPosts = db.Table('postLikes',
+likedPosts = db.Table('likedPosts',
   db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
   db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
 )
@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
     token_expiration = db.Column(db.DateTime)
     messages_sent = db.relationship('Message', 
         foreign_keys='Message.sender_id', 
-        backref='author',
+        backref='sender',
         lazy='dynamic')
 
     messages_received = db.relationship('Message',
@@ -50,9 +50,7 @@ class User(UserMixin, db.Model):
         lazy='dynamic')
 
     # def __init__(self, data):
-    #     self.username = data.get('username')
-    #     self.email = data.get('email')
-    #     self.password = data.get('password')
+    #     print(data)
     #     self.isAdmin = 0
     #     self.isWriter = 0
     
@@ -94,20 +92,20 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-    # need to add password reset tokens
-    # def get_reset_password_token(self, expires_in=600):
-        # return jwt.encode(
-            # {'reset_password': self.id, 'exp': time() + expires_in},
-            # current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+#     # need to add password reset tokens
+#     # def get_reset_password_token(self, expires_in=600):
+#         # return jwt.encode(
+#             # {'reset_password': self.id, 'exp': time() + expires_in},
+#             # current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
-    # @staticmethod
-    # def verify_reset_password_token(token):
-        # try:
-            # id = jwt.decode(token, current_app.config['SECRET_KEY'],
-                            # algorithms=['HS256'])['reset_password']
-        # except:
-            # return
-        # return User.query.get(id)
+#     # @staticmethod
+#     # def verify_reset_password_token(token):
+#         # try:
+#             # id = jwt.decode(token, current_app.config['SECRET_KEY'],
+#                             # algorithms=['HS256'])['reset_password']
+#         # except:
+#             # return
+#         # return User.query.get(id)
 
 
     def get_token(self, expires_in=3600):
@@ -129,10 +127,10 @@ class User(UserMixin, db.Model):
     def revoke_token(self):
         self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
 
-    # def save(self):
-    #     db.session.add(self)
-    #     db.session.commit()
-        # return self?
+#     # def save(self):
+#     #     db.session.add(self)
+#     #     db.session.commit()
+#         # return self?
     
     def follow(self, user):
         if not self.is_following(user):
@@ -177,7 +175,7 @@ class User(UserMixin, db.Model):
             self.isWriter = False
         
 
-## HELPER METHODS
+# ## HELPER METHODS
 
 @login.user_loader
 def load_user(id):

@@ -101,7 +101,7 @@ def post_edit(post_id):
 def post_delete(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     if post:
-        # Post.query.filter_by(id=post_id).delete()
+        # delete any likes associated with this post
         db.session.delete(post)
         db.session.commit()
         response = jsonify({'current_user': current_user.id, 'next': url_for('main.user', username=current_user.username)})

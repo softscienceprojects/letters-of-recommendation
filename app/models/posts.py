@@ -12,8 +12,9 @@ class Post(db.Model):
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    liker_users = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
+    likers = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+    #tags = db.relationship('Tag', secondary=postTags, lazy='dynamic', backref="postTagged")
 
     def __repr__(self):
         return '{} - {}'.format(self.id, self.title)
@@ -27,12 +28,12 @@ class Post(db.Model):
         returns list of dicts so we can get the id and username
         """
         users = []
-        for user in self.liker_users.all():
+        for user in self.likers.all():
             users.append({'id': user.id, 'username': user.username})
         return users
 
     def number_of_likes(self):
-        likes = self.liker_users.count()
+        likes = self.likers.count()
         return likes
 
     def get_latest_post():

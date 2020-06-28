@@ -6,7 +6,7 @@ _paragraph_re = re.compile(r'(?:\r\n|\r(?!\n)|\n){2,}')
 
 def display_blog_post(value):
     #re.sub()
-    return value
+    return Markup(value)
 
 
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):

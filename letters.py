@@ -14,8 +14,11 @@ def make_shell_context():
         'Tag': Tag,
         'postTags': postTags,
         'likedPosts': likedPosts,
-        'Comment': Comment,
-        'Message': Message,
+        'posts': Post.query.all(),
+        'users': User.query.all(),
         'tags': Tag.query.all(),
-        'posts': Post.query.all()
+        'e': User.query.first(),
+        'p1': Post.query.first(),
+        'Comment': Comment,
+        'Message': Message
     }
