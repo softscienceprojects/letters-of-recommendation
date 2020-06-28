@@ -144,7 +144,25 @@ class User(UserMixin, db.Model):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
+
+
+
+# followers = db.Table('followers', #since this is an association table no need to make part of a class
+#   db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+#   db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+# )
+
+# On the User model is called followed
+
+
     def followed_posts(self):
+        """
+        get the posts of the users I follow. Create two variables. First:
+        1. query the Post table
+        2. join the _followers_ (join table), with
+        3. _followers, 
+        gets all the posts
+        """
         followed = Post.query.join( #1- followers association table, 2- join condition
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 # i want the posts from people where i am their follower

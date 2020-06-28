@@ -74,10 +74,14 @@ def find_tag(tag_name):
 ## see above. Do we work? to test
 def get_tags_for_post(post_id):
     # Tag.query.join(postTags, (postTags.c.post_id == p1.id)).all()
-    return Tag.query.join(postTags, (postTags.c.post_id == post_id)).all()
+    #Tag.query.join(postTags, (postTags.c.post_id == post_id)).all()
+    post = Post.query.filter_by(id=post_id).first()
+    return post.posttags.all()
 
 def get_posts_for_tag(tag_id):
-    return Post.query.join(postTags, (postTags.c.tag_id == tag_id)).all()
+    #return Post.query.join(postTags, (postTags.c.tag_id == tag_id)).all()
+    tag = Tag.query.filter_by(id=tag_id).first()
+    return tag.posts.all()
 
 def hash_string_value(string_text):
     pass
