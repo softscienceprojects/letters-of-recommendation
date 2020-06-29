@@ -95,6 +95,8 @@ customElements.define('comment-form', CommentForm, {extends: 'div'})
 class Navigation extends HTMLElement {
   constructor() {
     super()
+    //let shadow = elementRef.attachShadow({mode: 'open'});
+    //let navShadow = navdiv.attachShadow({mode: 'open'});
     const shadow = this.attachShadow({mode: 'open'});
     const info = document.createElement('span');
     const text = this.getAttribute('data-text');

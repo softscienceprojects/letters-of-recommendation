@@ -1,15 +1,18 @@
-{% extends "base.html" %}
+{% extends "container.html" %}
 
 {% block content %}
+
     <div>
+        <button id="delete-post" class="button-base button-danger">Delete this post</button>
+    <hr />
     <form action="" method="post" class="edit-post">
     {{ form.hidden_tag() }}
-    <h1>{{ form.title }}</h1>
+    <p>{{ form.title }}</p>
         {% for error in form.title.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     {% if post.author %}<h2>by {{ post.author.username }}</h2>{% endif %}
-    {% if post.datePosted %}<p>{{ moment(post.datePosted).fromNow() }}</p>{% endif %}
+    {% if post.datePosted %}<p class="datetime">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     <p>{{ form.body }}</p>
         {% for error in form.body.errors %}
         <span style="color: red;">{{ error }}</span>
@@ -20,4 +23,5 @@
     </form>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/post-edit.js') }}"></script>
-{% endblock %}
+    {{ super () }}
+{% endblock content %}

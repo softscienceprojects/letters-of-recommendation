@@ -8,3 +8,5 @@ window.app = {
         .catch(error=>console.error(error))
     }
 }
+
+//const navdiv = document.querySelector('#navigation-menu')

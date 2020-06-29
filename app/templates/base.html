@@ -7,26 +7,36 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" crossorigin="anonymous" integrity="">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Rubik:wght@900&display=swap');
             
             @font-face {
                 font-family: 'Syne-Bold';
-                src: url({{ url_for("static", filename="Webfonts/Syne-Bold.woff") }}) format('woff');
+                src: url({{ url_for("static", filename="Webfonts/Syne-Bold.woff") }}) format('woff'),
+                    url({{ url_for("static", filename="Webfonts/Syne-Bold.woff2") }}) format('woff2'),
+                    url({{ url_for("static", filename="Webfonts/Syne-Bold.eot") }}) format('eot');
+                font-weight: normal;
+            }
+
+             @font-face {
+                font-family: 'Syne-Extra';
+                src: url({{ url_for("static", filename="Webfonts/Syne-Extra.woff") }}) format('woff'),
+                    url({{ url_for("static", filename="Webfonts/Syne-Extra.woff2") }}) format('woff2'),
+                    url({{ url_for("static", filename="Webfonts/Syne-Extra.eot") }}) format('eot'),
                 font-weight: normal;
             }
         </style>
     </head>
     <body>
-        <nav>
+    <div id="container">
+                <nav>
+                    {% include '_nav.html' %}
+                </nav>
             <button id="menu-button" class="button-base">MENU</button>
-            {% include '_nav.html' %}
-        </nav>        
-        <div class="container">
-        {% block content %}{% endblock %}
-        </div>
+        {% block splash %}{% endblock %}
+        {% block container %}{% endblock %}
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/components.js') }}"></script>
-
+    </div>
     </body>    
 </html>

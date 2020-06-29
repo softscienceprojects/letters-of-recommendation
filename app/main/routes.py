@@ -48,7 +48,7 @@ def posts():
             posts = []
             message = "not found"
     else:
-        posts = Post.query.all()
+        posts = Post.query.order_by(Post.datePosted.desc()).all()
         message = None
     number = len(posts) if type(posts) == list else posts.count()
     message = "{} post{} found".format(number, "" if number == 1 else "s")

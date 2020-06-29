@@ -1,25 +1,87 @@
+html {
+    height: 100%;
+    font-size: 16px;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
 body {
+    padding: 0;
+    margin: 0;
     display: flex;
+    background-color: #ce8054;
+
+}
+
+#container {
+    display: contents;
+    margin-top: 0;
+    width: 100%;
+}
+
+/*   ------------- FONTS ------------- */
+
+h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+h1 {
+    font-family: 'Rubik', Arial, sans-serif;
+    border-bottom: 15px solid black;
+    padding-bottom: 30px;
+    text-transform: uppercase;
+    /* float: right; */
+}
+
+h1#title {
+    font-family: 'Syne-Extra';
+    font-size: 4rem;
+    text-transform: capitalize;
+}
+
+a {
+    color: #000;
+}
+
+p.datetime {
+    color: #eee;
+    font-size: 80%;
+}
+
+span.tags a {
+    /* text-decoration: none; */
+}
+
 nav {
+    margin-top: 0;
     font-family: 'Syne-Bold', sans-serif;
     /* 'Germania One', monospace; */
     /* display: none; */
-    height: 100vh;
-    width: 200px;
-    background-color: darkgoldenrod;
+    width: 50%;
+    background-color: #42354c;
     position: relative;
+    height: 100vh;
+}
+
+#nav-contents {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    overflow: hidden;
 }
 
 nav ul {
     list-style-type: none;
 }
-.container {
-    display: relative;
-    padding: 2rem;
+
+nav ul li a {
+    font-size: 3rem;
+    text-decoration: none;
+    color: lavender;
 }
+
+nav ul li a:hover {
+    color: plum;
+}
+
 
 dialog {
     /* modal - its own element 
@@ -36,6 +98,25 @@ dialog {
     
 }
 
+.content {
+    display: flex;
+    padding: 20px;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.post-content {
+    position: relative;
+    overflow: scroll;
+    max-width: 50vw;
+}
+
+.post-card {
+    border: 3px solid white;
+    padding: 10px 20px;
+    margin: 30px 0;
+}
+
 .edit-post input, .edit-post textarea {
     border: 0;
     background-color: bisque;
@@ -47,21 +128,33 @@ dialog {
     margin: 2px 10px;
 }
 
+#menu-button {
+    position: absolute;
+    z-index: 999;
+}
+
 .button-base {
     border: 0;
     padding: 10px 20px;
+    margin: 5px 10px;
 }
 .button-danger {
     background-color: crimson;
     color: #fff;
-}
+} 
 
 .confirm-dialog-button {
     /* each button in modal gets this class */
 }
 
-
-
 .confirm-dialog-button-group {
     /* div holding two buttons in the dialogue */
+}
+
+/* ------------- FORMS ----------------- */
+
+textarea {
+    width: 300px;
+    height: 300px;
+    padding: 10px;
 }
