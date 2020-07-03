@@ -8,13 +8,61 @@ body {
     margin: 0;
     display: flex;
     background-color: #ce8054;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards; 
+}
 
+@keyframes fadeInAnimation { 
+    0% { 
+        opacity: 0.3; 
+    } 
+    100% { 
+        opacity: 1; 
+     } 
 }
 
 #container {
     display: contents;
     margin-top: 0;
     width: 100%;
+}
+
+.display-hide {
+    /* animation-name: slideout;
+    animation: slideout 1s ease 1s; */
+    left: -100%;
+    width: 0%;
+    transition: 0.5s;
+}
+
+.display-show {
+    /* animation-name: slidein;
+    animation: slidein 1s ease 3.5s; */
+    transition: 0.5s;
+    left: 0%;
+    width: 50%;
+}
+/* 
+@keyframes slidein {
+    from {
+        }
+    to {;
+    }
+  } */
+
+  @keyframes slideout {
+      from {
+          left: 0%;
+          width: 50%;
+      } to {
+          left: -100%;
+          width: 0%;
+      }
+  }
+
+img {
+    max-width: 100%
 }
 
 /*   ------------- FONTS ------------- */
@@ -32,7 +80,6 @@ h1 {
 }
 
 h1#title {
-    font-family: 'Syne-Extra';
     font-size: 4rem;
     text-transform: capitalize;
 }
@@ -46,19 +93,18 @@ p.datetime {
     font-size: 80%;
 }
 
-span.tags a {
-    /* text-decoration: none; */
-}
+/* span.tags a {
+    /* text-decoration: none; 
+} */
 
 nav {
     margin-top: 0;
     font-family: 'Syne-Bold', sans-serif;
-    /* 'Germania One', monospace; */
-    /* display: none; */
     width: 50%;
     background-color: #42354c;
     position: relative;
     height: 100vh;
+    overflow: hidden;
 }
 
 #nav-contents {
@@ -93,22 +139,23 @@ dialog {
     padding: 20px;
 }
 
-.confirm-dialog-question {
-    /* text in modal */
-    
-}
+/* .confirm-dialog-question {
+    /* text in modal 
+} */
 
 .content {
     display: flex;
-    padding: 20px;
     flex-grow: 1;
     justify-content: center;
+    height:100vh;
+    overflow: scroll;
+    margin: 0;
 }
 
 .post-content {
     position: relative;
-    overflow: scroll;
     max-width: 50vw;
+    padding:20px;
 }
 
 .post-card {
@@ -143,13 +190,13 @@ dialog {
     color: #fff;
 } 
 
-.confirm-dialog-button {
-    /* each button in modal gets this class */
+/* .confirm-dialog-button {
+    /* each button in modal gets this class 
 }
 
 .confirm-dialog-button-group {
-    /* div holding two buttons in the dialogue */
-}
+    /* div holding two buttons in the dialogue 
+} */
 
 /* ------------- FORMS ----------------- */
 

@@ -2,7 +2,9 @@
 
     {% block splash %}
         {% if post %}
-            <a href="{{ url_for('main.post', post_id=post.id) }}"><h1 id="title">{{ post.title }}</h1></a>
+            <div class="post-content" style="padding: 20px;">
+                <a href="{{ url_for('main.post', post_id=post.id) }}"><h1 id="title">{{ post.title }}</h1></a>
+            </div>
         {% endif %}
 
     {% endblock %}

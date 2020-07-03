@@ -10,3 +10,33 @@ window.app = {
 }
 
 //const navdiv = document.querySelector('#navigation-menu')
+let menuButton = document.querySelector('#menu-button');
+let nav = document.querySelector('nav');
+
+closeNav = function() {
+    nav.classList.add('display-hide');
+    nav.classList.remove('display-show');
+    sessionStorage.setItem('navMenu', 'closed')
+}
+
+openNav = function() {
+    nav.classList.remove('display-hide');
+    nav.classList.add('display-show')
+    sessionStorage.setItem('navMenu', 'open')
+}
+
+menuButton.addEventListener('click', function(e) {
+    if (sessionStorage.getItem('navMenu') === 'open') {
+        closeNav()
+    } else {
+        openNav()
+    }
+})
+
+document.body.onload = function() {
+    if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'open') {
+        openNav()
+    } else {
+        closeNav()
+    }
+}

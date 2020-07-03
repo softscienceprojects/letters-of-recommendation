@@ -14,6 +14,7 @@
     {% endif %}
     {% endif %}
     
+    <img src="{{ url_for('static', filename='images/IMG_8631.JPG') }}" />
     <h1>{{ post.title }}</h1>
     <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
     {% if post.author == current_user %}
