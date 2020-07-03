@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_moment import Moment
-from config import Config
+from config import *
 from app.filters import display_blog_post, datetimeformat
 
 
@@ -37,6 +37,13 @@ def create_app(config_class=Config):
 
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
+    
+
+    # Cloud.config.update = ({
+    #     'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    #     'api_key': os.environ.get('CLOUDINARY_API_KEY'),
+    #     'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
+    # })
 
     return app
 

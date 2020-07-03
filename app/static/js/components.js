@@ -81,28 +81,61 @@ class ConfirmDialog {
   }
 } // end ConfirmDialog
 
+// class CommentForm extends HTMLDivElement {}
+// customElements.define('comment-form', CommentForm, {extends: 'div'})
 
+// class Navigation extends HTMLElement {
+//   constructor() {
+//     super()
+//     //let shadow = elementRef.attachShadow({mode: 'open'});
+//     //let navShadow = navdiv.attachShadow({mode: 'open'});
+//     const shadow = this.attachShadow({mode: 'open'});
+//     const info = document.createElement('span');
+//     const text = this.getAttribute('data-text');
+//     info.textContent = text;
+//   }
+// }
+// customElements.define('menu-nav', Navigation) //{extends: 'nav'}
 
-class CommentForm extends HTMLDivElement {
-  constructor() {
-    super()
+class ImageUploader { 
+  constructor({parent}) {
+    this.upload_div = undefined
+    this.parent = parent || document.body
+
+    this._create_uploader_form()
+    this._append()
+  }
+
+  _create_uploader_form() {
+    this.upload_div = document.createElement('div')
+    this.upload_div.classList.add('image-upload')
+    
+    const form = document.createElement('form')
+    form.enctype = "multipart/form-data"
+    form.action = ""
+    form.method = "post"
+
+    const hidden = document.createElement('input')
+    hidden.type = "hidden"
+    hidden.name = "csrf_token"
+    hidden.value = "???"
+
+    const input = document.createElement('input')
+    input.type = "file"
+    input.name = "file"
+
+    const upload = document.createElement('input')
+    upload.type = "submit"
+    upload.value = "upload"
+    upload.innerText = "Upload image"
+
+    form.appendChild(hidden)
+    form.appendChild(input)
+    form.appendChild(upload)
+    this.upload_div.appendChild(form)
+  }
+
+  _append() {
+    this.parent.appendChild(this.upload_div)
   }
 }
-
-customElements.define('comment-form', CommentForm, {extends: 'div'})
-
-
-class Navigation extends HTMLElement {
-  constructor() {
-    super()
-    //let shadow = elementRef.attachShadow({mode: 'open'});
-    //let navShadow = navdiv.attachShadow({mode: 'open'});
-    const shadow = this.attachShadow({mode: 'open'});
-    const info = document.createElement('span');
-    const text = this.getAttribute('data-text');
-    info.textContent = text;
-  }
-
-}
-
-customElements.define('menu-nav', Navigation) //{extends: 'nav'}

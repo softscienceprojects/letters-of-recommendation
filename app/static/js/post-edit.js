@@ -33,6 +33,7 @@ tagsInput.addEventListener('input', function(e) {
 createButton = function(word) {
     let tagButton = document.createElement('button')
     tagButton.classList.add('tag-list-highlight')
+    tagButton.id = `${word}-`
     tagButton.innerText = word
     tagButton.addEventListener('click', tagButtonClicked)
     tagsDiv.appendChild(tagButton)
@@ -56,10 +57,6 @@ document.querySelector('form.edit-post').addEventListener('submit', function(e) 
     tagsInput.value = words.join(',')
 })
 
-document.addEventListener('DOMContentLoaded', function() {
-    onInit()
-})
-
 
 
 const confirmDeleteButton = document.querySelector("#delete-post");
@@ -78,5 +75,9 @@ const confirmDeleteButton = document.querySelector("#delete-post");
         window.app.destroy()
     }
 });
-    
-    
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    onInit()
+})

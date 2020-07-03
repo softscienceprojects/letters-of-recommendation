@@ -9,6 +9,7 @@ from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm, CommentForm
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
+from cloudinary.uploader import upload as _cloudinary_upload
 
 
 @bp.route('/', methods=['GET'])
@@ -26,6 +27,9 @@ def subpath_test(subpath):
 def about():
     return render_template('about.html')
 
+@bp.route('/privacy-policy/', methods=['GET'])
+def privacy():
+    return render_template('privacy.html')
 
 ## POSTS #####################################################
 @bp.route('/posts/', methods=['GET', 'POST'])
@@ -142,10 +146,27 @@ def comment():
 
 ## USERS #####################################################
 
-@bp.route('/user/<username>/')
+@bp.route('/images/', methods=['GET', 'POST'])
+@login_required
+def upload_image(image):
+    print(image['public_id'])
+    
+
+@bp.route('/user/<username>/', methods=['GET', 'POST'])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    if request.method == 'POST':
+        #print(request.files['file'].content_type) ## image/gif
+        print(request.files['file'].filename) ## 'aim.gif'
+        print(request.files['file'].name) ## 'file'
+        file = request.files['file']
+        upload_result = _cloudinary_upload(file, resource_type="image")
+        print(upload_result)
+        # if request.form['file']:
+        #     file = request.form.get('file')
+        #     upload_result = _cloudinary_upload(file, resource_type="image")
+        #     upload_image(upload_result)
     return render_template('user.html', user=user)
 
 
@@ -186,6 +207,7 @@ def users():
 @login_required
 def delete_profile(user):
     # delete everything - danger zone!
+    # all of the below needs to actually be tested first
     user = Post.query.filter_by(id=user.id).first_or_404()
     if user:
         # Post.query.filter_by(id=post_id).delete()

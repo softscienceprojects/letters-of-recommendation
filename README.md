@@ -10,4 +10,5 @@ Featuring an online shop, members' club and e-newsletter.
 
 - Flask (python)
 - Postgres (SQL, with SQLAlchemy)
+- Jinja2 Templates
 

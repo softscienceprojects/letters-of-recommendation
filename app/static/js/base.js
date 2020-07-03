@@ -33,6 +33,16 @@ menuButton.addEventListener('click', function(e) {
     }
 })
 
+
+const imageUploaderButton = document.querySelector("#image-upload")
+
+if (imageUploaderButton) {
+    imageUploaderButton.addEventListener("click", async(e) => {
+        e.preventDefault()
+        const imageUpload = new ImageUploader({parent: document.querySelector('.post-content')})
+    })
+}
+
 document.body.onload = function() {
     if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'open') {
         openNav()

@@ -145,16 +145,6 @@ class User(UserMixin, db.Model):
             followers.c.followed_id == user.id).count() > 0
 
 
-
-
-# followers = db.Table('followers', #since this is an association table no need to make part of a class
-#   db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
-#   db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
-# )
-
-# On the User model is called followed
-
-
     def followed_posts(self):
         """
         get the posts of the users I follow. Create two variables. First:
