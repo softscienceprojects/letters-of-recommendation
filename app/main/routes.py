@@ -144,14 +144,14 @@ def comment():
     form = CommentForm()
     pass
 
+## IMAGES ###################################################
 
-## USERS #####################################################
-
-@bp.route('/images/', methods=['GET', 'POST'])
-@login_required
-def upload_image(image):
-    print(image['public_id'])
+# @bp.route('/images/', methods=['GET', 'POST'])
+# @login_required
+# def upload_image(image):
+#     print(image['public_id'])
     
+## USERS #####################################################
 
 @bp.route('/user/<username>/', methods=['GET', 'POST'])
 @login_required
@@ -193,6 +193,10 @@ def users():
         elif request.args.get('followers'):
             users = User.query.filter_by(username=request.args.get('followers')).first().followers
             message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
+        elif request.args.get('liked_post'):
+            post = Post.query.filter_by(id=request.args.get('liked_post')).first()
+            users = post.likers
+            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s") # grrr
         else:
             return redirect(url_for('main.index'))
     else:
