@@ -156,6 +156,7 @@ def upload_image(image):
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    feed = Post.posts_by_user_follow(user)
     if request.method == 'POST':
         print(request.files['file'].content_type) ## image/gif  |  image/jpeg  |  image/png
         print(request.files['file'].filename) ## 'aim.gif'
@@ -163,7 +164,7 @@ def user(username):
         file = request.files['file']
         #upload_result = _cloudinary_upload(file, folder="profile_pics", resource_type="image") 
         #upload_image(upload_result)
-    return render_template('user.html', user=user)
+    return render_template('user.html', user=user, feed=feed)
 
 
 @bp.route('/user/<username>/edit/', methods=['GET', 'POST'])

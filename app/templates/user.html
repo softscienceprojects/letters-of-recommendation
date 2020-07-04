@@ -21,6 +21,9 @@
                 <p><em>No biography provided</em></p>
             {% endif %}
             <hr />
+            {% for post in feed %}
+                <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
+            {% endfor %}
 
             
             

@@ -1,5 +1,5 @@
 from app import * #create_app, db
-from app.models import User, Post, Tag, postTags, likedPosts, Comment, Message, Image
+from app.models import User, Post, Tag, postTags, likedPosts, Comment, Message, Image, followers
 
 app = create_app()
 
@@ -15,6 +15,7 @@ def make_shell_context():
         'postTags': postTags,
         'likedPosts': likedPosts,
         'posts': Post.query.all(),
+        'followers': followers,
         'users': User.query.all(),
         'tags': Tag.query.all(),
         'e': User.query.first(),

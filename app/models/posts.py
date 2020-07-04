@@ -52,7 +52,7 @@ class Post(db.Model):
         if self.check_tag_for_this_post(tag):
             self.posttags.remove(tag)
 
-    def user_followed_posts(self, user):
+    def posts_by_user_follow(user):
         """
         get the posts of the users I follow. Create two variables. First:
         1. query the Post table
@@ -60,10 +60,4 @@ class Post(db.Model):
         3. _followers, 
         gets all the posts
         """
-        followed = Post.query.join( #1- followers association table, 2- join condition
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                # i want the posts from people where i am their follower
-                followers.c.follower_id == user.id)
-        own = Post.query.filter_by(user_id = user.id) 
-        #assign user_id (me) to self.id
-        return followed.union(own).order_by(Post.datePosted.desc())
+        return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == user.id).order_by(Post.datePosted.desc()).all()
