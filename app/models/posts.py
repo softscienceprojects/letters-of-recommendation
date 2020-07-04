@@ -41,8 +41,15 @@ class Post(db.Model):
         latest_post = Post.query.order_by(Post.datePosted.desc()).first()        
         return latest_post
 
-    def postIsLive(self):
-        return self.isLive
+    def postToggleLive(self):
+        if self.isLive:
+            self.isLive = False
+            db.session.commit()
+            return self
+        else:
+            self.isLive = True
+            db.session.commit()
+            return self
 
     def check_tag_for_this_post(self, tag):
         return self.posttags.filter(

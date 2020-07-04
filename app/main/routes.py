@@ -16,7 +16,7 @@ from cloudinary.uploader import upload as _cloudinary_upload
 @bp.route('/index/', methods=['GET']) #always put a trailing /
 def index():
     # get the title and first image of the most recent post
-    latest_post = Post.query.order_by(Post.datePosted.desc()).first()
+    latest_post = Post.query.filter(Post.isLive==True).order_by(Post.datePosted.desc()).first()
     return render_template('index.html', title='index page', post=latest_post)
 
 @bp.route('/path/<path:subpath>/', methods=['GET'])
@@ -45,7 +45,10 @@ def posts():
             tag = find_tag(request.args.get('tag'))
             posts = get_posts_for_tag(tag.id)
         elif request.args.get('user_id'):
-            posts = Post.query.filter_by(user_id=request.args.get('user_id'), isLive=True).order_by(Post.datePosted.desc()).all()
+            if request.args.get('isLive') and current_user.is_authenticated and str(current_user.id) == request.args.get('user_id'):
+                posts = get_posts_by_user(user_id=request.args.get('user_id'), isLive=request.args.get('isLive'))
+            else:    
+                posts = get_posts_by_user(user_id=request.args.get('user_id')) #.order_by(Post.datePosted.desc()).all()
         elif request.args.get('liked'):
             user = User.query.filter_by(username=request.args.get('liked')).first()
             posts = user.liked_posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
@@ -106,7 +109,7 @@ def post_edit(post_id):
 def post_delete(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     if post:
-        # delete any likes associated with this post
+        # delete any likes associated with this post !
         db.session.delete(post)
         db.session.commit()
         response = jsonify({'current_user': current_user.id, 'next': url_for('main.user', username=current_user.username)})
@@ -115,6 +118,14 @@ def post_delete(post_id):
         #redirect(url_for('main.user', username=current_user.username))
         return response
 
+@bp.route('/live/<post_id>')
+@login_required
+def make_live(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if post.author == current_user:
+        pass
+    else:
+        return redirect(url_for('main.index'))
 
 @bp.route('/like/<post_id>/')
 @login_required

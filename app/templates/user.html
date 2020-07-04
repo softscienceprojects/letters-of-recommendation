@@ -10,7 +10,8 @@
         {% if user == current_user %}
             {% if user.isWriter == True %}
                 <a href="{{ url_for('main.post_new') }}">Write a post</a> | 
-                <a href="{{ url_for('main.posts', user_id=user.id) }}">See your written posts</a>
+                <a href="{{ url_for('main.posts', user_id=user.id) }}">See your written posts</a> | 
+                <a href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}">Drafts</a>
             {% endif %}
             <p><a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a></p>
             <p>Change your password</p>
