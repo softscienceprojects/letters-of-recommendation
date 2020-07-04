@@ -170,12 +170,17 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     feed = Post.posts_by_user_follow(user)
     if request.method == 'POST':
-        print(request.files['file'].content_type) ## image/gif  |  image/jpeg  |  image/png
-        print(request.files['file'].filename) ## 'aim.gif'
-        print(request.files['file'].name) ## 'file'
-        file = request.files['file']
-        #upload_result = _cloudinary_upload(file, folder="profile_pics", resource_type="image") 
-        #upload_image(upload_result)
+        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']:
+            file = request.files['file']
+            filename = "{}{}".format(user.id, user.username)
+            upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
+            print(upload_result)
+            try:
+                user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
+                db.session.commit()
+            except:
+                pass #do something?? db.session.rollback() and maybe delete cloudinary image
+        # else: .... we need to tell them no
     return render_template('user.html', user=user, feed=feed)
 
 

@@ -3,7 +3,12 @@ from datetime import datetime
 from app import db
 from app.models.users import likedPosts, User, followers
 from app.models.tags import postTags
+from app.models.images import Image
 
+# profilePics = db.Table('profilePics',
+#     db.Column('image_id', db.Integer, db.ForeignKey('images.id')),
+#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+# )
 
 class Post(db.Model):
     __tablename__ = "posts"

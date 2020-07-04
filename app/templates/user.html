@@ -4,6 +4,7 @@
     {% block userpage %}
         
         {% if user == current_user %}hello {% endif %}{{user.username}}
+        <img src={{ user.get_profile_photo() }} />
         <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} followers</a>
         <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a></p>
         {% if user != current_user %} Send a message {% endif %}

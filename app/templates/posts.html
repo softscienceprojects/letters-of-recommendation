@@ -10,7 +10,11 @@
         {% endif %}
         {% if posts %}
             {% for post in posts %}
-                <div class="post-card">
+                {% if post.isLive==True %}
+                <div class="post-card live">
+                {% else %}
+                <div class="post-card draft">
+                {% endif %}
                     <a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a>
                     <p class="datetime">{{ post.datePosted | datetimeformat }}</p>
                 </div>

@@ -1,5 +1,6 @@
 import os
 from app import db, login
+from flask import url_for
 from flask_login import UserMixin
 from datetime import datetime, timedelta
 from time import time
@@ -16,34 +17,33 @@ likedPosts = db.Table('likedPosts',
   db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
 )
 
+
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True, index=True)
     email = db.Column(db.String, nullable=False, unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    isAdmin = db.Column(db.Boolean, default=False, nullable=False)
-    isWriter = db.Column(db.Boolean, default=False, nullable=False)
-    isMember = db.Column(db.Boolean, default=False, nullable=False)
+    isAdmin = db.Column(db.Boolean, default=False)
+    isWriter = db.Column(db.Boolean, default=False)
+    isMember = db.Column(db.Boolean, default=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     profile = db.Column(db.String(300))
     liked_posts = db.relationship('Post', secondary=likedPosts, lazy='dynamic', backref="liker")
-    profile_picture = db.Column(db.String(20), default='default.jpg')
+    profile_picture = db.Column(db.String, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author')
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic'
-    )
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
     messages_sent = db.relationship('Message', 
         foreign_keys='Message.sender_id', 
         backref='sender',
         lazy='dynamic')
-
     messages_received = db.relationship('Message',
         foreign_keys='Message.recipient_id',
         backref='recipient',
@@ -61,9 +61,8 @@ class User(UserMixin, db.Model):
         """
         image gets uploaded to storage
         get reference to filename
-        hash file name
-        save hashed filename to db.session.add(filename)
-        db.session.commit()
+        # hash file name - to do eventually
+        image_uri is either the cloudinary version, or deleting it means that we revert back to 'default.jpg'
 
         """
         pass
@@ -72,12 +71,16 @@ class User(UserMixin, db.Model):
         """
         find the user by their username
         get result in users.profile_picture
-        if result == 'default.jpg'
+        if result == 'default.jpg' or result == None
             url to image file is app/static/images/default.jpg
         else 
             url to image file is [wherever-host].com/
+            f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{user.profile_picture}"
         """
-        pass
+        if self.profile_picture in ['default.jpg', None]:
+            return url_for('static', filename='images/mobile.png')
+        else:
+            return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)

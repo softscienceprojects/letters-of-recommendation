@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 db=SQLAlchemy()
-migrate = Migrate()
+migrate = Migrate(compare_type=True)
 moment = Moment()
 login = LoginManager()
 login.login_view = 'auth.login'
