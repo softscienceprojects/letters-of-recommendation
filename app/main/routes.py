@@ -157,16 +157,12 @@ def upload_image(image):
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     if request.method == 'POST':
-        #print(request.files['file'].content_type) ## image/gif
+        print(request.files['file'].content_type) ## image/gif  |  image/jpeg  |  image/png
         print(request.files['file'].filename) ## 'aim.gif'
         print(request.files['file'].name) ## 'file'
         file = request.files['file']
-        upload_result = _cloudinary_upload(file, resource_type="image")
-        print(upload_result)
-        # if request.form['file']:
-        #     file = request.form.get('file')
-        #     upload_result = _cloudinary_upload(file, resource_type="image")
-        #     upload_image(upload_result)
+        #upload_result = _cloudinary_upload(file, folder="profile_pics", resource_type="image") 
+        #upload_image(upload_result)
     return render_template('user.html', user=user)
 
 

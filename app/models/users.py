@@ -68,7 +68,7 @@ class User(UserMixin, db.Model):
         """
         pass
 
-    def get_profile_photo(self, username):
+    def get_profile_photo(self):
         """
         find the user by their username
         get result in users.profile_picture
@@ -144,22 +144,22 @@ class User(UserMixin, db.Model):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
-
-    def followed_posts(self):
-        """
-        get the posts of the users I follow. Create two variables. First:
-        1. query the Post table
-        2. join the _followers_ (join table), with
-        3. _followers, 
-        gets all the posts
-        """
-        followed = Post.query.join( #1- followers association table, 2- join condition
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                # i want the posts from people where i am their follower
-                followers.c.follower_id == self.id)
-        own = Post.query.filter_by(user_id = self.id) 
-        #assign user_id (me) to self.id
-        return followed.union(own).order_by(Post.datePosted.desc())
+    # Post - circular import :(
+    # def followed_posts(self):
+    #     """
+    #     get the posts of the users I follow. Create two variables. First:
+    #     1. query the Post table
+    #     2. join the _followers_ (join table), with
+    #     3. _followers, 
+    #     gets all the posts
+    #     """
+    #     followed = Post.query.join( #1- followers association table, 2- join condition
+    #         followers, (followers.c.followed_id == Post.user_id)).filter(
+    #             # i want the posts from people where i am their follower
+    #             followers.c.follower_id == self.id)
+    #     own = Post.query.filter_by(user_id = self.id) 
+    #     #assign user_id (me) to self.id
+    #     return followed.union(own).order_by(Post.datePosted.desc())
 
     def get_liked_posts(self, post):
         """

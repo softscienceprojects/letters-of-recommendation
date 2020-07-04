@@ -168,7 +168,9 @@ dialog {
 .post-content {
     position: relative;
     max-width: 50vw;
+    margin-top: 2em;
     padding:20px;
+    min-width: 70%;
 }
 
 .post-card {

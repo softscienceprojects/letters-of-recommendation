@@ -1,5 +1,5 @@
 from app import * #create_app, db
-from app.models import User, Post, Tag, postTags, likedPosts, Comment, Message
+from app.models import User, Post, Tag, postTags, likedPosts, Comment, Message, Image
 
 app = create_app()
 
@@ -21,5 +21,6 @@ def make_shell_context():
         'p1': Post.query.first(),
         'Comment': Comment,
         'Message': Message,
-        'Cloud': Cloud
+        'Image': Image,
+        'images': Image.query.all()
     }

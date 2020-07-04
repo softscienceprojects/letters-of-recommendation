@@ -5,6 +5,7 @@ from app.models.posts import Post
 from app.models.tags import Tag, postTags
 from app.models.comments import Comment
 from app.models.messages import Message
+from app.models.images import Image
 
 
 # Before save functions

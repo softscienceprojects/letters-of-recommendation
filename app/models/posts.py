@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from app import db
-from app.models.users import likedPosts
+from app.models.users import likedPosts, User, followers
 from app.models.tags import postTags
 
 
@@ -51,3 +51,19 @@ class Post(db.Model):
     def remove_tag(self, tag):
         if self.check_tag_for_this_post(tag):
             self.posttags.remove(tag)
+
+    def user_followed_posts(self, user):
+        """
+        get the posts of the users I follow. Create two variables. First:
+        1. query the Post table
+        2. join the _followers_ (join table), with
+        3. _followers, 
+        gets all the posts
+        """
+        followed = Post.query.join( #1- followers association table, 2- join condition
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                # i want the posts from people where i am their follower
+                followers.c.follower_id == user.id)
+        own = Post.query.filter_by(user_id = user.id) 
+        #assign user_id (me) to self.id
+        return followed.union(own).order_by(Post.datePosted.desc())

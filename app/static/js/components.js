@@ -102,8 +102,10 @@ class ImageUploader {
     this.upload_div = undefined
     this.parent = parent || document.body
 
+    
     this._create_uploader_form()
     this._append()
+    document.querySelector('button#image-upload').disabled = true;
   }
 
   _create_uploader_form() {
@@ -128,6 +130,7 @@ class ImageUploader {
     upload.type = "submit"
     upload.value = "upload"
     upload.innerText = "Upload image"
+    // upload.disabled = true;  // keep disabled until input.files.length > 0; (needs eventlistener)
 
     form.appendChild(hidden)
     form.appendChild(input)
