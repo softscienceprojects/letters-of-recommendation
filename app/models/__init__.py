@@ -70,14 +70,14 @@ def find_tag(tag_name):
     return tag
 
 def get_tags_for_post(post_id):
-    #return Tag.query.join(postTags, (postTags.c.post_id == post_id)).all()
     post = Post.query.filter_by(id=post_id).first()
     return post.posttags.order_by(Post.datePosted.desc()).all()
 
-def get_posts_for_tag(tag_id):
-    #return Post.query.join(postTags, (postTags.c.tag_id == tag_id)).all()
+def get_posts_for_tag(tag_id, filterLive=True):
     tag = Tag.query.filter_by(id=tag_id).first()
-    return tag.posts.order_by(Post.datePosted.desc()).all()
+    if filterLive==False:
+        return tag.posts.order_by(Post.datePosted.desc()).all()
+    return Post.query.join(postTags, (postTags.c.tag_id == tag.id)).filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
 
 def hash_string_value(string_text):
     pass

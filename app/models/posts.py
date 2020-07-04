@@ -11,13 +11,14 @@ class Post(db.Model):
     datePosted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
+    isLive = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     likers = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
     #tags = db.relationship('Tag', secondary=postTags, lazy='dynamic', backref="postTagged")
 
     def __repr__(self):
-        return '{} - {}'.format(self.id, self.title)
+        return '{} - {}; Live: {}'.format(self.id, self.title, self.isLive)
 
     def update_time_posted(self):
         #when a post is made or edited, update the time
@@ -40,6 +41,9 @@ class Post(db.Model):
         latest_post = Post.query.order_by(Post.datePosted.desc()).first()        
         return latest_post
 
+    def postIsLive(self):
+        return self.isLive
+
     def check_tag_for_this_post(self, tag):
         return self.posttags.filter(
             postTags.c.tag_id == tag.id)
@@ -60,4 +64,5 @@ class Post(db.Model):
         3. _followers, 
         gets all the posts
         """
-        return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == user.id).order_by(Post.datePosted.desc()).all()
+        return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == user.id, Post.isLive==True).order_by(Post.datePosted.desc()).all()
+

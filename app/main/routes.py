@@ -36,24 +36,24 @@ def privacy():
 def posts():
     """
         render all the posts, filtered by:
-        - tag
-        - written by a user (with given user_id)
-        - liked by the current_user (to finish)
+        - tag: tag
+        - user_id: written by provided user_id
+        - liked: liked by the provided user
     """
     if request.args:
         if request.args.get('tag'):
             tag = find_tag(request.args.get('tag'))
             posts = get_posts_for_tag(tag.id)
         elif request.args.get('user_id'):
-            posts = Post.query.filter_by(user_id=request.args.get('user_id')).order_by(Post.datePosted.desc()).all()
+            posts = Post.query.filter_by(user_id=request.args.get('user_id'), isLive=True).order_by(Post.datePosted.desc()).all()
         elif request.args.get('liked'):
             user = User.query.filter_by(username=request.args.get('liked')).first()
-            posts = user.liked_posts.order_by(Post.datePosted.desc()).all()
+            posts = user.liked_posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
         else:
             posts = []
             message = "not found"
     else:
-        posts = Post.query.order_by(Post.datePosted.desc()).all()
+        posts = Post.query.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
         message = None
     number = len(posts) if type(posts) == list else posts.count()
     message = "{} post{} found".format(number, "" if number == 1 else "s")
