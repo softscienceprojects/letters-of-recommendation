@@ -45,9 +45,10 @@ def posts():
             tag = find_tag(request.args.get('tag'))
             posts = get_posts_for_tag(tag.id)
         elif request.args.get('user_id'):
-            posts = Post.query.filter_by(user_id=request.args.get('user_id'))
-        # elif request.args.get('liked'):
-        #     posts = Post.query.filter_by()
+            posts = Post.query.filter_by(user_id=request.args.get('user_id')).order_by(Post.datePosted.desc()).all()
+        elif request.args.get('liked'):
+            user = User.query.filter_by(username=request.args.get('liked')).first()
+            posts = user.liked_posts.order_by(Post.datePosted.desc()).all()
         else:
             posts = []
             message = "not found"

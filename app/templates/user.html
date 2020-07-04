@@ -20,12 +20,15 @@
             {% else %}
                 <p><em>No biography provided</em></p>
             {% endif %}
+            <a href="{{ url_for('main.posts', liked=user.username) }}">Posts liked by {{user.username}}</a>
             <hr />
-            {% for post in feed %}
-                <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
-            {% endfor %}
-
-            
+            {% if feed %}
+                {% for post in feed %}
+                    <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
+                {% endfor %}
+            {% else %}
+                <p><em>No posts</em></p>
+            {% endif %}
             
         {% elif not current_user.is_following(user) %}
             <p><a href="{{ url_for('main.follow', username=user.username) }}">follow</a></p>

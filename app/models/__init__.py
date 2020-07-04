@@ -65,14 +65,10 @@ def get_or_create_by(model, **kwargs):
         return instance
 
 def find_tag(tag_name):
-        #assuming this is a string, from request params
+    #assuming this is a string, from request params
     tag = Tag.query.filter_by(name=tag_name).first()
     return tag
-    # postTags.select(postTags.c.post_id==1)
-    # postTags.select(postTags.c.tag_id==1)
 
-## can we be combined into one???
-## see above. Do we work? to test
 def get_tags_for_post(post_id):
     #return Tag.query.join(postTags, (postTags.c.post_id == post_id)).all()
     post = Post.query.filter_by(id=post_id).first()
