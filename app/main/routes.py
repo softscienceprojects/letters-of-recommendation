@@ -170,7 +170,7 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     feed = Post.posts_by_user_follow(user)
     if request.method == 'POST':
-        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']:
+        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
             file = request.files['file']
             filename = "{}{}".format(user.id, user.username)
             upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")

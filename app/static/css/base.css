@@ -38,6 +38,12 @@ body {
     top: 0;
 }
 
+img.profile-picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 #container {
     display: contents;
     margin-top: 0;
