@@ -1,9 +1,17 @@
 {% extends "container.html" %}
 
 {% block content %}
-
-    <p><a href="{{ url_for('main.users', liked_post=post.id) }}">Likes: {{ post.number_of_likes() }}</a></p>
-    
+    {% if post.heroImage_id %}
+        <img src={{ post.get_post_hero_image() }} />
+    {% endif %}
+    <h1>{{ post.title }}</h1>
+    <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
+    {% if post.author == current_user %} 
+            | {{ post.isLive | poststatus }}
+            <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
+    {% endif %}
+    </h2>
+    <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <span><a href="{{ url_for('main.users', liked_post=post.id) }}">Likes: {{ post.number_of_likes() }}</a></span></p>
     {% if not current_user.is_anonymous %}
     {% if not post.author == current_user %}
         {% if current_user.get_liked_posts(post) %}
@@ -13,17 +21,6 @@
         {% endif %}
     {% endif %}
     {% endif %}
-    {% if post.heroImage_id %}
-        <img src={{ post.get_post_hero_image() }} />
-    {% endif %}
-    <h1>{{ post.title }}</h1>
-    <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
-    {% if post.author == current_user %}
-            {{ post.isLive | poststatus }}
-            <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
-    {% endif %}
-    </h2>
-    <p class="datetime">{{ post.datePosted | datetimeformat }}</p>
     <p>{{ post.body | safe }}</p>
     
     {% for tag in post.posttags.all() %}

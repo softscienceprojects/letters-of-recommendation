@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 import base64
+from cloudinary.uploader import upload as _cloudinary_upload
+
 
 followers = db.Table('followers', #since this is an association table no need to make part of a class
   db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
@@ -58,15 +60,21 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '{} - {}'.format(self.id, self.username)
 
-    def set_profile_photo(self, image_uri):
+    def set_profile_photo(self, image):
         """
         image gets uploaded to storage
         get reference to filename
-        # hash file name - to do eventually
         image_uri is either the cloudinary version, or deleting it means that we revert back to 'default.jpg'
 
         """
-        pass
+        print(image)
+        if image.content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
+            filename = "{}{}".format(self.id, self.username)
+            try:
+                upload_result = _cloudinary_upload(image, folder="profile_pics", public_id=filename, resource_type="image")
+                return f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
+            except:
+                pass
 
     def get_profile_photo(self):
         """
@@ -80,8 +88,9 @@ class User(UserMixin, db.Model):
         if self.profile_picture in ['default.jpg', None]:
             return url_for('static', filename='images/mobile.png')
         else:
-            return url_for('static', filename='images/mobile.png')
-            #return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
+            #return url_for('static', filename='images/mobile.png')
+            print(f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}")
+            return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)

@@ -211,23 +211,11 @@ def comment():
     
 ## USERS #####################################################
 
-@bp.route('/user/<username>/', methods=['GET', 'POST'])
+@bp.route('/user/<username>/', methods=['GET'])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = get_posts_by_user(user_id=user.id)
-    if request.method == 'POST':
-        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
-            file = request.files['file']
-            filename = "{}{}".format(user.id, user.username)
-            upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
-            print(upload_result)
-            try:
-                user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
-                db.session.commit()
-            except:
-                pass #do something?? db.session.rollback() and maybe delete cloudinary image
-        # else: .... we need to tell them no
     return render_template('user.html', user=user, posts=posts)
 
 
@@ -253,6 +241,8 @@ def edit_user(username):
     if form.validate_on_submit():
         current_user.username = escape(form.username.data)
         current_user.profile = escape(form.profile.data)
+        current_user.profile_picture = current_user.set_profile_photo(form.profile_picture.data)
+        print(current_user.profile_picture)
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
     elif request.method == 'GET':

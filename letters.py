@@ -18,7 +18,7 @@ def make_shell_context():
         'followers': followers,
         'users': User.query.all(),
         'tags': Tag.query.all(),
-        'e': User.query.first(),
+        'e': User.query.filter_by(username='e').first(),
         'p1': Post.query.first(),
         'Comment': Comment,
         'Message': Message,

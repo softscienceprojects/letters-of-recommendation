@@ -1,7 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField
-from flask_wtf.file import FileField
+from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField, FileField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length, Regexp
 from app.models import User, Post
 import re
@@ -10,6 +9,7 @@ import re
 class EditProfileForm(FlaskForm):
     username = StringField('username', validators=[DataRequired(), Regexp('[0-9a-zA-Z]')])
     profile = TextAreaField('about me', validators=[Length(min=0, max=300)])
+    profile_picture = FileField('profile picture')
     submit = SubmitField('submit')
 
     def __init__(self, original_username, *args, **kwargs):

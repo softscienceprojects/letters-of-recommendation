@@ -2,7 +2,7 @@
 
 {% block content %}
     <div>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
         {{ form.username.label }}<br>
@@ -11,6 +11,7 @@
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
+    {{ form.profile_picture }}
     <p>
         {{ form.profile.label }}<br>
         {{ form.profile }}<br>
