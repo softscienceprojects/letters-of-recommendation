@@ -147,6 +147,26 @@ def unlike(post_id):
     db.session.commit()
     return redirect(url_for('main.post', post_id=post.id))
 
+@bp.route('/golive/<post_id>')
+@login_required
+def golive(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if post is None or (post.author != current_user):
+        return redirect(url_for('main.index'))
+    post.postToggleLive()
+    db.session.commit()
+    return redirect(url_for('main.post', post_id=post.id))
+
+@bp.route('/makedraft/<post_id>')
+@login_required
+def makedraft(post_id):
+    post = post = Post.query.filter_by(id=post_id).first_or_404()
+    if post is None or (post.author != current_user):
+        return redirect(url_for('main.index'))
+    post.postToggleLive()
+    db.session.commit()
+    return redirect(url_for('main.post', post_id=post.id))
+
 ## COMMENTS ##################################################
 
 @bp.route('/comment/new/', methods=['GET', 'POST'])
@@ -154,13 +174,27 @@ def unlike(post_id):
 def comment():
     form = CommentForm()
     pass
+    
 
 ## IMAGES ###################################################
 
-# @bp.route('/images/', methods=['GET', 'POST'])
-# @login_required
-# def upload_image(image):
-#     print(image['public_id'])
+@bp.route('/images/upload/<image>', methods=['GET', 'POST']) # just POST?
+@login_required
+def upload_image(image):
+    if request.method == 'POST':
+        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
+            file = request.files['file']
+            filename = "{}{}".format(user.id, user.username)
+            #upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
+            print(upload_result)
+            try:
+                #user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
+                db.session.commit()
+            except:
+                pass #do something?? db.session.rollback() and maybe delete cloudinary image
+        # else: .... we need to tell them no
+    pass
+    # return redirect(url_for('main.post', post_id=post.id))) ##need to get that too, for association table
     
 ## USERS #####################################################
 

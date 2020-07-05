@@ -11,3 +11,9 @@ def display_blog_post(value):
 
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):
     return value.strftime(format)
+
+def poststatus(value):
+    if value == False:
+        return "Draft"
+    else:
+        return ""

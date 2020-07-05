@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_moment import Moment
 from config import *
-from app.filters import display_blog_post, datetimeformat
+from app.filters import *
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -37,6 +37,7 @@ def create_app(config_class=Config):
 
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
+    app.jinja_env.filters['poststatus'] = poststatus
 
     return app
 

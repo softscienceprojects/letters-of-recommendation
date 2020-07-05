@@ -29,7 +29,7 @@ class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})
-    submit = SubmitField('submit')
+    submit = SubmitField('save post')
 
     def __init__(self, original_title=None, original_post=None, original_tags=None, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)

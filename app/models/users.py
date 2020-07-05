@@ -74,13 +74,13 @@ class User(UserMixin, db.Model):
         if result == 'default.jpg' or result == None
             url to image file is app/static/images/default.jpg
         else 
-            url to image file is [wherever-host].com/
-            f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{user.profile_picture}"
+            url to image file is cloudinary
         """
         if self.profile_picture in ['default.jpg', None]:
             return url_for('static', filename='images/mobile.png')
         else:
-            return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
+            return url_for('static', filename='images/mobile.png')
+            #return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)

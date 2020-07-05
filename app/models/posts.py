@@ -49,11 +49,11 @@ class Post(db.Model):
     def postToggleLive(self):
         if self.isLive:
             self.isLive = False
-            db.session.commit()
+            #db.session.commit()
             return self
         else:
             self.isLive = True
-            db.session.commit()
+            #db.session.commit()
             return self
 
     def check_tag_for_this_post(self, tag):
