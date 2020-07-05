@@ -30,6 +30,16 @@ body {
     flex-direction: column-reverse;
 }
 
+.splash-back {
+    width: 100vw;
+    height: 100vh;
+    z-index: -999;
+    position: fixed;
+    background-blend-mode: multiply;
+    background-color: crimson;
+    /* opacity: 100%; */
+}
+
 .splash img {
     max-width: 200px;
     position: relative;
@@ -101,6 +111,7 @@ h1 {
 }
 
 h1#title {
+    color: #fff;
     font-size: 4rem;
     text-transform: capitalize;
 }
@@ -196,7 +207,7 @@ dialog {
 
 .edit-post input, .edit-post textarea {
     border: 0;
-    background-color: bisque;
+    background-color: #fff;
 }
 
 .tag-list-highlight {

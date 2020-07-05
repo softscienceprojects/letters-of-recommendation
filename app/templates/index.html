@@ -2,13 +2,17 @@
 
     {% block splash %}
         {% if post %}
-
+        {% if post.heroImage_id %}
+            <div class="splash-back" style="background-image: url({{ post.get_post_hero_image() }});"></div>
+        {% endif %}
         <div class="splash">
 
             <div class="post-content" style="padding: 20px;">
                 <a href="{{ url_for('main.post', post_id=post.id) }}"><h1 id="title">{{ post.title }}</h1></a>
             </div>
-        <img src="{{ url_for('static', filename='images/IMG_8631.JPG') }}" />
+            {% if post.heroImage_id %}
+                <img src={{ post.get_post_hero_image() }} />
+            {% endif %}
 
         </div>
         {% endif %}

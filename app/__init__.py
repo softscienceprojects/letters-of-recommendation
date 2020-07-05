@@ -9,7 +9,7 @@ from app.filters import *
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+# BASE_CLOUDINARY_URL = f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload" 
 
 db=SQLAlchemy()
 migrate = Migrate(compare_type=True)

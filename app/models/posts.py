@@ -69,6 +69,13 @@ class Post(db.Model):
         if self.check_tag_for_this_post(tag):
             self.posttags.remove(tag)
 
+    def get_post_hero_image(self):
+        image_id = self.heroImage_id
+        if image_id:
+            hero = Image.query.filter_by(id=image_id).first()
+            image = hero.get_postedit_format_photo()
+            return image
+
     def posts_by_user_follow(user):
         """
         get the posts of the users I follow. Create two variables. First:
