@@ -5,7 +5,7 @@ from app.models.users import likedPosts, User, followers
 from app.models.tags import postTags
 from app.models.images import Image
 
-# profilePics = db.Table('profilePics',
+# postImages = db.Table('profilePics',
 #     db.Column('image_id', db.Integer, db.ForeignKey('images.id')),
 #     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 # )
@@ -21,6 +21,7 @@ class Post(db.Model):
     likers = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
     #tags = db.relationship('Tag', secondary=postTags, lazy='dynamic', backref="postTagged")
+    # heroImage = ???
 
     def __repr__(self):
         return '{} - {}; Live: {}'.format(self.id, self.title, self.isLive)

@@ -12,6 +12,12 @@ from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
 
 
+# @bp.before_app_request
+# def before_request():
+#     if current_user.is_authenticated:
+#         current_user.lastLoggedIn = datetime.utcnow()
+#         db.session.commit()
+
 @bp.route('/', methods=['GET'])
 @bp.route('/index/', methods=['GET']) #always put a trailing /
 def index():
@@ -37,8 +43,10 @@ def posts():
     """
         render all the posts, filtered by:
         - tag: tag
-        - user_id: written by provided user_id
+        - user_id: written by provided user_id - for seeing drafts
         - liked: liked by the provided user
+
+        if no args provided, just return all the live posts
     """
     if request.args:
         if request.args.get('tag'):
@@ -47,8 +55,9 @@ def posts():
         elif request.args.get('user_id'):
             if request.args.get('isLive') and current_user.is_authenticated and str(current_user.id) == request.args.get('user_id'):
                 posts = get_posts_by_user(user_id=request.args.get('user_id'), isLive=request.args.get('isLive'))
-            else:    
-                posts = get_posts_by_user(user_id=request.args.get('user_id')) #.order_by(Post.datePosted.desc()).all()
+            else:
+                user = User.query.filter_by(id=request.args.get('user_id')).first_or_404()
+                return redirect(url_for('main.user', username=user.username))
         elif request.args.get('liked'):
             user = User.query.filter_by(username=request.args.get('liked')).first()
             posts = user.liked_posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
@@ -202,7 +211,7 @@ def upload_image(image):
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    feed = Post.posts_by_user_follow(user)
+    posts = get_posts_by_user(user_id=user.id)
     if request.method == 'POST':
         if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
             file = request.files['file']
@@ -215,7 +224,22 @@ def user(username):
             except:
                 pass #do something?? db.session.rollback() and maybe delete cloudinary image
         # else: .... we need to tell them no
-    return render_template('user.html', user=user, feed=feed)
+    return render_template('user.html', user=user, posts=posts)
+
+
+@bp.route('/user/<username>/feed/')
+@login_required
+def user_feed(username):
+    """
+        The user's 'feed', get all the live posts of this user
+    """
+    user = User.query.filter_by(username=username).first_or_404()
+    if current_user != user:
+        return redirect(url_for('main.posts'))
+    posts = Post.posts_by_user_follow(user)       
+    number = len(posts) if type(posts) == list else posts.count()
+    #message = "{} post{} found".format(number, "" if number == 1 else "s")
+    return render_template('posts.html', posts=posts, message=None)
 
 
 @bp.route('/user/<username>/edit/', methods=['GET', 'POST'])

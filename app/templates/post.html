@@ -29,7 +29,7 @@
         <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
     {% if not current_user.is_anonymous %}
-        Chat about this
+        <!-- Chat about this -->
     {% endif %}
     <div id="comments"></div>
     

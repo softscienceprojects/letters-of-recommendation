@@ -28,6 +28,7 @@ class User(UserMixin, db.Model):
     isWriter = db.Column(db.Boolean, default=False)
     isMember = db.Column(db.Boolean, default=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
+    # lastLoggedIn = db.Column(db.DateTime, default = datetime.utcnow)
     profile = db.Column(db.String(300))
     liked_posts = db.relationship('Post', secondary=likedPosts, lazy='dynamic', backref="liker")
     profile_picture = db.Column(db.String, default='default.jpg')

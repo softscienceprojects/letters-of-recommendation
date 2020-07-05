@@ -23,10 +23,12 @@
     <p>{{ form.submit() }}</p>
     </form>
 
-    {% if post.isLive in [False, "False", 0, "0"] %}
+    {% if post.id %}
+    {% if post.isLive == False %}
        <a href="{{ url_for('main.golive', post_id=post.id) }}">Make public</a>
         {% else %}
         <a href="{{ url_for('main.makedraft', post_id=post.id) }}">Revert to draft</a>
+    {% endif %}
     {% endif %}
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/post-edit.js') }}"></script>
