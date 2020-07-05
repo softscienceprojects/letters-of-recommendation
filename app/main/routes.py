@@ -108,6 +108,7 @@ def post_edit(post_id):
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
+            images = post.images.all()
             form.body.data = post.body
             form.tags.data = ','.join([tag.name for tag in post.posttags.all()])
         return render_template('_post.html', form=form, post=post)

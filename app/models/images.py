@@ -1,6 +1,9 @@
 from app import db
 from cloudinary.uploader import upload as _cloudinary_upload
 from werkzeug.utils import secure_filename as _secure_filename
+import os
+
+BASE_CLOUDINARY_URL = f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload"
 
 class Image(db.Model):
     __tablename__ = "images"
@@ -18,6 +21,12 @@ class Image(db.Model):
 
     def get_all_images(self):
         return Image.query.all()
+
+    def get_postedit_format_photo(self):
+        """
+        format each image for the posts/post/edit page
+        """
+        return f"{BASE_CLOUDINARY_URL}/v{self.version}/{self.public_id}.{self.format}"
 
 
 
