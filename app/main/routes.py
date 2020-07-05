@@ -104,6 +104,7 @@ def post_edit(post_id):
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
             db.session.commit()
+            upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
@@ -187,23 +188,25 @@ def comment():
 
 ## IMAGES ###################################################
 
-@bp.route('/images/upload/<image>', methods=['GET', 'POST']) # just POST?
-@login_required
-def upload_image(image):
-    if request.method == 'POST':
-        if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
-            file = request.files['file']
-            filename = "{}{}".format(user.id, user.username)
-            #upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
-            print(upload_result)
-            try:
-                #user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
-                db.session.commit()
-            except:
-                pass #do something?? db.session.rollback() and maybe delete cloudinary image
-        # else: .... we need to tell them no
-    pass
-    # return redirect(url_for('main.post', post_id=post.id))) ##need to get that too, for association table
+# @bp.route('/images/upload/<image>', methods=['GET', 'POST']) # just POST?
+# @login_required
+# def upload_image(image):
+#     if request.method == 'POST':
+#         if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: 
+#             ## 'video/mp4'
+#             ## Also need to check for file size!!!
+#             file = request.files['file']
+#             filename = "{}{}".format(user.id, user.username)
+#             #upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
+#             print(upload_result)
+#             try:
+#                 #user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
+#                 db.session.commit()
+#             except:
+#                 pass #do something?? db.session.rollback() and maybe delete cloudinary image
+#         # else: .... we need to tell them no
+#     pass
+#     # return redirect(url_for('main.post', post_id=post.id))) ##need to get that too, for association table
     
 ## USERS #####################################################
 

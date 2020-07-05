@@ -78,6 +78,7 @@ const confirmDeleteButton = document.querySelector("#delete-post");
 
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
     onInit()
 })

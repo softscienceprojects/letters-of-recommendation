@@ -111,7 +111,7 @@ class ImageUploader {
   }
 
   _create_uploader_form() {
-    this.upload_div = document.createElement('div')
+    this.upload_div = document.createElement('dialog')
     this.upload_div.classList.add('image-upload')
     
     const form = document.createElement('form')

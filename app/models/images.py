@@ -1,4 +1,6 @@
 from app import db
+from cloudinary.uploader import upload as _cloudinary_upload
+from werkzeug.utils import secure_filename as _secure_filename
 
 class Image(db.Model):
     __tablename__ = "images"
@@ -19,5 +21,37 @@ class Image(db.Model):
 
 
 
+## HELPER - note this is outside of class
+def upload_image(files, *args, **kwargs):
+    """
+    # get uploading status 'content_length', 'content_type', 'filename', 
+    # 'headers', 'mimetype', 'mimetype_params', 'name', 'save', 'stream
+    folder="profile_pics"
+    resource_type="image"
+    public_id=filename
+    post_id ??
+        /// filename = _secure_filename
+    """
+    for file in files:
+        if file.content_type in ['image/gif', 'image/jpeg', 'image/png', 'video/mp4']:
+            folder = kwargs.get('folder') or 'blog_post_images'
+            upload_result = _cloudinary_upload(file, folder=folder, **kwargs)
+            try:
+                asset_id = upload_result.get('asset_id')
+                filename = upload_result.get('secure_url').split('/')[-1:]
+                version = upload_result.get('secure_url')
+                public_id = upload_result.get('public_id')
+                format = upload_result.get('format')
+                new_image = Image(asset_id=asset_id, filename=filename, version=version, public_id=public_id, format=format)
+                db.session.add(new_image)
+                db.session.commit()
+                if args:
+                    args[0].images.append(new_image)
+                    db.session.commit()
+            except:
+                pass ##do something?? db.session.rollback() and maybe delete cloudinary image
+        else: 
+           # .... we need to tell them no
+            pass
 
 

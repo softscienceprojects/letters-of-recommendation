@@ -5,10 +5,10 @@ from app.models.users import likedPosts, User, followers
 from app.models.tags import postTags
 from app.models.images import Image
 
-# postImages = db.Table('profilePics',
-#     db.Column('image_id', db.Integer, db.ForeignKey('images.id')),
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
-# )
+postImages = db.Table('postImages',
+    db.Column('image_id', db.Integer, db.ForeignKey('images.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
+)
 
 class Post(db.Model):
     __tablename__ = "posts"
@@ -21,7 +21,9 @@ class Post(db.Model):
     likers = db.relationship('User', secondary=likedPosts, lazy='dynamic', backref="postLiked")
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
     #tags = db.relationship('Tag', secondary=postTags, lazy='dynamic', backref="postTagged")
-    # heroImage = ???
+    heroImage_id = db.Column(db.Integer, db.ForeignKey('images.id'))
+    images = db.relationship('Image', secondary=postImages, lazy='dynamic', backref=db.backref('posts', lazy='dynamic'))
+    ## will need a method to make an image a hero image, and deassociate any images with this post
 
     def __repr__(self):
         return '{} - {}; Live: {}'.format(self.id, self.title, self.isLive)
@@ -50,11 +52,9 @@ class Post(db.Model):
     def postToggleLive(self):
         if self.isLive:
             self.isLive = False
-            #db.session.commit()
             return self
         else:
             self.isLive = True
-            #db.session.commit()
             return self
 
     def check_tag_for_this_post(self, tag):
