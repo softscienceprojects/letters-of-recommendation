@@ -8,6 +8,9 @@ def display_blog_post(value):
     #re.sub()
     return Markup(value)
 
+def test_erin(value):
+    return "Erin"
+
 
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):
     return value.strftime(format)

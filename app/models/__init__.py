@@ -5,7 +5,7 @@ from app.models.posts import Post, postImages
 from app.models.tags import Tag, postTags
 from app.models.comments import Comment
 from app.models.messages import Message
-from app.models.images import Image, upload_image
+from app.models.images import Image, upload_image, get_self_image_for_select_buttons
 
 
 # Before save functions

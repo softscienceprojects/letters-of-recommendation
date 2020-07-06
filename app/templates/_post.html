@@ -16,7 +16,7 @@
     {% if post.datePosted %}<p class="datetime">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     {% if post.id %}
         {% for option in form.selectHeroList %}          
-            {{ option }} <img src={{ option.data }} class="profile-picture" />
+            {{ option }} <img src={{ option.data | image_url }} class="profile-picture" />
         {% endfor %}
     {% endif %}
     {{ form.images }}
