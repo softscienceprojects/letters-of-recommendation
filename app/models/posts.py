@@ -82,6 +82,14 @@ class Post(db.Model):
             hero = Image.query.filter_by(id=image_id).first()
             return hero.asset_id
 
+    def get_hero_image_choices(self):
+        imagesList = [(image.asset_id, image.id) for image in self.images]
+        hero = Image.query.filter_by(id=self.heroImage_id).first()
+        heroSelectPair = (hero.asset_id, hero.id)
+        if heroSelectPair not in imagesList:
+            imagesList.append(heroSelectPair)
+        return imagesList
+
     def set_post_hero_image(self, image_asset_id):
         image = Image.query.filter_by(asset_id=image_asset_id).first()
         self.heroImage_id = image.id

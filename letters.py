@@ -19,7 +19,7 @@ def make_shell_context():
         'users': User.query.all(),
         'tags': Tag.query.all(),
         'e': User.query.filter_by(username='e').first(),
-        'p1': Post.query.first(),
+        'p1': Post.query.filter_by(id=2).first(),
         'Comment': Comment,
         'Message': Message,
         'Image': Image,

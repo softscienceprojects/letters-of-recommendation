@@ -78,7 +78,8 @@ def get_posts_for_tag(tag_id, filterLive=True):
     if filterLive==False:
         return tag.posts.order_by(Post.datePosted.desc()).all()
     else:
-        return Post.query.join(postTags, (postTags.c.tag_id == tag.id)).filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
+        #return Post.query.join(postTags, (postTags.c.tag_id == tag.id)).filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
+        return tag.posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
 
 def get_posts_by_user(user_id, isLive=True):
     return Post.query.filter_by(user_id=user_id, isLive=isLive).order_by(Post.datePosted.desc()).all()
