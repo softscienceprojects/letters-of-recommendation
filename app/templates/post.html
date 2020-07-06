@@ -2,16 +2,18 @@
 
 {% block content %}
     {% if post.heroImage_id %}
+    <div class="hero-image-display">
         <img src={{ post.get_post_hero_image() }} />
+    </div>
     {% endif %}
     <h1>{{ post.title }}</h1>
     <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
     {% if post.author == current_user %} 
-            | {{ post.isLive | poststatus }}
-            <a href="{{ url_for('main.post_edit', post_id=post.id) }}">Edit this post</a>
+            | <span class="flag-edit">{{ post.isLive | poststatus }}</span>
+            <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
     {% endif %}
     </h2>
-    <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <span><a href="{{ url_for('main.users', liked_post=post.id) }}">Likes: {{ post.number_of_likes() }}</a></span></p>
+    <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
     {% if not current_user.is_anonymous %}
     {% if not post.author == current_user %}
         {% if current_user.get_liked_posts(post) %}
@@ -23,6 +25,7 @@
     {% endif %}
     <p>{{ post.body | safe }}</p>
     
+    <span class="label">Labels:</span>
     {% for tag in post.posttags.all() %}
         <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
