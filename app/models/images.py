@@ -28,6 +28,9 @@ class Image(db.Model):
         """
         return f"{BASE_CLOUDINARY_URL}/v{self.version}/{self.public_id}.{self.format}"
 
+    def get_self_image_for_select_buttons(asset_id):
+        image = Image.query.filter_by(asset_id=asset_id).first()
+        return f"{BASE_CLOUDINARY_URL}/v{image.version}/{image.public_id}.{image.format}"
 
 
 ## HELPER - note this is outside of class

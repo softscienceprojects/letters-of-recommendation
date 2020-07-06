@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 from app import db
 from app.main import bp
 from app.auth import routes
-from app.main.forms import EditProfileForm, PostForm, CommentForm
+from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
@@ -98,6 +98,7 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
+    form.selectHeroList.choices = [(Image.get_self_image_for_select_buttons(image.asset_id), image.id) for image in post.images]
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data

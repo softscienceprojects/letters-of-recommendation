@@ -15,11 +15,8 @@
     {% if post.author %}<h2>by {{ post.author.username }}</h2>{% endif %}
     {% if post.datePosted %}<p class="datetime">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     {% if post.id %}
-        {% for image in post.images.all() %}
-            <div>
-                <img src={{ image.get_postedit_format_photo() }} class="profile-picture" />
-                []
-            </div>
+        {% for option in form.selectHeroList %}          
+            {{ option }} <img src={{ option.data }} class="profile-picture" />
         {% endfor %}
     {% endif %}
     {{ form.images }}

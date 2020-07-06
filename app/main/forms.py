@@ -1,6 +1,6 @@
 from flask import request
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField, FileField
+from flask_wtf import FlaskForm, Form
+from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField, FileField, BooleanField, RadioField, FieldList, FormField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length, Regexp
 from app.models import User, Post
 import re
@@ -26,9 +26,13 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Username can only contains letters and numbers')
     
 
+class SelectHeroPartial(Form):
+    selectHero = RadioField("Select hero image: ", choices = [1,2,3])
+
 class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     images = MultipleFileField('images: ')
+    selectHeroList = RadioField("Select hero image: ") #FieldList(FormField(SelectHeroPartial))
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})
     submit = SubmitField('save post')
