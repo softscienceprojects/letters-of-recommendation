@@ -19,6 +19,9 @@
             {{ option }} <img src={{ option.data | image_url }} class="profile-picture" />
         {% endfor %}
     {% endif %}
+    {% for error in form.selectHeroList.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
     {{ form.images }}
     <p>{{ form.body }}</p>
         {% for error in form.body.errors %}

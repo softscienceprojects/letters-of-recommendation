@@ -98,18 +98,19 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.selectHeroList.choices = [image.asset_id for image in post.images]
+    form.selectHeroList.choices = [(image.asset_id, image.id) for image in post.images]
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
+            hero = post.set_post_hero_image(form.selectHeroList.data)
             db.session.commit()
             upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
-            images = post.images.all()
+            form.selectHeroList.data = post.get_post_hero_image_for_forms()
             form.body.data = post.body
             form.tags.data = ','.join([tag.name for tag in post.posttags.all()])
         return render_template('_post.html', form=form, post=post)
@@ -243,7 +244,6 @@ def edit_user(username):
         current_user.username = escape(form.username.data)
         current_user.profile = escape(form.profile.data)
         current_user.profile_picture = current_user.set_profile_photo(form.profile_picture.data)
-        print(current_user.profile_picture)
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
     elif request.method == 'GET':

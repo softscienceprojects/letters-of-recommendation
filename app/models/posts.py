@@ -76,6 +76,17 @@ class Post(db.Model):
             image = hero.get_postedit_format_photo()
             return image
 
+    def get_post_hero_image_for_forms(self):
+        image_id = self.heroImage_id
+        if image_id:
+            hero = Image.query.filter_by(id=image_id).first()
+            return hero.asset_id
+
+    def set_post_hero_image(self, image_asset_id):
+        image = Image.query.filter_by(asset_id=image_asset_id).first()
+        self.heroImage_id = image.id
+        return self
+
     def posts_by_user_follow(user):
         """
         get the posts of the users I follow. Create two variables. First:
