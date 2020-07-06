@@ -1,7 +1,8 @@
 from flask import request
 from flask_wtf import FlaskForm, Form
-from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField, FileField, BooleanField, RadioField, FieldList, FormField
+from wtforms import StringField, TextAreaField, SubmitField, MultipleFileField, FileField, SelectMultipleField, RadioField, FieldList, FormField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length, Regexp
+from wtforms.widgets import CheckboxInput, ListWidget
 from app.models import User, Post
 import re
 
@@ -33,6 +34,7 @@ class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     images = MultipleFileField('images: ')
     selectHeroList = RadioField("Select hero image: ") #FieldList(FormField(SelectHeroPartial))
+    removeImages = SelectMultipleField("Remove this image from post: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})
     submit = SubmitField('save post')

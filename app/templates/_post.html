@@ -15,14 +15,33 @@
     {% if post.author %}<h2>by {{ post.author.username }}</h2>{% endif %}
     {% if post.datePosted %}<p class="datetime">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     {% if post.id %}
-        {% for option in form.selectHeroList %}          
+        <h3>Select a hero image</h3>
+        {% for option in form.selectHeroList %}   
+            <div class="post-image-form"> 
             {{ option }} <img src={{ option.data | image_url }} class="profile-picture" />
+            </div>
+        {% endfor %}
+        {% for error in form.selectHeroList.errors %}
+            <ul>
+                <li><span style="color: red;">Can't set as hero image: {{ error }}</span></li>
+            </ul>
+        {% endfor %}
+        <h3>Remove image from post</h3>
+        {% for option in form.removeImages %}
+            <div class="post-image-form">
+                {{ option }} <img src={{ option.data | image_url }} class="profile-picture" />
+            </div>
+        {% endfor %}
+        {% for error in form.removeImages.errors %}
+            <ul>
+                <li><span style="color: red;">Cannot remove image: {{ error }}</span></li>
+            </ul>
         {% endfor %}
     {% endif %}
-    {% for error in form.selectHeroList.errors %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
+    <h3>Upload new images to this post</h3>
     {{ form.images }}
+
+
     <p>{{ form.body }}</p>
         {% for error in form.body.errors %}
         <span style="color: red;">{{ error }}</span>

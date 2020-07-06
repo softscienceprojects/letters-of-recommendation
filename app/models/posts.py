@@ -87,6 +87,18 @@ class Post(db.Model):
         self.heroImage_id = image.id
         return self
 
+    def remove_images_from_post(self, images_list):
+        """
+        will expect a list of image asset_id's
+        note this will not 'unset' the hero image, 
+        which is set separately to images associated with this post
+        (You gotta write a method for this babes)
+        """
+        for asset_id in images_list:
+            image = Image.query.filter_by(asset_id=asset_id).first()
+            self.images.remove(image)
+        return self
+
     def posts_by_user_follow(user):
         """
         get the posts of the users I follow. Create two variables. First:

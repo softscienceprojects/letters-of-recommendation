@@ -67,7 +67,6 @@ class User(UserMixin, db.Model):
         image_uri is either the cloudinary version, or deleting it means that we revert back to 'default.jpg'
 
         """
-        print(image)
         if image.content_type in ['image/gif', 'image/jpeg', 'image/png']: ## Also need to check for file size!!!
             filename = "{}{}".format(self.id, self.username)
             try:
@@ -88,9 +87,8 @@ class User(UserMixin, db.Model):
         if self.profile_picture in ['default.jpg', None]:
             return url_for('static', filename='images/mobile.png')
         else:
-            #return url_for('static', filename='images/mobile.png')
-            print(f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}")
-            return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
+            return url_for('static', filename='images/mobile.png')
+            #return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
 
 # def get_user(self, user_id):
     #     user = User.query.get(user_id)

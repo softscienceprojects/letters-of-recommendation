@@ -99,12 +99,14 @@ def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
     form.selectHeroList.choices = [(image.asset_id, image.id) for image in post.images]
+    form.removeImages.choices = [(image.asset_id, image.id) for image in post.images]
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
             hero = post.set_post_hero_image(form.selectHeroList.data)
+            remove_images = post.remove_images_from_post(form.removeImages.data)
             db.session.commit()
             upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
