@@ -98,8 +98,8 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.selectHeroList.choices = post.get_hero_image_choices()
-    form.removeImages.choices = [(image.asset_id, image.id) for image in post.images]
+    form.selectHeroList.choices = post.get_image_choices() # fix this post.get_hero_image_choices()
+    form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data

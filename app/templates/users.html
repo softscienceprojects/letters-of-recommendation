@@ -1,15 +1,15 @@
-{% extends "container.html" %}
+{% extends "gridcontainer.html" %}
 
 {% block content %}
-    {% if message %}
-        <div>
-            {{ message }}
-        </div>       
-    {% endif %}
     {% if users %}
         {% for user in users %}
-            <div class="user_card">
-                <a href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>
+            <div class="user-card">
+                <div class="profile-picture">
+                    <img src={{ user.get_profile_photo() }} />
+                </div>
+                <div class="username">
+                    <a href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>
+                </div>
             </div>
         {% endfor %}
     {% else %}

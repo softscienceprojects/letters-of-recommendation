@@ -28,16 +28,15 @@
         </style>
     </head>
     <body>
-    <div id="container">
                 <nav class="">
                     {% include '_nav.html' %}
                 </nav>
             <button id="menu-button" class="button-base"><span class="label">MENU</span></button>
         {% block splash %}{% endblock %}
         {% block container %}{% endblock %}
+        {% block gridcontainer %}{% endblock %}
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/components.js') }}"></script>
-    </div>
     </body>    
 </html>

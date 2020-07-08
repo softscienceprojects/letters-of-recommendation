@@ -1,19 +1,24 @@
 {% extends "container.html" %}
 
 {% block content %}
-    {% if post.heroImage_id %}
+    
+    <div class="post-content">
+        {% if post.heroImage_id %}
     <div class="hero-image-display">
         <img src={{ post.get_post_hero_image() }} />
     </div>
     {% endif %}
-    <h1>{{ post.title }}</h1>
-    <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
-    {% if post.author == current_user %} 
-            | <span class="flag-edit">{{ post.isLive | poststatus }}</span>
-            <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
-    {% endif %}
-    </h2>
-    <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+        <div class="post-title-details">
+            <h1>{{ post.title }}</h1>
+            <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
+            {% if post.author == current_user %} 
+                    | <span class="flag-edit">{{ post.isLive | poststatus }}</span>
+                    <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
+            {% endif %}
+            </h2>
+            <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+        </div>
+
     {% if not current_user.is_anonymous %}
     {% if not post.author == current_user %}
         {% if current_user.get_liked_posts(post) %}
@@ -33,5 +38,5 @@
         <!-- Chat about this -->
     {% endif %}
     <div id="comments"></div>
-    
+    </div>
 {% endblock %}

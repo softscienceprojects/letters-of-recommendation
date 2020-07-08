@@ -1,13 +1,8 @@
-{% extends "container.html" %}
+{% extends "gridcontainer.html" %}
 
 {% block content %}
     {% block posts_list %}
-        <h1>Posts</h1>
-        {% if message %}
-            <div class="notification">
-                {{ message }}
-            </div>
-        {% endif %}
+        
         {% if posts %}
             {% for post in posts %}
                 {% if post.isLive==True %}
@@ -15,14 +10,17 @@
                 {% else %}
                 <div class="post-card draft">
                 {% endif %}
+                <div class="post-card-details">
+                        <a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a>
+                        <p class="datetime">{{ post.datePosted | datetimeformat }}</p>
+                        {% for tag in post.posttags %}
+                            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                        {% endfor %}
+                </div>
                     {% if post.heroImage_id %}
                         <div class="image-for-post" style="background-image: url({{ post.get_post_hero_image() }});"></div>
                     {% endif %}
-                    <a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a>
-                    <p class="datetime">{{ post.datePosted | datetimeformat }}</p>
-                    {% for tag in post.posttags %}
-                        <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
-                    {% endfor %}
+                    
                 </div>
             {% endfor %}
         {% else %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+    {% block gridcontainer %}
+    {{ super () }}
+    <div class="content">
+        <div>
+        <div>
+        <h1>"Title"</h1>
+        {% if message %}
+            <div class="notification">
+                {{ message }}
+            </div>
+        {% endif %}
+        </div>
+        <div class="grid-container">
+                {% block content %}{% endblock %}
+        </div>
+        </div>
+    </div>
+    {% endblock %}
+
