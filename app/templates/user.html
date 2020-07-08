@@ -2,7 +2,8 @@
 
 {% block content %}
     {% block userpage %}
-        <div>
+        <div id="user-profile">
+            <div class="user-top-of-profile">
         <h1>{% if user == current_user %}hello, {% endif %}{{user.username}}</h1>
         {% if user.profile %}
             <p>{{ user.profile }}</p>
@@ -13,6 +14,7 @@
         <img src={{ user.get_profile_photo() }} class="profile-picture" />
         <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} followers</a>
         <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a></p>
+        </div>
         {% if user == current_user %}
             {% if user.isWriter == True %}
                 <a href="{{ url_for('main.post_new') }}">Write a post</a> | 
