@@ -6,7 +6,7 @@
             <div class="user-top-of-profile">
         <h1>{% if user == current_user %}hello, {% endif %}{{user.username}}</h1>
         {% if user.profile %}
-            <p>{{ user.profile }}</p>
+            <p class="user-profile">{{ user.profile }}</p>
         {% else %}
             <p><em>No biography provided</em></p>
         {% endif %}

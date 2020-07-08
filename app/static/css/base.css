@@ -67,8 +67,8 @@ div.splash-tags p {
 
 
 img.profile-picture {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 300px;
     object-fit: cover;
 }
 
@@ -290,10 +290,12 @@ dialog {
     max-width: 75%;
 }
 
+p.user-profile {
+    font-size: 20px;
+}
+
 .user-top-of-profile {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    text-align: center;
 }
 
 .user-card {
