@@ -4,37 +4,43 @@
     {% block userpage %}
         <div id="user-profile">
             <div class="user-top-of-profile">
-        <h1>{% if user == current_user %}hello, {% endif %}{{user.username}}</h1>
-        {% if user.profile %}
-            <p class="user-profile">{{ user.profile }}</p>
-        {% else %}
-            <p><em>No biography provided</em></p>
-        {% endif %}
+                <h1>{% if user == current_user %}hello, {% endif %}{{user.username}}</h1>
+                {% if user.profile %}
+                    <p class="user-profile">{{ user.profile }}</p>
+                {% else %}
+                    <p><em>No biography provided</em></p>
+                {% endif %}
 
-        <img src={{ user.get_profile_photo() }} class="profile-picture" />
-        <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} followers</a>
-        <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a></p>
-        </div>
+                <img src={{ user.get_profile_photo() }} class="profile-picture" />
+                <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} followers</a>
+                <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a></p>
+            </div>
+        
+        <div class="user-options-panel">
         {% if user == current_user %}
+        
             {% if user.isWriter == True %}
-                <a href="{{ url_for('main.post_new') }}">Write a post</a> | 
+                <a href="{{ url_for('main.post_new') }}">Write a post</a>
                 <a href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}">Drafts</a>
             {% endif %}
-            <p><a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a></p>
-            <!-- <p>Change your password</p> -->
-
             {% if user == current_user %}
                 <a href="{{ url_for('main.posts', liked=user.username) }}">Liked posts</a>
                 <a href="{{ url_for('main.user_feed', username=user.username) }}">Your feed</a>
             {% endif %}
+            <p><a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a></p>
+            <!-- <p>Change your password</p> -->
+
+         
             
         {% elif not current_user.is_following(user) %}
             <p><a href="{{ url_for('main.follow', username=user.username) }}">follow</a></p>
         {% else %}
             <p><a href="{{ url_for('main.unfollow', username=user.username) }}">unfollow</a></p>
         {% endif %}
+        </div>
+
         {# if user != current_user  Send a message  endif #}
-        <hr />
+        
         {% if posts %}
             {% for post in posts %}
                 <div class="user-posts">
@@ -44,11 +50,12 @@
                         </div>
                     {% endif %}
                     <div class="user-profile-post-post">
-                        <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
+                        <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p></h2>
+                        <p style="margin-top:-10%;">Read &rarr;</p>
                         {% for tag in post.posttags.all() %}
                             <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
-                        <p>Read &rarr;</p>
+                        
                     </div>
                 </div>
             {% endfor %}

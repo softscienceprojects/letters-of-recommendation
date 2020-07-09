@@ -31,7 +31,7 @@
     {% endif %}
     <p>{{ post.body | safe }}</p>
     
-    <span class="label">Labels:</span>
+    <span class="label">Like this? Read more &rarr;</span>
     {% for tag in post.posttags.all() %}
         <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
