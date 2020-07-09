@@ -70,6 +70,8 @@ div.splash-tags p {
     text-transform: uppercase;
     font-size: 80%;
     letter-spacing: 1px;
+    font-family: 'Syne-Bold', sans-serif;
+
 }
 
 .image-for-post {
@@ -137,16 +139,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-family: 'Rubik', Arial, sans-serif;
+    /* font-family: 'Rubik', Arial, sans-serif; */
+    font-family: 'Syne-Bold', sans-serif;
     /* border-bottom: 15px solid black;
     padding-bottom: 30px; */
     text-transform: uppercase;
+}
+
+blockquote {
+    font-size: 200%;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+code {
+    background-color: var(--blue-blush);
+    color: var(--rust);
 }
 
 h1#title {
     color: var(--blue-blush);
     font-size: 4rem;
     text-transform: capitalize;
+}
+
+h2.byline {
+    font-family: 'Syne-Bold', sans-serif;
 }
 
 a {
@@ -226,13 +244,13 @@ dialog {
 
 .content {
     display: flex;
-    flex-grow: 1;
+    /* flex-grow: 1; */
     /* flex-wrap:wrap; */
     justify-content: center;
     height:100vh;
     overflow: scroll;
-    margin: 0;
-    width: 50%;
+    /* margin: 0; */
+    /* width: 50%; */
 }
 
 .grid-container {
@@ -248,7 +266,9 @@ dialog {
     position: relative;
 }
 
-
+.post-title-details {
+    margin-bottom: 300px;
+}
 
 .post-content {
     /* flex-grow: 1;
@@ -337,6 +357,8 @@ p.user-profile {
     display: flex;
     justify-content: flex-end;
     padding-right: 5px;
+    font-family: 'Syne-Bold', sans-serif;
+
 }
 
 #menu-button {

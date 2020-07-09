@@ -69,7 +69,7 @@ def posts():
         message = None
     number = len(posts) if type(posts) == list else posts.count()
     message = "{} post{} found".format(number, "" if number == 1 else "s")
-    return render_template('posts.html', posts=posts, message=message)
+    return render_template('posts.html', posts=posts, message=message, title="Posts")
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])
 @login_required
@@ -272,7 +272,7 @@ def users():
             return redirect(url_for('main.index'))
     else:
         return redirect(url_for('main.index'))
-    return render_template('users.html', users=users, message=message)
+    return render_template('users.html', users=users, message=message, title="Users")
 
 
 

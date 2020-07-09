@@ -10,14 +10,15 @@
  
         <div class="post-title-details">
             <h1>{{ post.title }}</h1>
-            <h2>by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
-            {% if post.author == current_user %} 
+            <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
+        </div>
+
+    {% if post.author == current_user %} 
                     | <span class="flag-edit">{{ post.isLive | poststatus }}</span>
                     <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
             {% endif %}
             </h2>
             <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
-        </div>
 
     {% if not current_user.is_anonymous %}
     {% if not post.author == current_user %}

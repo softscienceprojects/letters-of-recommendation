@@ -11,7 +11,7 @@
                 <div class="post-card draft">
                 {% endif %}
                 <div class="post-card-details">
-                        <a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a>
+                        <h2 class='byline'><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                         <p class="datetime">{{ post.datePosted | datetimeformat }}</p>
                         {% for tag in post.posttags %}
                             <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
