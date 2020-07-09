@@ -5,6 +5,13 @@
     --blue-blush: #D7DBDA;
     --night: #2C3B4E;
     --beige: #EEDED1;
+
+    /* other scheme */
+    --blush: #FBE7DC;
+    --rose: #F9AE8F;
+    --lipstick: #E05747;
+    --ochre: #DB9523;
+    --olive: #9E8D3F;
 }
 
 
@@ -74,6 +81,11 @@ div.splash-tags p {
 
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .image-for-post {
     width: 100%;
     height: 100%;
@@ -95,42 +107,12 @@ img.profile-picture {
     width: 100%;
 }
 
-.display-hide {
-    /* animation-name: slideout;
-    animation: slideout 1s ease 1s; */
-    left: -100%;
-    width: 0%;
-    transition: 0.5s;
-}
 
-.display-show {
-    /* animation-name: slidein;
-    animation: slidein 1s ease 3.5s; */
-    transition: 0.5s;
-    left: 0%;
-    max-width: 32%;
-}
-/* 
-@keyframes slidein {
-    from {
-        }
-    to {;
-    }
-  } */
 
-  @keyframes slideout {
-      from {
-          left: 0%;
-          width: 50%;
-      } to {
-          left: -100%;
-          width: 0%;
-      }
-  }
-
-img {
-    max-width: 100%;
-    max-height: 100%;
+.user-profile-post-img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /*   ------------- FONTS ------------- */
@@ -196,20 +178,41 @@ span.label {
     font-size: 80%;
 }
 
-/* span.tags a {
-    /* text-decoration: none; 
-} */
-
 
 nav {
     margin-top: 0;
     font-family: 'Syne-Bold', sans-serif;
-    width: 50%;
+    width: 100%;
     background-color: var(--rust); /* #ce8054; */  
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     overflow: hidden;
 }
+
+.display-hide {
+    left: -100%;
+    width: 0%;
+    transition: 0.5s;
+    height: 100vh;
+}
+
+.display-show {
+    transition: 0.5s;
+    left: 0%;
+    max-width: 100%;
+}
+
+@media only screen and (min-width: 800px) {
+    nav {
+        width: 50%;
+    }
+
+    .display-show {
+        max-width: 50%;
+    }
+  }
+
 
 #nav-contents {
     display: flex;
@@ -248,15 +251,21 @@ dialog {
 } */
 
 .content {
-    display: flex;
+    display: block;
     /* flex-grow: 1; */
     /* flex-wrap:wrap; */
     /* justify-content: center; */
-    height:100vh;
-    overflow: scroll;
+    /* height:100vh; */
+    /* overflow: scroll; */
     /* margin: 0; */
     width: 100%;
     justify-content: flex-end;
+}
+
+@media only screen and (min-width: 800px) {
+    .content {
+        display: flex;
+    }
 }
 
 .grid-container {
@@ -264,37 +273,67 @@ dialog {
     flex-wrap: wrap;
     /* max-width: 50vw; */
     position: relative;
+    width: 100%;
+}
+
+.grid-view-wrapper {
+    margin: 30px auto 0 auto;
+}
+
+.all-header {
+    text-align: center;
+    border-bottom: 3px solid var(--clay);
+    margin: 30px auto 10px auto;
+    max-width: 250px;
 }
 
 .hero-image-display {    
     max-height: 100vh;
     width: 50vw;
-    position: relative;
+    position: fixed;
+    z-index: -100;
 }
 
 .post-title-details {
-    margin-bottom: 300px;
+    margin-bottom: 100%;
+}
+
+.post-body {
+    background-color: inherit;
 }
 
 .post-content {
     /* flex-grow: 1;
     justify-content: center; */
     /* position: relative; */
-    max-width: 50vw;
-    margin-top: 2em;
+    max-width: 100%;
+    margin: 2em auto 0 auto;
     padding:20px;
     min-width: 70%;
+    box-sizing: border-box;
 }
+
+@media only screen and (min-width: 800px) {
+    .post-content {
+        max-width: 50vw;
+    }
+}
+
 
 .post-card {
     width: 33.3%;
-    min-width: 33.3vw; /*auto*/
+    min-width: 33.3vw;
     height: 25rem; /* 33.3% */
-    /* box-sizing: border-box; ?? */
+    box-sizing: border-box;
     display: flex;
     position: relative;
     background-color: var(--seafoam);
 }
+
+/* .grid-container > div {
+    display: inline-block;
+    width: calc(100%/3);
+} */
 
 .post-card-details {
     position: absolute;
@@ -325,6 +364,7 @@ dialog {
 #user-profile {
     width: 100%;
     max-width: 75%;
+    margin: auto;
 }
 
 p.user-profile {
@@ -354,7 +394,6 @@ p.user-profile {
     /* max-width: 400px; */
     height: 150px;
     margin: 10px 0;
-    background-color: white;
 }
 
 .user-profile-post-img {
@@ -386,11 +425,11 @@ p.user-profile {
 }
 
 #menu-button {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     margin-left:5px;
     background-color: transparent;
-    color: var(--blue-blush);
+    color: var(--night);
 }
 
 

@@ -3,18 +3,18 @@
     {% block gridcontainer %}
     {{ super () }}
     <div class="content">
-        <div>
-        <div>
-        <h1>{{ title }}</h1>
-        {% if message %}
-            <div class="notification">
-                {{ message }}
+        <div class="grid-view-wrapper">
+            <div class="all-header">
+            <h1>{{ title }}</h1>
+            {% if message %}
+                <div class="notification">
+                    {{ message }}
+                </div>
+            {% endif %}
             </div>
-        {% endif %}
-        </div>
-        <div class="grid-container">
-                {% block content %}{% endblock %}
-        </div>
+            <div class="grid-container">
+                    {% block content %}{% endblock %}
+            </div>
         </div>
     </div>
     {% endblock %}

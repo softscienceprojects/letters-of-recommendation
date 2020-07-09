@@ -18,18 +18,21 @@
                     <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
             {% endif %}
             </h2>
-            <p><span class="datetime">{{ post.datePosted | datetimeformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+            <p><span class="datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
 
-    {% if not current_user.is_anonymous %}
-    {% if not post.author == current_user %}
-        {% if current_user.get_liked_posts(post) %}
-            <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
-        {% else %}
-            <a href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+
+    <div class="post-body">
+        {% if not current_user.is_anonymous %}
+        {% if not post.author == current_user %}
+            {% if current_user.get_liked_posts(post) %}
+                <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
+            {% else %}
+                <a href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    {% endif %}
-    <p>{{ post.body | safe }}</p>
+        {% endif %}
+        <p>{{ post.body | safe }}</p>
+    </div>
     
     <span class="label">Like this? Read more &rarr;</span>
     {% for tag in post.posttags.all() %}

@@ -15,6 +15,12 @@ def test_erin(value):
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):
     return value.strftime(format)
 
+def daydateformat(value, format='%A, %d %B %Y'):
+    """
+    see https://strftime.org/
+    """
+    return value.strftime(format)
+
 def poststatus(value):
     if value == False:
         return "Draft"

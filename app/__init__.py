@@ -37,6 +37,7 @@ def create_app(config_class=Config):
 
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
+    app.jinja_env.filters['daydateformat'] = daydateformat
     app.jinja_env.filters['poststatus'] = poststatus
     app.jinja_env.filters['test_erin'] = test_erin
     app.jinja_env.filters['image_url'] = get_self_image_for_select_buttons
