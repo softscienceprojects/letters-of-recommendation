@@ -37,7 +37,20 @@
         <hr />
         {% if posts %}
             {% for post in posts %}
-                <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
+                <div class="user-posts">
+                    {% if post.heroImage_id %}
+                        <div class="user-profile-post-img">
+                            <img src={{ post.get_post_hero_image() }} />
+                        </div>
+                    {% endif %}
+                    <div class="user-profile-post-post">
+                        <p><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p>
+                        {% for tag in post.posttags.all() %}
+                            <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                        {% endfor %}
+                        <p>Read &rarr;</p>
+                    </div>
+                </div>
             {% endfor %}
         {% else %}
             <p><em>No posts</em></p>
