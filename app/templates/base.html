@@ -7,8 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" crossorigin="anonymous" integrity="">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400&family=Rubik:wght@900&display=swap" rel="stylesheet">
+
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Rubik:wght@900&display=swap');
             
             @font-face {
                 font-family: 'Syne-Bold';
@@ -18,18 +19,12 @@
                 font-weight: normal;
             }
 
-             @font-face {
-                font-family: 'Syne-Extra';
-                src: url({{ url_for("static", filename="Webfonts/Syne-Extra.woff") }}) format('woff'),
-                    url({{ url_for("static", filename="Webfonts/Syne-Extra.woff2") }}) format('woff2'),
-                    url({{ url_for("static", filename="Webfonts/Syne-Extra.eot") }}) format('eot'),
-                font-weight: normal;
-            }
+           
         </style>
     </head>
     <body>            
         <button id="menu-button" class="button-base"><span class="label">MENU</span></button>
-                <nav class="display-hide">
+                <nav class="">
                     {% include '_nav.html' %}
                 </nav>
         {% block splash %}{% endblock %}

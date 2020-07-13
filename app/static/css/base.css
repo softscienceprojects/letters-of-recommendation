@@ -156,6 +156,7 @@ h2.byline a {
 }
 
 a {
+    font-weight: 700;
     text-decoration: none;
     color: var(--night);
 }

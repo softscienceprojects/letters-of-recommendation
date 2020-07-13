@@ -33,6 +33,14 @@
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
     </p>
+    <p>
+        {{ form.tsandcs.label }}<br>
+        {{ form.tsandcs }} I agree to the <a href="{{ url_for('main.privacy') }}">terms and conditions</a><br>
+        {% for error in form.tsandcs.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </p>
+
     <p>{{ form.submit() }}</p>
 </form>
 </div>

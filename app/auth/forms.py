@@ -16,6 +16,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    tsandcs = BooleanField('Terms and conditions', validators=[DataRequired()])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -36,11 +37,6 @@ class ChangePasswordRequestForm(FlaskForm):
     new_password = PasswordField('new password', validators=[DataRequired()])
     new_password2 = PasswordField('repeat new password', validators=[DataRequired(), EqualTo('new_password')])
     submit = SubmitField('change password')
-
-    def check_current_password(self, old_password):
-        #User.
-        pass
-
 
 
 class ResetPasswordRequestForm(FlaskForm):
