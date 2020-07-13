@@ -193,12 +193,12 @@ nav {
 .display-hide {
     left: -100%;
     width: 0%;
-    transition: 0.5s;
+    /* transition: 0.5s; */
     height: 100vh;
 }
 
 .display-show {
-    transition: 0.5s;
+    /* transition: 0.5s; */
     left: 0%;
     max-width: 100%;
 }

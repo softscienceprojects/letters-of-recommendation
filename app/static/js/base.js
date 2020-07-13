@@ -14,12 +14,14 @@ let menuButton = document.querySelector('#menu-button');
 let nav = document.querySelector('nav');
 
 closeNav = function() {
-    nav.classList.add('display-hide');
+    menuButton.innerText="MENU";
     nav.classList.remove('display-show');
+    nav.classList.add('display-hide');
     sessionStorage.setItem('navMenu', 'closed')
 }
 
 openNav = function() {
+    menuButton.innerText="X";
     nav.classList.remove('display-hide');
     nav.classList.add('display-show')
     sessionStorage.setItem('navMenu', 'open')
@@ -27,8 +29,10 @@ openNav = function() {
 
 menuButton.addEventListener('click', function(e) {
     if (sessionStorage.getItem('navMenu') === 'open') {
+        nav.style.transition = '0.5s';
         closeNav()
     } else {
+        nav.style.transition = '0.5s';
         openNav()
     }
 })
@@ -44,9 +48,9 @@ if (imageUploaderButton) {
 }
 
 document.body.onload = function() {
-    if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'open') {
-        openNav()
-    } else {
+    if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'closed') {
         closeNav()
+    } else {
+        openNav()
     }
 }
