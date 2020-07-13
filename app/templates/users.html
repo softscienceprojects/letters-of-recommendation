@@ -5,7 +5,7 @@
         {% for user in users %}
             <div class="user-card">
                 <div class="profile-picture">
-                    <img src={{ user.get_profile_photo() }} />
+                    <a href="{{ url_for('main.user', username=user.username) }}"><img src={{ user.get_profile_photo() }} /></a>
                 </div>
                 <div class="username">
                     <a href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a>

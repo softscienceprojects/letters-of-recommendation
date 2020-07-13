@@ -18,7 +18,7 @@
                     <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
             {% endif %}
             </h2>
-            <p><span class="datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+            <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
 
 
     <div class="post-body">
@@ -36,7 +36,7 @@
     
     <span class="label">Like this? Read more &rarr;</span>
     {% for tag in post.posttags.all() %}
-        <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+        <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
     {% if not current_user.is_anonymous %}
         <!-- Chat about this -->

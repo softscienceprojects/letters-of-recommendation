@@ -46,14 +46,13 @@
                 <div class="user-posts">
                     {% if post.heroImage_id %}
                         <div class="user-profile-post-img">
-                            <img src={{ post.get_post_hero_image() }} />
+                            <a href="{{ url_for('main.post', post_id=post.id) }}"><img src={{ post.get_post_hero_image() }} /></a>
                         </div>
                     {% endif %}
                     <div class="user-profile-post-post">
                         <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p></h2>
-                        <p style="margin-top:-10%;">Read &rarr;</p>
                         {% for tag in post.posttags.all() %}
-                            <span class="tags"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
                         
                     </div>
