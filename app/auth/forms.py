@@ -5,7 +5,7 @@ from app.models import User
 import re
 
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
     remember_me = BooleanField('remember me')
     submit = SubmitField('sign in')
@@ -30,6 +30,18 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class ChangePasswordRequestForm(FlaskForm):
+    old_password = PasswordField('current password', validators=[DataRequired()])
+    new_password = PasswordField('new password', validators=[DataRequired()])
+    new_password2 = PasswordField('repeat new password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('change password')
+
+    def check_current_password(self, old_password):
+        #User.
+        pass
+
+
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), Email()])

@@ -133,15 +133,6 @@ def post_delete(post_id):
         #redirect(url_for('main.user', username=current_user.username))
         return response
 
-@bp.route('/live/<post_id>')
-@login_required
-def make_live(post_id):
-    post = Post.query.filter_by(id=post_id).first_or_404()
-    if post.author == current_user:
-        pass
-    else:
-        return redirect(url_for('main.index'))
-
 @bp.route('/like/<post_id>/')
 @login_required
 def like(post_id):

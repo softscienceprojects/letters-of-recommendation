@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, request, flash
 from werkzeug.urls import url_parse
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from app import db
 from app.auth import bp
-from app.auth.forms import LoginForm, RegistrationForm
+from app.auth.forms import LoginForm, RegistrationForm, ChangePasswordRequestForm
 from app.models import User
 # from app.auth.email import send_password_reset_email
 
@@ -14,7 +14,7 @@ def login():
         return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Credentials invalid. Please try again or register.')
             return redirect(url_for('auth.login'))
@@ -26,12 +26,12 @@ def login():
     return render_template('auth/login.html', form=form)
     
 
-@bp.route('/logout')
+@bp.route('/logout/')
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
-@bp.route('/register', methods=['GET', 'POST'])
+@bp.route('/register/', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -43,6 +43,21 @@ def register():
         db.session.commit()
         return redirect(url_for('main.user', username=user.username))
     return render_template('auth/register.html', form=form)
+
+@bp.route('<user_id>/change-password/', methods=['GET', 'POST'])
+@login_required
+def change_password(user_id):
+    form = ChangePasswordRequestForm()
+    user = User.query.filter_by(id=user_id).first()
+    if form.validate_on_submit():        
+        if not user.check_password(form.old_password.data):
+            flash('Current password does not match. Password cannot be changed.')
+            return redirect(url_for('auth.change_password', user_id=current_user.id))
+        user.set_password(form.new_password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('auth/password.html', form=form)
 
 
 # Password reset CHECK THIS

@@ -13,17 +13,17 @@
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
-        {{ form.username.label }}
-        {{ form.username(size=32, id='the-username-field') }}
-        {% for error in form.username.errors %}
-            <span style="color: red;">{{ error }}</span>
+        {{ form.email.label }}<br>
+        {{ form.email(size=38, id='the-email-field') }}<br>
+        {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span><br>
         {% endfor %}
     </p>
     <p>
-        {{ form.password.label }}
-        {{ form.password(size=32)}}
+        {{ form.password.label }}<br>
+        {{ form.password(size=38)}}<br>
         {% for error in form.password.errors %}
-            <span style="color: red;">{{ error }}</span>
+            <span style="color: red;">{{ error }}</span><br>
         {% endfor %}
     </p>
     <p>Forgot password?</p>
