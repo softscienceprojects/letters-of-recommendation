@@ -1,16 +1,17 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, g, jsonify, current_app
 from flask_login import current_user, login_required
+from flask_mail import Message
 from markupsafe import escape
 from sqlalchemy.sql import text
-from app import db
+from app import db, mail
 from app.main import bp
 from app.auth import routes
 from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
-
+import os
 
 # @bp.before_app_request
 # def before_request():

@@ -1,5 +1,6 @@
 from app import * #create_app, db
 from app.models import User, Post, Tag, postTags, likedPosts, Comment, Message, Image, followers, postImages
+from app.email import *
 
 app = create_app()
 
@@ -24,5 +25,6 @@ def make_shell_context():
         'Message': Message,
         'Image': Image,
         'images': Image.query.all(),
-        'postImages': postImages
+        'postImages': postImages,
+        'testsendingoneemail': testsendingoneemail
     }

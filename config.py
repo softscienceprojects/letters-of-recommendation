@@ -12,7 +12,18 @@ class Config(object):
     CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
     CLOUD_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
     CLOUD_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
+    """
+    If using STARTTLS with MAIL_USE_TLS = True, then use MAIL_PORT = 587.
+    If using SSL/TLS directly with MAIL_USE_SSL = True, then use MAIL_PORT = 465.
+    """
+    MAIL_SERVER="smtp.gmail.com"
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASK_ENV = os.environ.get('FLASK_ENV')
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER')
 
 
 class ProductionConfig(Config):
