@@ -2,3 +2,4 @@
 env-notes.txt
 /venv
 schema-notes.md
+sendgrid.env
