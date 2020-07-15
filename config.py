@@ -6,6 +6,7 @@ class Config(object):
     # TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'this-really-needs-to-be-changed'
+    SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'my_previous_two'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] or \
         'sqlite:///' + os.path.join(basedir, 'letters-development.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

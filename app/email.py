@@ -1,10 +1,31 @@
 from threading import Thread
-from flask import current_app
+from flask import current_app, render_template
 from flask_mail import Message
 from app import mail
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail as SendGridMail
+
+def send_email(subject, to, template, sender=None):
+    msg = Message(
+        subject,
+        recipients=[to],
+        body=subject,
+        html=template)
+
+    if sender:
+        msg.sender = sender
+    
+    with current_app.app_context():
+        print('sending: ', msg)
+        try:
+            mail.send(msg)
+            print('sent')
+        except Exception as e:
+            print(e)
+
+
+#### TESTS ###################################
 
 def testsendingoneemail(email):
     msg = Message("Hello",recipients=[email])
@@ -28,3 +49,5 @@ def sendgridtestemail(fromemail):
         print(response.headers)
     except Exception as e:
         print(e.body)
+
+

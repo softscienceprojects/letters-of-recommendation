@@ -31,6 +31,8 @@ class User(UserMixin, db.Model):
     isMember = db.Column(db.Boolean, default=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     # lastLoggedIn = db.Column(db.DateTime, default = datetime.utcnow)
+    confirmed = db.Column(db.Boolean, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
     profile = db.Column(db.String(300))
     liked_posts = db.relationship('Post', secondary=likedPosts, lazy='dynamic', backref="liker")
     profile_picture = db.Column(db.String, default='default.jpg')

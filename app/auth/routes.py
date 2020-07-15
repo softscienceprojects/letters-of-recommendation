@@ -4,9 +4,10 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import db
 from app.auth import bp
 from app.auth.forms import LoginForm, RegistrationForm, ChangePasswordRequestForm
+from app.email import *
 from app.models import User
-# from app.auth.email import send_password_reset_email
-
+from app.auth.token import generate_confirmation_token, confirm_token
+import datetime
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,16 +34,34 @@ def logout():
 
 @bp.route('/register/', methods=['GET', 'POST'])
 def register():
+    print(url_for('auth.test_auth'))
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data, confirmed=False)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+        token = generate_confirmation_token(user.email)
+        print("TOKEN: ", token)
+        confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+        print('URL: ', confirm_url)
+        html = render_template('auth/activate.html', confirm_url=confirm_url)
+        subject = "Please confirm your email"
+        send_email(subject, user.email, html)
+        login_user(user)
+        #flash('A confirmation email has been sent.')
+        #return redirect(url_for('auth.login'))
         return redirect(url_for('main.user', username=user.username))
     return render_template('auth/register.html', form=form)
+
+@bp.route('/test-auth/')
+def test_auth():
+    confirm_url = url_for('auth.confirm_email', token="123", _external=True)
+    #return render_template('auth/activate.html', confirm_url=confirm_url)
+    print('going to try to confirm')
+    return redirect(url_for('auth.confirm_email', token='123'))
 
 @bp.route('<user_id>/change-password/', methods=['GET', 'POST'])
 @login_required
@@ -58,6 +77,30 @@ def change_password(user_id):
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
     return render_template('auth/password.html', form=form)
+
+@bp.route('/confirm/<token>')
+@login_required
+def confirm_email(token):
+    print('confirming? ', token)
+    try:
+        email = confirm_token(token)
+        print(email)
+    except:
+        print('can\'t confirm!!')
+        flash('The confirmation link is invalid or has expired.')
+        #return ":("
+    #return ":)"
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        print('confirmed!')
+        flash('Account already confirmed. Please login.')
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        print('account confirmed')
+    return redirect(url_for('main.index'))
 
 
 # Password reset CHECK THIS
