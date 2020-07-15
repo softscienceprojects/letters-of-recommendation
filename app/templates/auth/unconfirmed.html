@@ -1,0 +1,14 @@
+{% extends "container.html" %}
+
+{% block content %}
+<div class='auth-form'>
+<h1>Welcome</h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {{ messages[0] }}
+    {% endif %}
+{% endwith %}
+<p>You haven't confirmed your account. Please check your email (including your junk folder) - you should receive an email with a confirmation link.</p>
+<p>Didn't get the email? <a href="{{ url_for('auth.resend_confirmation') }}">Resend</a>.</p>
+</div>
+{% endblock %} 

@@ -3,6 +3,12 @@
 {% block content %}
 <div class="auth-form">
 <h1>Register</h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {{ messages[0] }}
+    {% endif %}
+{% endwith %}
+
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>

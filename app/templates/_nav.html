@@ -10,7 +10,11 @@
         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         <li><a href="{{ url_for('auth.register') }}">Register</a></li>
     {% else %}
-        <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+        {% if current_user.confirmed and current_user.is_authenticated %}
+            <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+        {% elif current_user.is_authenticated %}
+            <li><a href="{{ url_for('auth.unconfirmed') }}">Confirm</a></li>
+        {% endif %}
         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
     {% endif %}
 </ul>

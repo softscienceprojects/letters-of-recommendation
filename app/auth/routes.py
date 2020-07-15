@@ -52,8 +52,8 @@ def register():
         send_email(subject, user.email, html)
         login_user(user)
         #flash('A confirmation email has been sent.')
-        #return redirect(url_for('auth.login'))
-        return redirect(url_for('main.user', username=user.username))
+        #return redirect(url_for('main.user', username=user.username))
+        return redirect(url_for('auth.unconfirmed'))
     return render_template('auth/register.html', form=form)
 
 @bp.route('/test-auth/')
@@ -81,27 +81,38 @@ def change_password(user_id):
 @bp.route('/confirm/<token>')
 @login_required
 def confirm_email(token):
-    print('confirming? ', token)
     try:
         email = confirm_token(token)
-        print(email)
     except:
-        print('can\'t confirm!!')
         flash('The confirmation link is invalid or has expired.')
-        #return ":("
-    #return ":)"
     user = User.query.filter_by(email=email).first_or_404()
     if user.confirmed:
-        print('confirmed!')
         flash('Account already confirmed. Please login.')
     else:
         user.confirmed = True
         user.confirmed_on = datetime.datetime.now()
         db.session.add(user)
         db.session.commit()
-        print('account confirmed')
     return redirect(url_for('main.index'))
 
+@bp.route('/resend')
+@login_required
+def resend_confirmation():
+    token = generate_confirmation_token(current_user.email)
+    confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+    html = render_template('auth/activate.html', confirm_url=confirm_url)
+    subject = "Please confirm your email"
+    send_email(subject, current_user.email, html)
+    flash('A new confirmation has been sent')
+    return redirect(url_for('auth.unconfirmed'))
+
+@bp.route('/unconfirmed/')
+@login_required
+def unconfirmed():
+    if current_user.confirmed:
+        return redirect(url_for('main.index'))
+    flash('Please confirm your account')
+    return render_template('auth/unconfirmed.html')
 
 # Password reset CHECK THIS
 # @bp.route('/reset_password_request', methods=['GET', 'POST'])

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, redirect, url_for, request, g, jsonify, current_app
+from flask import render_template, redirect, url_for, request, g, jsonify, current_app, flash
 from flask_login import current_user, login_required
 from flask_mail import Message
 from markupsafe import escape
@@ -7,6 +7,7 @@ from sqlalchemy.sql import text
 from app import db, mail
 from app.main import bp
 from app.auth import routes
+from app.filters import check_confirmed
 from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
@@ -209,6 +210,7 @@ def comment():
 
 @bp.route('/user/<username>/', methods=['GET'])
 @login_required
+@check_confirmed
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = get_posts_by_user(user_id=user.id)
