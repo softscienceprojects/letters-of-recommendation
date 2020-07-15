@@ -1,0 +1,40 @@
+{% extends "container.html" %}
+
+{% block content %}
+    {% block imagepage %}
+        <div id="user-profile">
+            <div class="user-top-of-profile">
+                <h1>{{image.filename}}</h1>
+    id        
+    asset_id        
+    filename   
+    version    
+    public_id    
+    user . get_profile_photo()
+
+                <img src="{{ image.get_postedit_format_photo() }}" class="profile-picture" />
+        <div class="user-options-panel">        
+                <a href="">Link</a>
+        </div>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="user-posts">
+                    {% if post.heroImage_id %}
+                        <div class="user-profile-post-img">
+                            <a href="{{ url_for('main.post', post_id=post.id) }}"><img src={{ post.get_post_hero_image() }} /></a>
+                        </div>
+                    {% endif %}
+                    <div class="user-profile-post-post">
+                        <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p></h2>
+                        {% for tag in post.posttags.all() %}
+                            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p><em>No posts</em></p>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

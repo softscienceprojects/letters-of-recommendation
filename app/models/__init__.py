@@ -18,12 +18,15 @@ def save_post(**kwargs):
 
 def break_up_tags(post, tags):
     all_tags = []
-    for tag in tags.split(','):
-        tag = tag.strip().lower()
-        if tag != '':
-            found_or_made_tag = get_or_create_by(Tag, name=tag)
-            all_tags.append(found_or_made_tag)    
-    create_or_remove_postTag(all_tags, post)
+    if tags:
+        for tag in tags.split(','):
+            tag = tag.strip().lower()
+            if tag != '':
+                found_or_made_tag = get_or_create_by(Tag, name=tag)
+                all_tags.append(found_or_made_tag)    
+        create_or_remove_postTag(all_tags, post)
+    else:
+        return all_tags
 
 
 def create_or_remove_postTag(tags_list, post):

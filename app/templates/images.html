@@ -1,0 +1,16 @@
+{% extends "gridcontainer.html" %}
+
+{% block content %}
+    {% block images_list %}
+        
+        {% if images %}
+            {% for image in images %}
+                <div class="post-card">
+                    <div class="image-for-post" style="background-image: url({{ image.get_postedit_format_photo() }});"><a class="div-link" href="{{ url_for('main.image', filename=image.filename) }}"></a></div>                    
+                </div>
+            {% endfor %}
+        {% else %}
+            <p> no images</p>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

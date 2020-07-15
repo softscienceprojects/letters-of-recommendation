@@ -56,12 +56,6 @@ def register():
         return redirect(url_for('auth.unconfirmed'))
     return render_template('auth/register.html', form=form)
 
-@bp.route('/test-auth/')
-def test_auth():
-    confirm_url = url_for('auth.confirm_email', token="123", _external=True)
-    #return render_template('auth/activate.html', confirm_url=confirm_url)
-    print('going to try to confirm')
-    return redirect(url_for('auth.confirm_email', token='123'))
 
 @bp.route('<user_id>/change-password/', methods=['GET', 'POST'])
 @login_required

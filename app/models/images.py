@@ -25,8 +25,27 @@ class Image(db.Model):
     def get_postedit_format_photo(self):
         """
         format each image for the posts/post/edit page
+        returns e.g. 
+        https://res.cloudinary.com/CLOUDINARY_CLOUD_NAME/image/upload/ || v1593793073/ || hlcfxuy4fcveyrlmu6z4 || .gif
         """
         return f"{BASE_CLOUDINARY_URL}/v{self.version}/{self.public_id}.{self.format}"
+
+    def get_all_images_choices():
+        # need to just get the non-profile photos
+        imagesList = [(image.asset_id, image.id) for image in Image.query.all()]
+        return imagesList
+
+    """
+    (Replace version)
+    Preview size
+    CloudinaryImage("sample.jpg").image(quality=45, width=600, crop="scale")
+    https://res.cloudinary.com/dxhxxbycl/image/upload/c_scale,q_45,w_600/sample.jpg
+    
+    Profile image
+    CloudinaryImage("sample.jpg").image(effect="grayscale", height=600, quality=33, width=400, crop="fill")
+    https://res.cloudinary.com/dxhxxbycl/image/upload/c_fill,e_grayscale,h_600,q_33,w_400/sample.jpg
+    """
+
 
 
 ## HELPER - note this is outside of class

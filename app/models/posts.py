@@ -102,6 +102,7 @@ class Post(db.Model):
     def set_post_hero_image(self, image_asset_id):
         image = Image.query.filter_by(asset_id=image_asset_id).first()
         self.heroImage_id = image.id
+        db.session.commit()
         return self
 
     def remove_images_from_post(self, images_list):

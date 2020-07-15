@@ -13,6 +13,7 @@ from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
 import os
+import pdb
 
 # @bp.before_app_request
 # def before_request():
@@ -78,10 +79,14 @@ def posts():
 def post_new():
     if current_user.isWriter:
         form = PostForm()
+        form.selectHeroList.choices = Image.get_all_images_choices()
         if form.validate_on_submit():
             post = save_post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
             tags = escape(break_up_tags(post, form.tags.data))
+            hero = post.set_post_hero_image(form.selectHeroList.data)
+            #upload_image(form.images.data, post) ???
             return redirect(url_for('main.post', post_id=post.id))
+        print(form.errors)
         return render_template('_post.html', form=form, post=None)
     else:
         return redirect(url_for('main.index'))
@@ -100,7 +105,7 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.selectHeroList.choices = post.get_image_choices() # fix this post.get_hero_image_choices()
+    form.selectHeroList.choices = post.get_hero_image_choices() # fix this post.get_hero_image_choices()
     form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
     if post.author == current_user:
         if form.validate_on_submit():
@@ -121,7 +126,7 @@ def post_edit(post_id):
     else:
         return redirect(url_for('main.index'))
 
-@bp.route('/posts/<post_id>/delete/', methods=['POST'])
+@bp.route('/posts/<post_id>/edit/delete/', methods=['POST'])
 @login_required
 def post_delete(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
@@ -131,8 +136,7 @@ def post_delete(post_id):
         db.session.commit()
         response = jsonify({'current_user': current_user.id, 'next': url_for('main.user', username=current_user.username)})
         response.status_code = 202
-        #response.headers['Location']
-        #redirect(url_for('main.user', username=current_user.username))
+        redirect(url_for('main.user', username=current_user.username))
         return response
 
 @bp.route('/like/<post_id>/')
@@ -186,9 +190,23 @@ def comment():
 
 ## IMAGES ###################################################
 
+@bp.route('/images/', methods=['GET'])
+@login_required
+def images():
+    images = Image.query.all()
+    return render_template('images.html', images=images, title="Images")
+
+@bp.route('/images/<filename>')
+@login_required
+def image(filename):
+    image = Image.query.filter_by(filename=filename).first()
+    posts = image.posts.all()
+    return render_template('image.html', image=image, posts=posts)
+
 # @bp.route('/images/upload/<image>', methods=['GET', 'POST']) # just POST?
 # @login_required
 # def upload_image(image):
+        ## => upload_image(form.images.data, post)
 #     if request.method == 'POST':
 #         if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: 
 #             ## 'video/mp4'
