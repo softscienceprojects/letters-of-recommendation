@@ -1,0 +1,18 @@
+{% extends "container.html" %}
+
+{% block content %}
+    <div class="auth-form">
+    <form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <p>
+    {{ form.images.label }}<br>
+    {{ form.images }}
+        {% for error in form.images.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </p>
+    
+    <p>{{ form.submit() }}</p>
+    </form>
+    </div>
+{% endblock %}

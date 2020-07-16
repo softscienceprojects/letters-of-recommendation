@@ -127,6 +127,7 @@ h1 {
     /* border-bottom: 15px solid black;
     padding-bottom: 30px; */
     text-transform: uppercase;
+    line-break: anywhere;
 }
 
 blockquote {

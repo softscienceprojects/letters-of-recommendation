@@ -5,16 +5,13 @@
         <div id="user-profile">
             <div class="user-top-of-profile">
                 <h1>{{image.filename}}</h1>
-    id        
-    asset_id        
-    filename   
-    version    
-    public_id    
-    user . get_profile_photo()
+                <p><strong>id:</strong> {{ image.id }} | <strong>asset_id: </strong> {{ image.asset_id }} | 
+                <strong>public_id: </strong> {{ image.public_id }}
+                </p>
 
-                <img src="{{ image.get_postedit_format_photo() }}" class="profile-picture" />
+                <img src="{{ image.get_postedit_format_photo() }}" class="" />
         <div class="user-options-panel">        
-                <a href="">Link</a>
+                <button id="delete-image">Delete this image</button>
         </div>
         {% if posts %}
             {% for post in posts %}
@@ -36,5 +33,6 @@
         {% else %}
             <p><em>No posts</em></p>
         {% endif %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
     {% endblock %}
 {% endblock %}

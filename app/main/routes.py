@@ -8,7 +8,7 @@ from app import db, mail
 from app.main import bp
 from app.auth import routes
 from app.filters import check_confirmed
-from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial
+from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial, ImageForm
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
@@ -105,7 +105,7 @@ def post(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.selectHeroList.choices = post.get_hero_image_choices() # fix this post.get_hero_image_choices()
+    form.selectHeroList.choices = Image.get_all_images_choices() #post.get_hero_image_choices() # fix this post.get_hero_image_choices()
     form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
     if post.author == current_user:
         if form.validate_on_submit():
@@ -193,36 +193,40 @@ def comment():
 @bp.route('/images/', methods=['GET'])
 @login_required
 def images():
-    images = Image.query.all()
+    images = Image.query.order_by(Image.id.desc()).all()
     return render_template('images.html', images=images, title="Images")
 
-@bp.route('/images/<filename>')
+@bp.route('/images/<asset_id>')
 @login_required
-def image(filename):
-    image = Image.query.filter_by(filename=filename).first()
+def image(asset_id):
+    image = Image.query.filter_by(asset_id=asset_id).first()
     posts = image.posts.all()
     return render_template('image.html', image=image, posts=posts)
 
-# @bp.route('/images/upload/<image>', methods=['GET', 'POST']) # just POST?
-# @login_required
-# def upload_image(image):
-        ## => upload_image(form.images.data, post)
-#     if request.method == 'POST':
+
+@bp.route('/images/upload/', methods=['GET', 'POST'])
+@login_required
+def images_upload():
+    form = ImageForm()
+    if form.validate_on_submit():
+        images = upload_image(form.images.data)
+        return redirect(url_for('main.images'))
 #         if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: 
 #             ## 'video/mp4'
 #             ## Also need to check for file size!!!
 #             file = request.files['file']
 #             filename = "{}{}".format(user.id, user.username)
-#             #upload_result = _cloudinary_upload(file, folder="profile_pics", public_id=filename, resource_type="image")
-#             print(upload_result)
-#             try:
-#                 #user.profile_picture = f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
-#                 db.session.commit()
-#             except:
-#                 pass #do something?? db.session.rollback() and maybe delete cloudinary image
-#         # else: .... we need to tell them no
-#     pass
-#     # return redirect(url_for('main.post', post_id=post.id))) ##need to get that too, for association table
+    return render_template('_image.html', form=form)
+
+@bp.route('/images/<asset_id>/delete/', methods=['POST'])
+@login_required
+def images_delete(asset_id):
+    image = Image.query.filter_by(asset_id=asset_id).first()
+    image.delete_image()
+    response = jsonify({'next': url_for('main.images')})
+    response.status_code = 202
+    #redirect(url_for('main.images'))
+    return response
     
 ## USERS #####################################################
 

@@ -71,10 +71,8 @@ if (confirmDeleteButton) {
   
         const confirmDelete = await dialog.confirm();
         if (confirmDelete) {
-          //let id = window.location.pathname.split('/')[2]
-          ///posts/<int:post_id>/delete/
-          //"posts/" + pathname[2] +posts/${id}/
-          window.app.destroy()
+          let id = window.location.pathname.split('/')[2]
+          window.app.destroy(`/posts/${id}/edit/delete/`)
       }
   });
 

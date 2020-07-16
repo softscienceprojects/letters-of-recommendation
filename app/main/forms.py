@@ -48,6 +48,18 @@ class PostForm(FlaskForm):
         if original_tags:
             self.original_tags = original_tags
 
+
+class ImageForm(FlaskForm):
+    images = MultipleFileField('upload images (jpg, gif, png only)')
+    submit = SubmitField('submit')
+
+    # def __init__(self, original_username, *args, **kwargs):
+    #     #inherit the original functionality from FlaskForm
+    #     super(EditProfileForm, self).__init__(*args, **kwargs)
+    #     self.original_username = original_username
+
+
+
 class CommentForm(FlaskForm):
     #datePosted = db.Column(db.DateTime, default=datetime.utcnow)
     #post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
@@ -59,4 +71,5 @@ class CommentForm(FlaskForm):
         super(CommentForm, self).__init__(*args, **kwargs)
         if original_message:
             self.original_message = original_message
+
 

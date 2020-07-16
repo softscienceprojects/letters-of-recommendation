@@ -34,7 +34,6 @@ def logout():
 
 @bp.route('/register/', methods=['GET', 'POST'])
 def register():
-    print(url_for('auth.test_auth'))
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = RegistrationForm()
@@ -44,9 +43,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = generate_confirmation_token(user.email)
-        print("TOKEN: ", token)
         confirm_url = url_for('auth.confirm_email', token=token, _external=True)
-        print('URL: ', confirm_url)
         html = render_template('auth/activate.html', confirm_url=confirm_url)
         subject = "Please confirm your email"
         send_email(subject, user.email, html)
