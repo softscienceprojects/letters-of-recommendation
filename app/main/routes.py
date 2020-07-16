@@ -187,7 +187,6 @@ def comment():
     form = CommentForm()
     pass
     
-
 ## IMAGES ###################################################
 
 @bp.route('/images/', methods=['GET'])
@@ -200,8 +199,9 @@ def images():
 @login_required
 def image(asset_id):
     image = Image.query.filter_by(asset_id=asset_id).first()
-    posts = image.posts.all()
-    return render_template('image.html', image=image, posts=posts)
+    posts = [('post', i) for i in image.posts.order_by(Post.datePosted.desc()).all()]
+    heros = [('hero', h) for h in Post.query.filter_by(heroImage_id=image.id).all()]
+    return render_template('image.html', image=image, posts=posts+heros)
 
 
 @bp.route('/images/upload/', methods=['GET', 'POST'])

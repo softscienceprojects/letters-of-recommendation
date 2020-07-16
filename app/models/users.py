@@ -76,6 +76,8 @@ class User(UserMixin, db.Model):
                 return f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
             except:
                 pass
+        else:
+            return self.profile_picture
 
     def get_profile_photo(self):
         """

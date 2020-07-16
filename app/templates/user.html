@@ -20,12 +20,13 @@
         {% if user == current_user %}
         
             {% if user.isWriter == True %}
-                <a href="{{ url_for('main.post_new') }}">Write a post</a>
+            <p><a href="{{ url_for('main.post_new') }}">Write a post</a>
                 <a href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}">Drafts</a>
+                <a href="{{ url_for('main.images') }}">Manage Images</a></p>
             {% endif %}
             {% if user == current_user %}
-                <a href="{{ url_for('main.posts', liked=user.username) }}">Liked posts</a>
-                <a href="{{ url_for('main.user_feed', username=user.username) }}">Your feed</a>
+            <p><a href="{{ url_for('main.posts', liked=user.username) }}">Liked posts</a>
+                <a href="{{ url_for('main.user_feed', username=user.username) }}">Your feed</a></p>
             {% endif %}
             <p><a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a>
                <a href="{{ url_for('auth.change_password', user_id=current_user.id) }}">Change your password</a></p>
