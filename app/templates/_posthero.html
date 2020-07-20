@@ -1,0 +1,22 @@
+{% extends "container.html" %}
+
+{% block content %}
+<div class='auth-form'>   
+    
+    <form action="" method="post" enctype="multipart/form-data">
+    <h3>Select a hero image</h3>
+    {{ form.hidden_tag() }}
+    {% for option in form.selectHeroList %}   
+            <div class="post-image-form"> 
+            {{ option }} <img src={{ option.data | image_url }} style="max-width: 100px;"/>
+            </div>
+        {% endfor %}
+        {% for error in form.selectHeroList.errors %}
+            <ul>
+                <li><span style="color: red;">Can't set as hero image: {{ error }}</span></li>
+            </ul>
+        {% endfor %}    
+    <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}

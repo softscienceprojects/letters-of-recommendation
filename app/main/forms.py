@@ -30,10 +30,17 @@ class EditProfileForm(FlaskForm):
 class SelectHeroPartial(Form):
     selectHero = RadioField("Select hero image: ", choices = [1,2,3])
 
+class PostHero(FlaskForm):
+    selectHeroList = RadioField("Select hero image: ") #FieldList(FormField(SelectHeroPartial))
+    submit = SubmitField('set image')
+
+    def __init__(self, *args, **kwargs):
+        super(PostHero, self).__init__(*args, **kwargs)
+
+
 class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     images = MultipleFileField('images: ')
-    selectHeroList = RadioField("Select hero image: ") #FieldList(FormField(SelectHeroPartial))
     removeImages = SelectMultipleField("Remove this image from post: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})

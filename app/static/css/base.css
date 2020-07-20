@@ -132,9 +132,9 @@ h1 {
 
 blockquote {
     font-size: 200%;
-    font-style: italic;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Syne-Bold', sans-serif;
     line-height: 1;
+    text-align: center;
 }
 
 code {
@@ -352,6 +352,11 @@ dialog {
 
 .post-body {
     line-height: 1.5;
+    padding: 2em;
+    min-width: 450px;
+    border-left: 3px solid var(--clay);
+    border-right: 3px solid var(--clay);
+    margin-bottom: 50px;
 }
 
 .post-content {

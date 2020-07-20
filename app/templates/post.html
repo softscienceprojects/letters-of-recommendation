@@ -10,15 +10,11 @@
  
         <div class="post-title-details">
             <h1>{{ post.title }}</h1>
-            <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a> 
-        </div>
-
-    {% if post.author == current_user %} 
-                    | <span class="flag-edit">{{ post.isLive | poststatus }}</span>
-                    <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a>
+            <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2> 
+           {% if post.author == current_user %} 
+            <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}"><span class="flag-edit">Change hero image</span></a><br />
             {% endif %}
-            </h2>
-            <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+        </div>
 
 
     <div class="post-body">
@@ -33,14 +29,19 @@
         {% endif %}
         <p>{{ post.body | safe }}</p>
     </div>
-    
-    <span class="label">Like this? Read more &rarr;</span>
+    {% if post.author == current_user %} 
+            <span class="flag-edit">{{ post.isLive | poststatus }}</span>
+            <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a><br />
+    {% endif %}
+    <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+    <span class="label">Read more &rarr;</span>
     {% for tag in post.posttags.all() %}
         <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
     {% if not current_user.is_anonymous %}
         <!-- Chat about this -->
-    {% endif %}
     <div id="comments"></div>
-    </div>
+    {% endif %}
+    
+</div>
 {% endblock %}

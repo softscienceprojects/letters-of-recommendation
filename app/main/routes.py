@@ -8,7 +8,7 @@ from app import db, mail
 from app.main import bp
 from app.auth import routes
 from app.filters import check_confirmed
-from app.main.forms import EditProfileForm, PostForm, CommentForm, SelectHeroPartial, ImageForm
+from app.main.forms import EditProfileForm, PostForm, CommentForm, ImageForm, PostHero
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
@@ -100,26 +100,40 @@ def post(post_id):
     # message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
     return render_template('post.html', post=post)
 
+@bp.route('/posts/<post_id>/edit-hero', methods=['GET', 'POST'])
+@login_required
+def post_edit_hero(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = PostHero()
+    form.selectHeroList.choices = Image.get_all_images_choices() #post.get_hero_image_choices() # fix this post.get_hero_image_choices()
+    if post.author == current_user:
+        if form.validate_on_submit():
+            hero = post.set_post_hero_image(form.selectHeroList.data)
+            db.session.commit()
+            return redirect(url_for('main.post', post_id=post.id))
+        elif request.method == 'GET':
+            form.selectHeroList.data = post.get_post_hero_image_for_forms()
+        return render_template('_posthero.html', form=form)
+    else:
+        return redirect(url_for('main.index'))
+
 @bp.route('/posts/<post_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.selectHeroList.choices = Image.get_all_images_choices() #post.get_hero_image_choices() # fix this post.get_hero_image_choices()
     form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
-            hero = post.set_post_hero_image(form.selectHeroList.data)
             remove_images = post.remove_images_from_post(form.removeImages.data)
             db.session.commit()
             upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
-            form.selectHeroList.data = post.get_post_hero_image_for_forms()
             form.body.data = post.body
             form.tags.data = ','.join([tag.name for tag in post.posttags.all()])
         return render_template('_post.html', form=form, post=post)
