@@ -25,10 +25,7 @@
     <body>
         <div id="encompass">          
         <button id="menu-button" class="button-base"><span class="label"><i class="material-icons">fullscreen</i></span></button>
-                <nav class="">
-
-                    {% include '_nav.html' %}
-                </nav>
+        {% include '_nav.html' %}
         {% block splash %}{% endblock %}
         {% block container %}{% endblock %}
         {% block gridcontainer %}{% endblock %}

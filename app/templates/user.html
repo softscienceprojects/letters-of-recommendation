@@ -19,10 +19,13 @@
         <div class="user-options-panel">
         {% if user == current_user %}
         
-            {% if user.isWriter == True %}
-            <p><i class="material-icons">edit</i><a href="{{ url_for('main.post_new') }}"> Write a post</a>
+            {% if user.isWriter == True or user.isEditor == True %}
+            <p><i class="material-icons">create</i><a href="{{ url_for('main.post_new') }}"> Write a post</a>
             <i class="material-icons">text_snippet</i><a href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}">Drafts</a>
             <i class="material-icons">camera_alt</i><a href="{{ url_for('main.images') }}">Manage Images</a></p>
+            {% endif %}
+            {% if user.isEditor == True %}
+            <i class="material-icons">text_snippet</i><a href="{{ url_for('main.posts', drafts='all') }}">All Drafts</a>
             {% endif %}
             {% if user == current_user %}
             <p><i class="material-icons user-option">favorite</i><a href="{{ url_for('main.posts', liked=user.username) }}">  Liked posts</a>

@@ -2,13 +2,13 @@
 
 {% block content %}
 <div class='auth-form'>
-    {% if post.id %}
     <div>
+    {% if post.id %}
         {{ post.isLive | poststatus }}  <button id="delete-post" class="button-base button-danger">Delete this post</button>
     <hr />
     {% endif %}
         
-    <form action="" method="post" class="edit-post" name="post" enctype="multipart/form-data">
+    <form action="" method="post" class="edit-post" name="post" enctype="multipart/form-data" autocomplete="off">
     {{ form.hidden_tag() }}
     <p>{{ form.title }}</p>
         {% for error in form.title.errors %}
@@ -45,10 +45,12 @@
     </form>
 
     {% if post.id %}
+    {% if current_user.isEditor %}
     {% if post.isLive == False %}
        <a href="{{ url_for('main.golive', post_id=post.id) }}">Make public</a>
         {% else %}
         <a href="{{ url_for('main.makedraft', post_id=post.id) }}">Revert to draft</a>
+    {% endif %}
     {% endif %}
     {% endif %}
     </div>

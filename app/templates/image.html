@@ -5,6 +5,11 @@
         <div id="user-profile">
             <div class="user-top-of-profile">
                 <h1>{{image.filename}}</h1>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {{ messages[0] }}
+                    {% endif %}
+                {% endwith %}
                 <p><strong>id:</strong> {{ image.id }} | <strong>asset_id: </strong> {{ image.asset_id }} | 
                 <strong>public_id: </strong> {{ image.public_id }}
                 </p>
@@ -18,6 +23,7 @@
                 </p>
                 <p>{{ form.submit() }}</p>
                 </form>
+                
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
            
         {% if posts %}

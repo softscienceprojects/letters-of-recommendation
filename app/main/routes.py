@@ -48,6 +48,7 @@ def posts():
         - tag: tag
         - user_id: written by provided user_id - for seeing drafts
         - liked: liked by the provided user
+        - drafts: for user.isEditor - see all drafts by anyone
 
         if no args provided, just return all the live posts
     """
@@ -61,6 +62,11 @@ def posts():
             else:
                 user = User.query.filter_by(id=request.args.get('user_id')).first_or_404()
                 return redirect(url_for('main.user', username=user.username))
+        elif request.args.get('drafts'):
+            if current_user.is_authenticated and current_user.isEditor:
+                posts = Post.query.filter_by(isLive=False).all()
+            else:
+                return redirect(url_for('main.index'))
         elif request.args.get('liked'):
             user = User.query.filter_by(username=request.args.get('liked')).first()
             posts = user.liked_posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
@@ -77,13 +83,11 @@ def posts():
 @bp.route('/posts/new/', methods=['GET', 'POST'])
 @login_required
 def post_new():
-    if current_user.isWriter:
+    if current_user.isWriter or current_user.isEditor:
         form = PostForm()
-        form.selectHeroList.choices = Image.get_all_images_choices()
         if form.validate_on_submit():
             post = save_post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
             tags = escape(break_up_tags(post, form.tags.data))
-            hero = post.set_post_hero_image(form.selectHeroList.data)
             #upload_image(form.images.data, post) ???
             return redirect(url_for('main.post', post_id=post.id))
         print(form.errors)
@@ -222,6 +226,7 @@ def image_show(asset_id):
         image.alt_tag = escape(form.alt_tag.data)
         image.caption = escape(form.caption.data)
         db.session.commit()
+        flash("Updated successfully")
         return redirect(url_for('main.image_show', asset_id=image.asset_id))
     elif request.method == 'GET':
         form.alt_tag.data = image.alt_tag

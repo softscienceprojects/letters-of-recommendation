@@ -94,7 +94,7 @@ img {
 }
 
 .image-for-post {
-    width: 100%;
+    width: 50%;
     height: 100%;
     /* padding-bottom: 150%; */
     background-size: cover;
@@ -185,6 +185,13 @@ a.div-link {
     color: var(--bone);
 }
 
+
+a.icon-block i {
+    display:block;
+    clear:both;
+}
+
+/* -------------- ONWARD ---------------- */
 
 
 .flag-edit {
@@ -336,7 +343,7 @@ dialog {
 }
 
 .grid-view-wrapper {
-    margin: 30px auto 0 auto;
+    margin: 30px 0 0 0;
 }
 
 .auth-form {
@@ -379,11 +386,13 @@ dialog {
     }
 }
 
+.post-leaderboard {
+    display: flex;
+}
+
 .hero-image-display {    
     height: 100vh;
     width: calc(100% - 33%);
-    position: absolute;
-    z-index: -100;
     box-sizing: border-box;
     overflow: hidden;
     /* display: flex; */
@@ -396,8 +405,8 @@ dialog {
 }
 
 .post-title-details {
-    margin-bottom: calc(100vh - 500px);
-    height: 500px;
+    margin: auto;
+    padding: 0 20px;
 }
 
 .post-body {
@@ -425,10 +434,6 @@ dialog {
     .post-content {
         max-width: 50vw;
     }
-    .post-card {
-        width: 33.3%;
-        min-width: 33.3vw;
-    }
 
     .post-body {
         min-width: 450px;
@@ -436,10 +441,6 @@ dialog {
 }
 
 @media only screen and (max-width: 799px) {
-    .post-card {
-        width: 100%;
-    }
-
     .post-body {
         font-size: 90%;
     }
@@ -449,13 +450,13 @@ dialog {
 .post-card {
     /* width: 33.3%;
     min-width: 33.3vw; */
-    height: 35rem; /* 33.3% */
+    width: 100%;
+    height: 100vh; /* 33.3% */
     box-sizing: border-box;
     display: flex;
     position: relative;
     /* background-color: var(--seafoam); */
-    flex-direction: column-reverse;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 /* .grid-container > div {
@@ -464,12 +465,14 @@ dialog {
 } */
 
 .post-card-details {
-    /* position: absolute; */
+    position: sticky;
+    top: 0;
+    height: 200px;
     /* bottom: 10%; */
-    width: 100%;
-    margin: auto;
+    width: 50%;
     box-sizing: border-box;
     padding: 15px 5px;
+    background-color: var(--cloud);
 }
 
 
@@ -481,9 +484,37 @@ dialog {
     border: 3px dashed var(--blue-blush);
 }
 
+.auth-form input[type=text],
+.auth-form input[type=password],
+.auth-form input[type=files],
+.auth-form input[type=email],
+.auth-form textarea {
+    width: 100%;
+}
+
 .edit-post input, .edit-post textarea {
     border: 0;
     background-color: #fff;
+}
+
+.edit-post input[name=title] {
+    font-family: 'Syne-Bold', sans-serif;
+    font-size: 2em;
+}
+
+.edit-post input[name=intro] {
+    font-family: 'Syne-Bold', sans-serif;
+    font-size: 1em;
+}
+
+.edit-post textarea {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1em;
+}
+
+.edit-post input[name=tags] {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-style: italic;
 }
 
 .tag-list-highlight {
