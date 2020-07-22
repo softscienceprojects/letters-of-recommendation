@@ -8,11 +8,18 @@
                 <p><strong>id:</strong> {{ image.id }} | <strong>asset_id: </strong> {{ image.asset_id }} | 
                 <strong>public_id: </strong> {{ image.public_id }}
                 </p>
-
+                <form action="" method="post" >
+                {{ form.hidden_tag() }}
+                <p>
+                {{ form.alt_tag.label }} {{ form.alt_tag }}
+                </p>
+                <p>
+                {{ form.caption.label }} {{ form.caption }}
+                </p>
+                <p>{{ form.submit() }}</p>
+                </form>
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
-        <div class="user-options-panel">        
-                <button id="delete-image">Delete this image</button>
-        </div>
+           
         {% if posts %}
             {% for post in posts %}
                 <div class="user-posts">
@@ -34,6 +41,9 @@
         {% else %}
             <p><em>No posts</em></p>
         {% endif %}
+        <div class="user-options-panel">        
+                <button id="delete-image">Delete this image</button>
+        </div>
         <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
     {% endblock %}
 {% endblock %}

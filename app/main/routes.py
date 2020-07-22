@@ -8,7 +8,7 @@ from app import db, mail
 from app.main import bp
 from app.auth import routes
 from app.filters import check_confirmed
-from app.main.forms import EditProfileForm, PostForm, CommentForm, ImageForm, PostHero
+from app.main.forms import EditProfileForm, PostForm, CommentForm, ImageForm, PostHero, EditImageForm
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
@@ -126,6 +126,7 @@ def post_edit(post_id):
     if post.author == current_user:
         if form.validate_on_submit():
             post.title = form.title.data
+            post.intro = form.intro.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
             remove_images = post.remove_images_from_post(form.removeImages.data)
@@ -134,6 +135,7 @@ def post_edit(post_id):
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
+            form.intro.data = post.intro
             form.body.data = post.body
             form.tags.data = ','.join([tag.name for tag in post.posttags.all()])
         return render_template('_post.html', form=form, post=post)
@@ -209,13 +211,22 @@ def images():
     images = Image.query.order_by(Image.id.desc()).all()
     return render_template('images.html', images=images, title="Images")
 
-@bp.route('/images/<asset_id>')
+@bp.route('/images/<asset_id>', methods=['GET', 'POST'])
 @login_required
-def image(asset_id):
+def image_show(asset_id):
     image = Image.query.filter_by(asset_id=asset_id).first()
     posts = [('post', i) for i in image.posts.order_by(Post.datePosted.desc()).all()]
     heros = [('hero', h) for h in Post.query.filter_by(heroImage_id=image.id).all()]
-    return render_template('image.html', image=image, posts=posts+heros)
+    form = EditImageForm()
+    if form.validate_on_submit():
+        image.alt_tag = escape(form.alt_tag.data)
+        image.caption = escape(form.caption.data)
+        db.session.commit()
+        return redirect(url_for('main.image_show', asset_id=image.asset_id))
+    elif request.method == 'GET':
+        form.alt_tag.data = image.alt_tag
+        form.caption.data = image.caption
+    return render_template('image.html', image=image, posts=posts+heros, form=form)
 
 
 @bp.route('/images/upload/', methods=['GET', 'POST'])
@@ -290,14 +301,14 @@ def users():
     if request.args:
         if request.args.get('following'):
             users = User.query.filter_by(username=request.args.get('following')).first().followed
-            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
+            message = "{} following found".format(users.count())
         elif request.args.get('followers'):
             users = User.query.filter_by(username=request.args.get('followers')).first().followers
-            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s")
+            message = "{} follower{} found".format(users.count(), "" if users.count() == 1 else "s")
         elif request.args.get('liked_post'):
             post = Post.query.filter_by(id=request.args.get('liked_post')).first()
             users = post.likers
-            message = "{} user{} found".format(users.count(), "" if users.count() == 1 else "s") # grrr
+            message = "{} like{} found".format(users.count(), "" if users.count() == 1 else "s") # grrr
         else:
             return redirect(url_for('main.index'))
     else:

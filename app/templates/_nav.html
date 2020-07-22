@@ -1,21 +1,20 @@
 <div id="nav-contents">
 <ul class="nav">
-    <li><a href="{{ url_for('main.index') }}">Home</a></li>
-    <li><a href="{{ url_for('main.about') }}">About</a></li>
-    <li><a href="{{ url_for('main.posts') }}">All posts</a></li>
+    <li><a href="{{ url_for('main.index') }}">HOME</a></li>
+    <li><a href="{{ url_for('main.posts') }}">LETTERS</a></li>
     {# Projects #}
     {# Community #}
     {# Events #}
     {% if current_user.is_anonymous %}
-        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+        <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
+        <li><a href="{{ url_for('auth.register') }}">SIGN UP</a></li>
     {% else %}
         {% if current_user.confirmed and current_user.is_authenticated %}
-            <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+            <li><a href="{{ url_for('main.user', username=current_user.username) }}">PROFILE</a></li>
         {% elif current_user.is_authenticated %}
-            <li><a href="{{ url_for('auth.unconfirmed') }}">Confirm</a></li>
+            <li><a href="{{ url_for('auth.unconfirmed') }}">CONFIRM</a></li>
         {% endif %}
-        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">LOGOUT</a></li>
     {% endif %}
 </ul>
 </div>

@@ -15,6 +15,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     datePosted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.String, nullable=False)
+    intro = db.Column(db.String)
     body = db.Column(db.String, nullable=False)
     isLive = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

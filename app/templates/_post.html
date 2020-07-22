@@ -21,7 +21,7 @@
         <h3>Remove image from post</h3>
         {% for option in form.removeImages %}
             <div class="post-image-form">
-                {{ option }} <img src={{ option.data | image_url }} class="profile-picture" />
+                {{ option }} <img src={{ option.data | image_url }} class="profile-picture" alt={{ option.data }} />
             </div>
         {% endfor %}
         {% for error in form.removeImages.errors %}
@@ -33,7 +33,7 @@
     <h3>Upload new images to this post</h3>
     {{ form.images }}
 
-
+    <p>{{ form.intro }}</p>
     <p>{{ form.body }}</p>
         {% for error in form.body.errors %}
         <span style="color: red;">{{ error }}</span>

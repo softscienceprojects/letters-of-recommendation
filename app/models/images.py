@@ -13,6 +13,8 @@ class Image(db.Model):
     version = db.Column(db.String, nullable=False) # response['secure_url'].split('/')[-3:] ##...for profile pics
     public_id = db.Column(db.String, nullable=False) # response['public_id']
     format = db.Column(db.String) # response['format'] ## the filetype e.g. jpg
+    caption = db.Column(db.String)
+    alt_tag = db.Column(db.String)
     
 
     # posts = db.relationship('Post', secondary=postTags, lazy='dynamic', backref=db.backref('posttags', lazy='dynamic'))

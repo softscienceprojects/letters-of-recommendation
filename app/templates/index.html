@@ -5,10 +5,10 @@
         {% if post.heroImage_id %}
             <div class="splash-back" style="background-image: url({{ post.get_post_hero_image() }});"></div>
         {% endif %}
-        <div class="splash">
-            <div>
-            <a href="{{ url_for('main.post', post_id=post.id) }}"><h1 id="title">{{ post.title }}</h1></a>
+        <div class="content">
+            <div class="splash">
             <div class="splash-tags">
+                <a href="{{ url_for('main.post', post_id=post.id) }}"><h1 id="title">{{ post.title }}</h1></a>
                 <p>
                 {% for tag in post.posttags %}
                    <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>

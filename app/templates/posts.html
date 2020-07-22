@@ -10,6 +10,7 @@
                 {% else %}
                 <div class="post-card draft">
                 {% endif %}
+                
                 <div class="post-card-details">
                         <h2 class='byline'><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                         {% for tag in post.posttags %}
@@ -17,7 +18,9 @@
                         {% endfor %}
                 </div>
                     {% if post.heroImage_id %}
-                        <div class="image-for-post" style="background-image: url({{ post.get_post_hero_image() }});"></div>
+                        <div class="image-for-post" style="background-image: url({{ post.get_post_hero_image() }});">
+                            <a href="{{ url_for('main.post', post_id=post.id) }}"></a>
+                        </div>
                     {% endif %}
                     
                 </div>

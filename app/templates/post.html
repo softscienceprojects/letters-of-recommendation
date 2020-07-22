@@ -2,9 +2,7 @@
 
 {% block content %}
     {% if post.heroImage_id %}
-    <div class="hero-image-display">
-        <img src={{ post.get_post_hero_image() }} />
-    </div>
+    <div class="hero-image-display" style="background-image: url( {{ post.get_post_hero_image() }} );"></div>
     {% endif %}
     <div class="post-content">
  
@@ -30,14 +28,16 @@
         <p>{{ post.body | safe }}</p>
     </div>
     {% if post.author == current_user %} 
-            <span class="flag-edit">{{ post.isLive | poststatus }}</span>
-            <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a><br />
+        <span class="flag-edit">{{ post.isLive | poststatus }}</span>
+        <a href="{{ url_for('main.post_edit', post_id=post.id) }}"><span class="flag-edit">Edit this post</span></a><br />
     {% endif %}
     <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
     <span class="label">Read more &rarr;</span>
     {% for tag in post.posttags.all() %}
         <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
     {% endfor %}
+
+   
     {% if not current_user.is_anonymous %}
         <!-- Chat about this -->
     <div id="comments"></div>

@@ -15,14 +15,18 @@ let menuButton = document.querySelector('#menu-button');
 let nav = document.querySelector('nav');
 
 closeNav = function() {
-    menuButton.style.textDecoration="none";
+    menuButton.innerHTML = '<i class="material-icons">fullscreen</i>';
+    menuButton.classList.add('menu-button-open')
+    menuButton.classList.remove('menu-button-close')
     nav.classList.remove('display-show');
     nav.classList.add('display-hide');
     sessionStorage.setItem('navMenu', 'closed')
 }
 
 openNav = function() {
-    menuButton.style.textDecoration="line-through";
+    menuButton.innerHTML = '<i class="material-icons">fullscreen_exit</i>';
+    menuButton.classList.add('menu-button-close')
+    menuButton.classList.remove('menu-button-open')
     nav.classList.remove('display-hide');
     nav.classList.add('display-show')
     sessionStorage.setItem('navMenu', 'open')

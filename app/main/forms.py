@@ -42,6 +42,7 @@ class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
     images = MultipleFileField('images: ')
     removeImages = SelectMultipleField("Remove this image from post: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
+    intro = StringField('intro: ', render_kw={'placeholder': 'intro...'})
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})
     submit = SubmitField('save post')
@@ -65,6 +66,13 @@ class ImageForm(FlaskForm):
     #     super(EditProfileForm, self).__init__(*args, **kwargs)
     #     self.original_username = original_username
 
+class EditImageForm(FlaskForm):
+    alt_tag = StringField('alt tag')
+    caption = StringField('caption', validators=[Length(min=0, max=160)])
+    submit = SubmitField('update image')
+
+    def __init__(self, *args, **kwargs):
+        super(EditImageForm, self).__init__(*args, **kwargs)
 
 
 class CommentForm(FlaskForm):
