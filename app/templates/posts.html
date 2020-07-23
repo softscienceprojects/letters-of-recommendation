@@ -6,9 +6,9 @@
         {% if posts %}
             {% for post in posts %}
                 {% if post.isLive==True %}
-                <div class="post-card live">
+                <article class="post-card live">
                 {% else %}
-                <div class="post-card draft">
+                <article class="post-card draft">
                 {% endif %}
                 
                 <div class="post-card-details">
@@ -23,7 +23,7 @@
                         </div>
                     {% endif %}
                     
-                </div>
+                </article>
             {% endfor %}
         {% else %}
             <p> no posts</p>

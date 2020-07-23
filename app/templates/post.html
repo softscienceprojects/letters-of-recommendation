@@ -15,6 +15,36 @@
            
         </div>
     </div>
+ 
+    
+    {% if post.intro %}
+    <section class="post-intro">
+        <blockquote>{{ post.intro }}</blockquote>
+    </section>
+    {% endif %}
+
+    {% if post.images.count() > 0 %}
+    <section class="post-slideshow" data-component="slideshow">
+        
+        <div id="prev-slide">&larr;</div>
+        <div id="next-slide">&rarr;</div>
+        <div class="slideshow-container">
+            {% for image in post.images %}
+            
+                <div class="slideshow-image">
+                    <img src="{{ image.get_postedit_format_photo() }}" class="" />
+                </div>
+                <div class="slideshow-caption">
+                    {% if image.caption %}
+                        {{ image.caption }}
+                    {% endif %}
+                </div>
+            
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     {% if post.author == current_user %} 
         <span class="flag-edit">{{ post.isLive | poststatus }}</span>
         {% if not post.isLive %}
@@ -22,10 +52,10 @@
         {% endif %}
         <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons" style="float:right;padding:10px;color:var(--lipstick)" title="edit this post">edit</i></a>
     {% endif %}
-    <div class="post-content">
-    
 
-    <div class="post-body">
+    <div class="post-content">
+
+    <section class="post-body">
         {% if not current_user.is_anonymous %}
         {% if not post.author == current_user %}
             {% if current_user.get_liked_posts(post) %}
@@ -36,7 +66,7 @@
         {% endif %}
         {% endif %}
         <p>{{ post.body | safe }}</p>
-    </div>
+    </section>
 
     <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
     <span class="label">Read more &rarr;</span>
@@ -51,4 +81,5 @@
     {% endif %}
     
 </div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
 {% endblock %}
