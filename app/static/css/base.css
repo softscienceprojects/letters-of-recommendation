@@ -430,7 +430,8 @@ dialog {
 }
 
 .slideshow-container {
-    display: flex;
+    /* display: flex; */
+    display: none;  
     width: 100%;
     /* justify-content: center; */
     flex-direction: column;
@@ -443,6 +444,7 @@ dialog {
     height: 75vh;
     vertical-align: middle;
     line-height: 75vh;
+    cursor: pointer;
 }
 
 #next-slide {
@@ -460,7 +462,7 @@ dialog {
     box-sizing: border-box;
     flex-grow: 1;
     transform: translate(0, 0%);
-    display: none;
+    display: inline-block;
 }
 
 .post-slideshow .slideshow-image img {
@@ -478,7 +480,7 @@ dialog {
     padding: 10px 5px;
     height: 10vh;
     box-sizing: border-box;
-    display: none;
+    display: inline-block;
 }
 
 

@@ -64,3 +64,37 @@ document.body.onload = function() {
         closeNav()
     }   
 }
+
+
+function init() {
+    // thx https://stackoverflow.com/questions/1235985/attach-a-body-onload-event-with-js
+    // quit if this function has already been called
+    if (arguments.callee.done) return;
+  
+    // flag this function so we don't do the same thing twice
+    arguments.callee.done = true;
+  
+    // kill the timer
+    if (_timer) clearInterval(_timer);
+  
+    // do stuff
+    return true;
+  };
+  
+  /* for Mozilla/Opera9 */
+  if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", init, false);
+  }
+
+  
+  /* for Safari */
+  if (/WebKit/i.test(navigator.userAgent)) { // sniff
+    var _timer = setInterval(function() {
+      if (/loaded|complete/.test(document.readyState)) {
+        init(); // call the onload handler
+      }
+    }, 10);
+  }
+  
+  /* for other browsers */
+  window.onload = init;

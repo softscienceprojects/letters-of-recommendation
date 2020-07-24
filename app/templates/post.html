@@ -26,22 +26,22 @@
     {% if post.images.count() > 0 %}
     <section class="post-slideshow" data-component="slideshow">
         
-        <div id="prev-slide">&larr;</div>
-        <div id="next-slide">&rarr;</div>
-        <div class="slideshow-container">
+        <div id="prev-slide" aria-label="previous image"><i class="material-icons">navigate_before</i></div>
+        <div id="next-slide" aria-label="next image"><i class="material-icons">navigate_next</i></div>
+        
             {% for image in post.images %}
-            
+            <div class="slideshow-container">
                 <div class="slideshow-image">
                     <img src="{{ image.get_postedit_format_photo() }}" class="" />
                 </div>
                 <div class="slideshow-caption">
                     {% if image.caption %}
-                        {{ image.caption }}
+                        {{ image.caption }} <span id="slide-number"></span>
                     {% endif %}
                 </div>
-            
+            </div>
             {% endfor %}
-        </div>
+        
     </section>
     {% endif %}
 
