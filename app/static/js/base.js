@@ -1,9 +1,9 @@
 BASE_URL = window.location.host + "/";
-USER_DEVICE_MOBILE = /Mobile|Touch/i.test(navigator.userAgent);
+USER_DEVICE_MOBILE = /Mobile|Touch/i.test(navigator.userAgent) || window.innerWidth<900;
 
 window.app = {
     destroy: function(path) {
-        console.log(path)
+        //console.log(path)
         return fetch(path, {method: "POST"})
         .then(response=>response.json())
         .then(response=>window.location.replace(response.next))
@@ -17,8 +17,6 @@ let nav = document.querySelector('nav');
 
 closeNav = function() {
     menuButton.innerHTML = USER_DEVICE_MOBILE ? 'MENU' : '<i class="material-icons">fullscreen</i>';
-    menuButton.classList.add('menu-button-open')
-    menuButton.classList.remove('menu-button-close')
     nav.classList.remove('display-show');
     nav.classList.add('display-hide');
     sessionStorage.setItem('navMenu', 'closed')
@@ -26,8 +24,6 @@ closeNav = function() {
 
 openNav = function() {
     menuButton.innerHTML = USER_DEVICE_MOBILE ? 'CLOSE MENU' : '<i class="material-icons">fullscreen_exit</i>';
-    menuButton.classList.add('menu-button-close')
-    menuButton.classList.remove('menu-button-open')
     nav.classList.remove('display-hide');
     nav.classList.add('display-show')
     sessionStorage.setItem('navMenu', 'open')

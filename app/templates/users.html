@@ -1,6 +1,7 @@
 {% extends "gridcontainer.html" %}
 
 {% block content %}
+<div class="users-container">
     {% if users %}
         {% for user in users %}
             <div class="user-card">
@@ -12,9 +13,10 @@
                 </div>
             </div>
         {% endfor %}
+        
     {% else %}
         No users
     {% endif %}
-
+    </div>
 
 {% endblock %}
