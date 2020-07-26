@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.app.SLIDES = SLIDES;
             NEXT.addEventListener('mouseenter', function(e) {return slideNavShow(e.target)} )
             NEXT.addEventListener('mouseleave', function(e) {return slideNavHide(e.target)} )
+
             PREV.addEventListener('mouseenter', function(e) {return slideNavShow(e.target)} )
             PREV.addEventListener('mouseleave', function(e) {return slideNavHide(e.target)} )
 

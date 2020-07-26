@@ -57,6 +57,7 @@ document.body.onload = function() {
             openNav()
         }
     } else {
+        menuButton.innerHTML = "MENU";
         closeNav()
     }   
 }
