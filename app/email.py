@@ -25,6 +25,11 @@ def send_email(subject, to, template, sender=None):
             print(e)
 
 
+def send_password_reset_email(user):
+    token = user.get_reset_password_token()
+    html = render_template('auth/password_reset.html', user=user, token=token)
+    send_email("Letters of Recommendation: reset your password", 
+        user.email, html)
 #### TESTS ###################################
 
 def testsendingoneemail(email):

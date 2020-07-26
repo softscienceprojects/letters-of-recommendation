@@ -1,8 +1,9 @@
 import os
 from app import db, login
-from flask import url_for
+from flask import url_for, current_app
 from flask_login import UserMixin
 from datetime import datetime, timedelta
+import jwt
 from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 import base64
@@ -94,10 +95,6 @@ class User(UserMixin, db.Model):
         else:
             #return url_for('static', filename='images/mobile.png')
             return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
-
-# def get_user(self, user_id):
-    #     user = User.query.get(user_id)
-    #     if user is None:
  
     ## AUTH METHODS ##
 
@@ -107,21 +104,19 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    ## TOKENS ############
+    # combine together
 
-#     # need to add password reset tokens
-#     # def get_reset_password_token(self, expires_in=600):
-#         # return jwt.encode(
-#             # {'reset_password': self.id, 'exp': time() + expires_in},
-#             # current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in}, current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
-#     # @staticmethod
-#     # def verify_reset_password_token(token):
-#         # try:
-#             # id = jwt.decode(token, current_app.config['SECRET_KEY'],
-#                             # algorithms=['HS256'])['reset_password']
-#         # except:
-#             # return
-#         # return User.query.get(id)
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
 
 
     def get_token(self, expires_in=3600):
@@ -143,6 +138,8 @@ class User(UserMixin, db.Model):
     def revoke_token(self):
         self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
     
+    ## FOLLOW / FOLLOWING #################
+
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
@@ -155,6 +152,7 @@ class User(UserMixin, db.Model):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
+    ## LIKED POSTS ########################
 
     def get_liked_posts(self, post):
         """
