@@ -69,18 +69,18 @@
         <p>{{ post.body | safe }}</p>
     </section>
 
-    <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
-    <span class="label">Read more &rarr;</span>
-    {% for tag in post.posttags.all() %}
-        <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
-    {% endfor %}
-
-   
-    {% if not current_user.is_anonymous %}
-        <!-- Chat about this -->
-    <div id="comments"></div>
-    {% endif %}
+    <section class="post-footer">
+        <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+        <span class="label">Read more &rarr;</span>
+        {% for tag in post.posttags.all() %}
+            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+        {% endfor %}
     
+        {% if not current_user.is_anonymous %}
+            <!-- Chat about this -->
+        <div id="comments"></div>
+        {% endif %}
+    </section>
 </div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>
 {% endblock %}
