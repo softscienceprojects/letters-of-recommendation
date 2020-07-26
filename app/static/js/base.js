@@ -49,7 +49,7 @@ if (imageUploaderButton) {
     })
 }
 
-document.body.onload = function() {
+bodyOnload = function() {
     if( !USER_DEVICE_MOBILE ) {
         if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'closed') {
             closeNav()
@@ -75,7 +75,8 @@ function init() {
     if (_timer) clearInterval(_timer);
   
     // do stuff
-    return true;
+    
+    return bodyOnload();
   };
   
   /* for Mozilla/Opera9 */

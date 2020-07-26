@@ -3,7 +3,8 @@
     {% block container %}
     {{ super () }}
     <div class="content">
-                {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
+                
     <footer>
         © Letters of Recommendation 2020 |  <a href="{{ url_for('main.about') }}">About</a>  |  <a href="{{ url_for('main.privacy') }}">Terms &amp; Privacy</a>
     </footer>
