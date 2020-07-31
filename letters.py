@@ -26,3 +26,6 @@ def make_shell_context():
         'images': Image.query.all(),
         'postImages': postImages,
     }
+
+if __name__ == '__main__':
+    app.run()
