@@ -5,3 +5,7 @@ env-notes.txt
 schema-notes.md
 sendgrid.env
 app.yaml
+/django_examples
+.vscode/settings.json
+.gcloudignore
+/logs
