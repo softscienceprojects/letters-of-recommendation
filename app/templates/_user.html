@@ -13,6 +13,9 @@
     </p>
     <img src={{ current_user.get_profile_photo() }} class="profile-picture" alt={{ current_user.username }}/><br />
     {{ form.profile_picture }}
+    {% if message %}
+        <span style="color: red;">{{ message }}</span>
+    {% endif %}
     <p>
         {{ form.profile.label }}<br>
         {{ form.profile }}<br>

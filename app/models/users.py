@@ -1,6 +1,6 @@
 import os
 from app import db, login
-from flask import url_for, current_app
+from flask import url_for, current_app, redirect
 from flask_login import UserMixin
 from datetime import datetime, timedelta
 import jwt
@@ -75,9 +75,15 @@ class User(UserMixin, db.Model):
             filename = "{}{}".format(self.id, self.username)
             try:
                 upload_result = _cloudinary_upload(image, folder="profile_pics", public_id=filename, resource_type="image")
-                return f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
-            except:
-                pass
+                if upload_result:
+                    return f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
+            except Exception as inst:
+                print("Type:", type(inst))    # the exception instance
+                print("Args: ", inst.args)     # arguments stored in .args
+                print("The Inst: ", inst)          # __str__ allows args to be printed directly,
+                # but may be overridden in exception subclasses
+                # cloudinary.exceptions.Error: File size too large. Got 17701873. Maximum is 10485760.
+                return inst    
         else:
             return self.profile_picture
 

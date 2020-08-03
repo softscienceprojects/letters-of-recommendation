@@ -286,18 +286,23 @@ def user_feed(username):
 
 @bp.route('/user/<username>/edit/', methods=['GET', 'POST'])
 @login_required
-def edit_user(username):
+def edit_user(username, **kwargs):
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = escape(form.username.data)
         current_user.profile = escape(form.profile.data)
-        current_user.profile_picture = current_user.set_profile_photo(form.profile_picture.data)
+        profile_picture = current_user.set_profile_photo(form.profile_picture.data)
+        if profile_picture and type(profile_picture).__name__ != 'Error':
+            current_user.profile_picture = profile_picture
+            #print("PROFILE PHOTO: ", current_user.profile_picture)
+        if profile_picture and type(profile_picture).__name__ == 'Error':
+            return render_template('_user.html', form=form, message=profile_picture.args[0])
         db.session.commit()
         return redirect(url_for('main.user', username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.profile.data = current_user.profile
-    return render_template('_user.html', form=form)
+    return render_template('_user.html', form=form, message=kwargs.get('message'))
 
 
 @bp.route('/users/', methods=['GET', 'POST'])
