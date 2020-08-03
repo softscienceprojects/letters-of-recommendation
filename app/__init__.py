@@ -39,7 +39,7 @@ def create_app(config_class=Config):
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
-    if Config.FLASK_ENV == 'production':
+    if app.config.get('ENV')=='production':
         logging.basicConfig(filename='logs/production.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
     
     app.jinja_env.filters['blogpost'] = display_blog_post
