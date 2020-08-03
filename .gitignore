@@ -9,3 +9,4 @@ app.yaml
 .vscode/settings.json
 .gcloudignore
 /logs
+*.pyc
