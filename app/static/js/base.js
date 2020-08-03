@@ -92,6 +92,7 @@ function init() {
         init(); // call the onload handler
       }
     }, 10);
+    console.log('(╯°□°）╯︵ ┻━┻')
   }
   
   /* for other browsers */
