@@ -78,9 +78,9 @@ class User(UserMixin, db.Model):
                 if upload_result:
                     return f"v{upload_result.get('version')}/{upload_result.get('public_id')}.{upload_result.get('format')}"
             except Exception as inst:
-                print("Type:", type(inst))    # the exception instance
-                print("Args: ", inst.args)     # arguments stored in .args
-                print("The Inst: ", inst)          # __str__ allows args to be printed directly,
+                # print("Type:", type(inst))    # the exception instance
+                # print("Args: ", inst.args)     # arguments stored in .args
+                # print("The Inst: ", inst)          # __str__ allows args to be printed directly,
                 # but may be overridden in exception subclasses
                 # cloudinary.exceptions.Error: File size too large. Got 17701873. Maximum is 10485760.
                 return inst    
