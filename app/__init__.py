@@ -39,8 +39,9 @@ def create_app(config_class=Config):
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
-    logging.basicConfig(filename='logs/production.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-
+    if Config.FLASK_ENV == 'production':
+        logging.basicConfig(filename='logs/production.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+    
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
     app.jinja_env.filters['daydateformat'] = daydateformat
