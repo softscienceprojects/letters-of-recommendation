@@ -42,7 +42,6 @@ def create_app(config_class=Config):
     if app.config.get('ENV')=='production':
         logging.basicConfig(filename='logs/production.log', format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
     
-    print(app.logger)
     app.jinja_env.filters['blogpost'] = display_blog_post
     app.jinja_env.filters['datetimeformat'] = datetimeformat
     app.jinja_env.filters['daydateformat'] = daydateformat
