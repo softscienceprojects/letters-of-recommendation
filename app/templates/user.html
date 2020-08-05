@@ -6,33 +6,33 @@
             <div class="user-top-of-profile">
                 <h1>{% if user == current_user %}hello, {% endif %}{{user.username}}</h1>
                 {% if user.profile %}
-                    <p class="user-profile">{{ user.profile }}</p>
+                    <p class="user-profile"><strong>{{ user.profile }}</strong></p>
                 {% else %}
                     <p><em>No biography provided</em></p>
                 {% endif %}
 
                 <img src={{ user.get_profile_photo() }} class="profile-picture" alt={{ current_user.username }} />
-                <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} followers</a>
-                <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} following</a></p>
+                <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} <em>followers</em></a> &mdash;
+                <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} <em>following</em></a></p>
             </div>
         
         <div class="user-options-panel">
         {% if user == current_user %}
         
             {% if user.isWriter == True or user.isEditor == True %}
-            <p><i class="material-icons">create</i><a href="{{ url_for('main.post_new') }}"> Write a post</a>
-            <i class="material-icons">text_snippet</i><a href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}">Drafts</a>
-            <i class="material-icons">camera_alt</i><a href="{{ url_for('main.images') }}">Manage Images</a></p>
+            <p><a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">text_snippet</i>Drafts</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></p>
             {% endif %}
             {% if user.isEditor == True %}
-            <i class="material-icons">text_snippet</i><a href="{{ url_for('main.posts', drafts='all') }}">All Drafts</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', drafts='all') }}"><i class="material-icons">text_snippet</i>All Drafts</a>
             {% endif %}
             {% if user == current_user %}
-            <p><i class="material-icons user-option">favorite</i><a href="{{ url_for('main.posts', liked=user.username) }}">  Liked posts</a>
-            <i class="material-icons">menu_book</i><a href="{{ url_for('main.user_feed', username=user.username) }}">Your feed</a></p>
+            <p><a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons">menu_book</i>Your feed</a></p>
             {% endif %}
-            <p><i class="material-icons">face</i><a href="{{ url_for('main.edit_user', username=current_user.username) }}">Edit your profile</a>
-            <i class="material-icons">security</i><a href="{{ url_for('auth.change_password', user_id=current_user.id) }}">Change your password</a></p>
+            <p><a class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.edit_user', username=current_user.username) }}"><i class="material-icons">face</i>Edit your profile</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('auth.change_password', user_id=current_user.id) }}"><i class="material-icons">security</i>Change your password</a></p>
 
          
             
@@ -55,10 +55,15 @@
                     {% endif %}
                     <div class="user-profile-post-post">
                         <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></p></h2>
+                        {% if post.intro %}
+                            <p>{{ post.intro }}</p>
+                        {% endif %}
                         {% for tag in post.posttags.all() %}
-                            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                            <span class="splash-tag bg-beige"><a class="color-smoke" href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
-                        
+                    </div>
+                    <div class="post-read-more">
+                        <a class="fake-button button-base-rounded bg-beige" href="{{ url_for('main.post', post_id=post.id) }}">Read &rarr;</a>
                     </div>
                 </div>
             {% endfor %}

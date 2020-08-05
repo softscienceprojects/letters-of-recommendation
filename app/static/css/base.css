@@ -17,17 +17,59 @@
     --olive: #9E8D3F;
 }
 
+.color-smoke {
+    color: var(--smoke);
+}
+
+.color-bone {
+    color: var(--bone);
+}
+
+.color-cloud {
+    color: var(--cloud);
+}
+
+/* **************   BACKGROUNDS ********** */
+.bg-smoke {
+    background-color: var(--smoke);
+}
+
+/* NEUTRAL */
+
+.bg-bone {
+    background-color: var(--bone);
+}
+
+.bg-beige {
+    background-color: var(--beige);
+}
+
+/* WARN */
+.bg-lipstick {
+    background-color: var(--lipstick);
+}
+
+.bg-rust {
+    background-color: var(--rust);
+}
+
+
+/* ************* STANDARDS **********  */
 
 html {
     height: 100%;
     font-size: 16px;
-    font-family: 'IBM Plex Sans', sans-serif;
+    /* font-family: 'IBM Plex Sans', sans-serif; */
+    font-family: 'PT Serif', serif;
     color: var(--smoke);
-
 }
 body {
     padding: 0;
     margin: 0;
+}
+
+p {
+    font-size: 16px;
 }
 
 #encompass {
@@ -71,7 +113,6 @@ body {
     margin: auto;
     width: 100%;
     flex-direction: column;
-
 }
 
 div.splash-tags p {
@@ -80,12 +121,10 @@ div.splash-tags p {
 
 .splash-tag {
     padding: 5px 10px;
-    background-color: var(--smoke);
     text-transform: uppercase;
     font-size: 80%;
     letter-spacing: 1px;
     font-family: 'Syne-Bold', sans-serif;
-
 }
 
 img {
@@ -124,9 +163,14 @@ img.profile-picture {
 
 
 .user-profile-post-img a > img {
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
     object-fit: cover;
+}
+
+.user-profile-post-img a {
+    width: 100%;
+    height: 100%;
 }
 
 /*   ------------- FONTS ------------- */
@@ -138,8 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     /* font-family: 'Rubik', Arial, sans-serif; */
     font-family: 'Syne-Bold', sans-serif;
-    /* border-bottom: 15px solid black;
-    padding-bottom: 30px; */
+    padding-bottom: 30px; 
     text-transform: uppercase;
     /* line-break: anywhere; */
 }
@@ -182,15 +225,13 @@ a.div-link {
     display: block;
 }
 
-.splash-tag a {
-    color: var(--bone);
-}
-
 
 a.icon-block i {
     display:block;
     clear:both;
 }
+
+
 
 /* -------------- ONWARD ---------------- */
 
@@ -632,45 +673,12 @@ dialog {
 }
 
 
-.live {
-    /* border: 3px solid white; */
-}
+/* .live {
+    border: 3px solid white; 
+} */
 
 .draft {
     border: 3px dashed var(--blue-blush);
-}
-
-.auth-form input[type=text],
-.auth-form input[type=password],
-.auth-form input[type=files],
-.auth-form input[type=email],
-.auth-form textarea {
-    width: 100%;
-}
-
-.edit-post input, .edit-post textarea {
-    border: 0;
-    background-color: #fff;
-}
-
-.edit-post input[name=title] {
-    font-family: 'Syne-Bold', sans-serif;
-    font-size: 2em;
-}
-
-.edit-post input[name=intro] {
-    font-family: 'Syne-Bold', sans-serif;
-    font-size: 1em;
-}
-
-.edit-post textarea {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1em;
-}
-
-.edit-post input[name=tags] {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-style: italic;
 }
 
 .tag-list-highlight {
@@ -699,7 +707,7 @@ p.user-profile {
 }
 
 .user-options-panel {
-    background-color: var(--clay);
+    /* background-color: var(--clay); */
     padding: 15px;
     text-align: center;
 }
@@ -708,25 +716,41 @@ p.user-profile {
     /* font-family: 'Syne-Bold', sans-serif; */
     color: #fff;
     margin: 0px 10px;
-    border-bottom: 1px solid;
-    padding-bottom: 5px;
 }
 
-.user-options-panel i {
-    vertical-align: bottom;
-    font-size: 20px;
-    margin-right: -8px;
-    margin-left: 8px;
-    color: #fff;
+@media screen and (max-width: 899px) {
+    .user-profile-post-img {
+        width: 40% !important;
+    }
+
+    .user-profile-post-post {
+        width: 40% important!;
+    }
+
+    .user-profile-post-post p {
+        display: none;
+    }
+
+    .user-profile-post-post span {
+        display: none;
+    }
+
+    .post-read-more {
+        margin-top: -10% !important;
+        text-align: right;
+        width: 100%;
+    }
 }
+
 
 .user-posts {
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 3px solid var(--clay);
+    border-bottom: 1px solid var(--beige);
     /* max-width: 400px; */
     height: 150px;
     margin: 10px 0;
+    padding: 20px 0;
 }
 
 .user-profile-post-img {
@@ -736,9 +760,15 @@ p.user-profile {
 
 .user-profile-post-post {
     margin-left: 10px;
-    width: 75%;
+    width: 55%;
     height:100%;
     overflow: hidden;
+}
+
+.post-read-more {
+    margin: auto;
+    min-width: 100px;
+    text-align: right;
 }
 
 .user-card {
@@ -748,9 +778,9 @@ p.user-profile {
     padding-bottom: 15px;
 }
 
-.profile-picture {
+/* .profile-picture {
 
-}
+} */
 
 .username {
     display: flex;
@@ -759,6 +789,9 @@ p.user-profile {
     font-family: 'Syne-Bold', sans-serif;
 
 }
+
+/* ********** BUTTONS ****************** */
+
 
 @media only screen and (max-width: 899px) {
     #menu-button {
@@ -795,16 +828,43 @@ p.user-profile {
     left: 8px;
 }
 
-
+/* USED ON POST EDIT - FIX THIS: */
 .button-base {
     border: 0;
     padding: 10px 20px;
     margin: 5px 10px 5px 0;
 }
+
+.button-base-rounded {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 70%;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'Syne-Bold', sans-serif;
+}
+
 .button-danger {
     background-color: crimson;
     color: #fff;
 } 
+
+a.fake-button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+}
+
+.fake-button i {
+    /* user-options-panel i */
+    margin-right: 10px;
+    vertical-align: middle;
+    font-size: 20px;
+    color: #fff;
+}
+
 
 /* .confirm-dialog-button {
     /* each button in modal gets this class 
@@ -816,8 +876,58 @@ p.user-profile {
 
 /* ------------- FORMS ----------------- */
 
+@media screen and (min-width: 899px) {
+    form {
+        min-width: 500px;
+    }
+}
+
+form label {
+    font-family: 'Syne-Bold', sans-serif;
+}
+
 textarea {
     width: 300px;
     height: 300px;
     padding: 10px;
+}
+
+input:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px var(--bone);
+}
+
+.auth-form input[type=text],
+.auth-form input[type=password],
+.auth-form input[type=files],
+.auth-form input[type=email],
+.auth-form textarea {
+    width: 100%;
+    border: 0;
+    padding: 15px;
+}
+
+.edit-post input, .edit-post textarea {
+    border: 0;
+    background-color: #fff;
+}
+
+.edit-post input[name=title] {
+    font-family: 'Syne-Bold', sans-serif;
+    font-size: 2em;
+}
+
+.edit-post input[name=intro] {
+    font-family: 'Syne-Bold', sans-serif;
+    font-size: 1em;
+}
+
+.edit-post textarea {
+    font-family: 'PT Serif', serif;
+    font-size: 1em;
+}
+
+.edit-post input[name=tags] {
+    font-family: 'PT Serif', serif;
+    font-style: italic;
 }
