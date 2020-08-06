@@ -34,6 +34,10 @@
     background-color: var(--smoke);
 }
 
+.bg-clay {
+    background-color: var(--clay)
+}
+
 /* NEUTRAL */
 
 .bg-bone {
@@ -182,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     /* font-family: 'Rubik', Arial, sans-serif; */
     font-family: 'Syne-Bold', sans-serif;
-    padding-bottom: 30px; 
+    padding-bottom: 10px; 
     text-transform: uppercase;
     /* line-break: anywhere; */
 }
@@ -192,11 +196,16 @@ blockquote {
     font-family: 'Syne-Bold', sans-serif;
     line-height: 1;
     text-align: center;
+    margin: 2em 0;
 }
 
 code {
     background-color: var(--blue-blush);
     color: var(--rust);
+}
+
+.syne {
+    font-family: 'Syne-Bold', sans-serif;
 }
 
 h1#title {
@@ -229,6 +238,11 @@ a.div-link {
 a.icon-block i {
     display:block;
     clear:both;
+}
+
+a.icon-block i.edit {
+    border: 1px solid var(--lipstick);
+    color: var(--lipstick);
 }
 
 
@@ -414,14 +428,18 @@ dialog {
 
 .all-header {
     text-align: center;
-    border-bottom: 3px solid var(--clay);
     margin: 30px auto 10px auto;
     max-width: 250px;
+}
+
+.all-header h1 {
+    border-bottom: 1px solid var(--clay);
 }
 
 .notification {
     font-style: italic;
     color: var(--clay);
+    padding-top: 5px;
 }
 
 
@@ -504,7 +522,7 @@ dialog {
 
 @media only screen and (max-width: 899px) {
     .post-slideshow {
-        height: 55vh;
+        min-height: 55vh;
     }
 
     #prev-slide, #next-slide {
@@ -532,16 +550,18 @@ dialog {
 
 #prev-slide, #next-slide {
     position: absolute;
-    width: 10%;
+    width: 50%;
     z-index: 10;
     height: 75vh;
-    vertical-align: middle;
     line-height: 75vh;
     opacity: 0;
 }
 
 #prev-slide i.material-icons, #next-slide i.material-icons {
-    font-size: 100px;
+    font-size: 5em;
+    vertical-align: middle;
+    /* animation: glow 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);  */
+    animation-play-state: initial; 
 }
 
 #next-slide {
@@ -549,8 +569,15 @@ dialog {
     right: 0;
 }
 
-/* .slideshow-image ~ div {} */
+/* #prev-slide i.material-icons:hover, #next-slide i.material-icons:hover {
+    animation-play-state: running;              
+  }
+  @keyframes glow {
+    from { color: var(--bone) }
+    to { color: var(--smoke); }           
+  } */
 
+/* .slideshow-image ~ div {} */
 
 .slideshow-image {
     /* width: 100%; */
@@ -846,6 +873,11 @@ p.user-profile {
     font-family: 'Syne-Bold', sans-serif;
 }
 
+.button-circle {
+    padding: 10px;
+    border-radius: 100px;
+}
+
 .button-danger {
     background-color: crimson;
     color: #fff;
@@ -894,6 +926,7 @@ textarea {
 
 input:focus, textarea:focus {
     outline: none !important;
+    /* outline: 1px solid var(--clay) !important; */
     box-shadow: 0 0 10px var(--bone);
 }
 

@@ -21,7 +21,7 @@
         
             {% if user.isWriter == True or user.isEditor == True %}
             <p><a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a>
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">text_snippet</i>Drafts</a>
+            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">text_snippet</i>My Drafts</a>
             <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></p>
             {% endif %}
             {% if user.isEditor == True %}
@@ -37,9 +37,9 @@
          
             
         {% elif not current_user.is_following(user) %}
-            <p><a href="{{ url_for('main.follow', username=user.username) }}">follow</a></p>
+            <p><a href="{{ url_for('main.follow', username=user.username) }}" class="button-base-rounded bg-clay">follow</a></p>
         {% else %}
-            <p><a href="{{ url_for('main.unfollow', username=user.username) }}">unfollow</a></p>
+            <p><a href="{{ url_for('main.unfollow', username=user.username) }}" class="button-base-rounded bg-bone">unfollow</a></p>
         {% endif %}
         </div>
 

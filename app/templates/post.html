@@ -4,10 +4,10 @@
     <div class="post-leaderboard">
         {% if post.heroImage_id %}
             <div class="hero-image-display" style="background-image: url( {{ post.get_post_hero_image() }} );">
-                {% if post.author == current_user %} 
-                <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons" style="float:right;padding:10px;color:var(--lipstick)" title="change hero image">photo_camera</i></a>
-            {% endif %}
             </div>
+        {% endif %}
+        {% if post.author == current_user or current_user.isEditor  %} 
+            <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" style="float:right;padding:10px;" title="change hero image">photo_camera</i></a>
         {% endif %}
         <div class="post-title-details">
             <h1>{{ post.title }}</h1>
@@ -19,15 +19,15 @@
     
     {% if post.intro %}
     <section class="post-intro">
-        <blockquote>{{ post.intro }}</blockquote>
+        <h2 class="syne" style="margin: auto;">{{ post.intro }}</h2>
     </section>
     {% endif %}
 
     {% if post.images.count() > 0 %}
     <section class="post-slideshow" data-component="slideshow">
         
-        <div id="prev-slide" aria-label="previous image"><i class="material-icons">navigate_before</i></div>
-        <div id="next-slide" aria-label="next image"><i class="material-icons">navigate_next</i></div>
+        <div id="prev-slide" aria-label="previous image"><i class="material-icons">arrow_back</i></div>
+        <div id="next-slide" aria-label="next image"><i class="material-icons">arrow_forward</i></div>
         
             {% for image in post.images %}
             <div class="slideshow-container">
@@ -46,23 +46,22 @@
     </section>
     {% endif %}
 
-    {% if post.author == current_user %} 
-        <span class="flag-edit">{{ post.isLive | poststatus }}</span>
-        {% if not post.isLive %}
-        <i class="material-icons" style="float:right;padding:10px;color:var(--lipstick)" title="Post is draft">sticky_note_2</i></a>
-        {% endif %}
-        <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons" style="float:right;padding:10px;color:var(--lipstick)" title="edit this post">edit</i></a>
-    {% endif %}
+ 
 
     <div class="post-content">
-
+   {% if post.author == current_user or current_user.isEditor %} 
+        {% if not post.isLive %}
+        <p class="fake-button button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
+        {% endif %}
+        <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" style="float:right;margin:10px;" title="edit this post">edit</i></a>
+    {% endif %}
     <section class="post-body">
         {% if not current_user.is_anonymous %}
         {% if not post.author == current_user %}
             {% if current_user.get_liked_posts(post) %}
-                <a href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
+                <a class="fake-button button-base-rounded bg-bone color-cloud" href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
             {% else %}
-                <a href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+                <a class="fake-button button-base-rounded bg-clay" href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
             {% endif %}
         {% endif %}
         {% endif %}
@@ -73,7 +72,7 @@
         <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
         <span class="label">Read more &rarr;</span>
         {% for tag in post.posttags.all() %}
-            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+            <span class="splash-tag bg-clay"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
         {% endfor %}
     
         {% if not current_user.is_anonymous %}
