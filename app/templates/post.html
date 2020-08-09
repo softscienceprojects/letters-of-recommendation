@@ -56,20 +56,20 @@
         <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" style="float:right;margin:10px;" title="edit this post">edit</i></a>
     {% endif %}
     <section class="post-body">
-        {% if not current_user.is_anonymous %}
-        {% if not post.author == current_user %}
-            {% if current_user.get_liked_posts(post) %}
-                <a class="fake-button button-base-rounded bg-bone color-cloud" href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
-            {% else %}
-                <a class="fake-button button-base-rounded bg-clay" href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
-            {% endif %}
-        {% endif %}
-        {% endif %}
         <p>{{ post.body | safe }}</p>
     </section>
 
     <section class="post-footer">
-        <p><span class="label datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span class="label">Likes:</span> {{ post.number_of_likes() }}</a></p>
+           {% if not current_user.is_anonymous %}
+            {% if not post.author == current_user %}
+                {% if current_user.get_liked_posts(post) %}
+                    <a class="fake-button button-base-rounded bg-bone color-cloud" href="{{ url_for('main.unlike', post_id=post.id) }}">Unlike</a>
+                {% else %}
+                    <a class="fake-button button-base-rounded bg-clay" href="{{ url_for('main.like', post_id=post.id) }}">Like</a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <p><span class="datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span>Likes:</span> {{ post.number_of_likes() }}</a></p>
         <span class="label">Read more &rarr;</span>
         {% for tag in post.posttags.all() %}
             <span class="splash-tag bg-clay"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>

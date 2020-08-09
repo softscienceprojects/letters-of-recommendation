@@ -252,9 +252,10 @@ p.datetime {
 }
 
 span.label {
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: 2px;
     font-size: 80%;
+    font-style: italic;
 }
 
 footer {
@@ -515,10 +516,12 @@ dialog {
     }
 
     #next-slide {
+        /* cursor: url('app/static/images/baseline_arrow_forward_black_48pt_3x.png'), auto; */
         right: -2em !important;
     }
 
     #prev-slide {
+        /* cursor: url('app/static/images/baseline_arrow_back_black_48pt_3x.png'), auto; */
         left: -2em;
     }
 }
@@ -532,12 +535,18 @@ dialog {
 }
 
 #prev-slide, #next-slide {
+    color: var(--clay);
     position: absolute;
     width: 50%;
     z-index: 10;
     height: 75vh;
     line-height: 75vh;
     opacity: 0;
+    /* text-shadow: 
+        -2px 2px 2px var(--cloud), 
+        2px -2px 2px var(--cloud), 
+        -2px -2px 2px var(--cloud), 
+        2px 2px 2px var(--cloud); */
 }
 
 #prev-slide i.material-icons, #next-slide i.material-icons {
@@ -618,7 +627,7 @@ dialog {
 }
 
 .post-footer {
-    
+    text-align: center;
     padding: 0 3em;
     margin-bottom: 50px;
 }
@@ -932,6 +941,7 @@ form label {
 }
 
 textarea {
+    font-family: 'Times New Roman', serif;
     width: 300px;
     height: 300px;
     padding: 10px;
@@ -969,11 +979,11 @@ input:focus, textarea:focus {
 }
 
 .edit-post textarea {
-    font-family: 'PT Serif', 'Arial', serif;
+    font-family: 'PT Serif', 'Times New Roman', serif;
     font-size: 1em;
 }
 
 .edit-post input[name=tags] {
-    font-family: 'PT Serif', 'Arial', serif;
+    font-family: 'PT Serif', 'Times New Roman', serif;
     font-style: italic;
 }

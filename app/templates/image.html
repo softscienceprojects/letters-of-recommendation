@@ -21,7 +21,7 @@
                 <p>
                 {{ form.caption.label }} {{ form.caption }}
                 </p>
-                <p>{{ form.submit() }}</p>
+                <p>{{ form.submit(class_="button-base-rounded bg-bone color-cloud") }}</p>
                 </form>
                 
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
@@ -48,7 +48,7 @@
             <p><em>No posts</em></p>
         {% endif %}
         <div class="user-options-panel">        
-                <button id="delete-image">Delete this image</button>
+                <button id="delete-image" class="button-base  button-base-rounded bg-rust">Delete this image</button>
         </div>
         <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
     {% endblock %}
