@@ -16,5 +16,5 @@ Essentially, it's just a blog. But it will also be *an online magazine of inspir
 
 ## Visit
 
-It lives at [letters-of-recommendation.com]
+It lives at [letters-of-recommendation.com](https://www.letters-of-recommendation.com)
 
