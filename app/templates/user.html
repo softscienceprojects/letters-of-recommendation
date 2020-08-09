@@ -12,37 +12,41 @@
                 {% endif %}
 
                 <img src={{ user.get_profile_photo() }} class="profile-picture" alt={{ current_user.username }} />
-                <p><a href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} <em>followers</em></a> &mdash;
-                <a href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} <em>following</em></a></p>
+                <p><a class="color-clay" href="{{ url_for('main.users', followers=user.username) }}">{{ user.followers.count() }} <em>followers</em></a> &mdash;
+                <a class="color-clay" href="{{ url_for('main.users', following=user.username) }}">{{ user.followed.count() }} <em>following</em></a></p>
             </div>
         
         <div class="user-options-panel">
-        {% if user == current_user %}
-        
-            {% if user.isWriter == True or user.isEditor == True %}
-            <p><a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a>
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">text_snippet</i>My Drafts</a>
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></p>
-            {% endif %}
-            {% if user.isEditor == True %}
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', drafts='all') }}"><i class="material-icons">text_snippet</i>All Drafts</a>
-            {% endif %}
             {% if user == current_user %}
-            <p><a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons">menu_book</i>Your feed</a></p>
+                <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons user-option">filter_none</i>Your feed</a>
+                <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
+                <a  class="fake-button button-base-rounded bg-bone" href="" id="open-user-menu"><i class="material-icons">dehaze</i>Options</a>
+            {% elif not current_user.is_following(user) %}
+                <p><a href="{{ url_for('main.follow', username=user.username) }}" class="button-base-rounded bg-clay">follow</a></p>
+            {% else %}
+                <p><a href="{{ url_for('main.unfollow', username=user.username) }}" class="button-base-rounded bg-bone">unfollow</a></p>
             {% endif %}
-            <p><a class="fake-button button-base-rounded bg-bone" href="{{ url_for('main.edit_user', username=current_user.username) }}"><i class="material-icons">face</i>Edit your profile</a>
-            <a  class="fake-button button-base-rounded bg-bone" href="{{ url_for('auth.change_password', user_id=current_user.id) }}"><i class="material-icons">security</i>Change your password</a></p>
-
-         
-            
-        {% elif not current_user.is_following(user) %}
-            <p><a href="{{ url_for('main.follow', username=user.username) }}" class="button-base-rounded bg-clay">follow</a></p>
-        {% else %}
-            <p><a href="{{ url_for('main.unfollow', username=user.username) }}" class="button-base-rounded bg-bone">unfollow</a></p>
-        {% endif %}
         </div>
-
+        {% if user == current_user %}
+            <div id="user-options-menu">
+                {% if user.isEditor == True %}
+                    <ul>
+                        <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.posts', drafts='all') }}"><i class="material-icons">clear_all</i>All Drafts</a></li>
+                    </ul>
+                {% endif %}
+                {% if user.isWriter == True or user.isEditor == True %}
+                    <ul>
+                        <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></li>
+                        <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a></li>
+                        <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">subject</i>My Drafts</a></li>
+                    </ul>
+                {% endif %}
+                <ul>
+                    <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.edit_user', username=current_user.username) }}"><i class='material-icons'>face</i><span class="fake-button-icon">Edit profile</span></a></li>
+                    <li><a class="fake-button button-base-rounded bg-bone button-shadow-bone button-hover-clay" href="{{ url_for('auth.change_password', user_id=current_user.id) }}"><i class="material-icons">security</i>Password</a></li>
+                </ul>
+            </div>
+        {% endif %}
         {# if user != current_user  Send a message  endif #}
         
         {% if posts %}
@@ -68,8 +72,9 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p><em>No posts</em></p>
+            &nbsp;
         {% endif %}
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/user.js') }}"></script>
     {% endblock %}
 {% endblock %}

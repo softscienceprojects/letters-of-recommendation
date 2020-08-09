@@ -50,6 +50,7 @@ if (imageUploaderButton) {
 }
 
 bodyOnload = function() {
+    console.log('(╯°□°）╯︵ ┻━┻')
     if( !USER_DEVICE_MOBILE ) {
         if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'closed') {
             closeNav()
@@ -75,7 +76,6 @@ function init() {
     if (_timer) clearInterval(_timer);
   
     // do stuff
-    
     return bodyOnload();
   };
   
@@ -84,7 +84,6 @@ function init() {
     document.addEventListener("DOMContentLoaded", init, false);
   }
 
-  
   /* for Safari */
   if (/WebKit/i.test(navigator.userAgent)) { // sniff
     var _timer = setInterval(function() {
@@ -92,7 +91,6 @@ function init() {
         init(); // call the onload handler
       }
     }, 10);
-    console.log('(╯°□°）╯︵ ┻━┻')
   }
   
   /* for other browsers */

@@ -1,20 +1,15 @@
 :root {
-    --clay: #D1A173;
-    --rust: #C1695B;
-    --seafoam: #769c9c;
+    /* Neutral */
+    --smoke: #2b2b2b;
+    --bone: #c5bebb;
     --blue-blush: #f1f1f1;
-    --night: #2C3B4E;
+    --cloud: #fbfbfb;
+
+    /* Primary */
+    --rust: #C1695B;
+    --clay: #D1A173;
     --beige: #EEDED1;
 
-    /* other scheme */
-    --smoke: #2b2b2b;
-    --cloud: #fbfbfb;
-    --bone: #c5bebb;
-    --blush: #FBE7DC;
-    --rose: #F9AE8F;
-    --lipstick: #E05747;
-    --ochre: #DB9523;
-    --olive: #9E8D3F;
 }
 
 .color-smoke {
@@ -27,6 +22,10 @@
 
 .color-cloud {
     color: var(--cloud);
+}
+
+.color-clay {
+    color: var(--clay);
 }
 
 /* **************   BACKGROUNDS ********** */
@@ -49,10 +48,6 @@
 }
 
 /* WARN */
-.bg-lipstick {
-    background-color: var(--lipstick);
-}
-
 .bg-rust {
     background-color: var(--rust);
 }
@@ -63,8 +58,7 @@
 html {
     height: 100%;
     font-size: 16px;
-    /* font-family: 'IBM Plex Sans', sans-serif; */
-    font-family: 'PT Serif', serif;
+    font-family: 'PT Serif', 'Times New Roman', serif;
     color: var(--smoke);
 }
 body {
@@ -155,7 +149,7 @@ img.profile-picture {
     width: 200px;
     height: 300px;
     object-fit: cover;
-    border: 5px solid var(--night);
+    border: 5px solid var(--smoke);
 }
 
 #container {
@@ -178,31 +172,6 @@ img.profile-picture {
 }
 
 /*   ------------- FONTS ------------- */
-
-.material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-  
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-  
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-  
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-  }
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
@@ -229,10 +198,6 @@ code {
     color: var(--rust);
 }
 
-.syne {
-    font-family: 'Syne-Bold', sans-serif;
-}
-
 h1#title {
     color: var(--blue-blush);
     font-size: 4rem;
@@ -240,7 +205,7 @@ h1#title {
 }
 
 h2.byline {
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
 
 .post-title-details > .byline a {
@@ -266,8 +231,8 @@ a.icon-block i {
 }
 
 a.icon-block i.edit {
-    border: 1px solid var(--lipstick);
-    color: var(--lipstick);
+    border: 1px solid var(--bone);
+    color: var(--bone);
 }
 
 
@@ -313,7 +278,7 @@ footer a {
 
 nav {
     margin-top: 0;
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
     width: 100%;
     background-color: var(--rust); /* #ce8054; */  
     position: fixed;
@@ -371,7 +336,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: var(--ochre);
+    color: var(--clay);
 }
 
 
@@ -442,13 +407,6 @@ dialog {
     flex-grow: 1;
     flex-direction: column;
     display: flex;
-}
-
-#register {
-    font-family: 'Syne-Bold', sans-serif;
-    position: fixed;
-    bottom: 10%;
-    right: 10px;
 }
 
 .all-header {
@@ -656,8 +614,6 @@ dialog {
 .post-body {
     line-height: 1.5;
     padding: 0 3em;
-    /* border-left: 3px solid var(--clay);
-    border-right: 3px solid var(--clay); */
     margin-bottom: 50px;
 }
 
@@ -724,11 +680,6 @@ dialog {
     /* background-color: var(--cloud); */
 }
 
-
-/* .live {
-    border: 3px solid white; 
-} */
-
 .draft {
     border: 3px dashed var(--blue-blush);
 }
@@ -758,17 +709,48 @@ p.user-profile {
     text-align: center;
 }
 
+.modal-background {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--cloud);
+    background-blend-mode: multiply;
+    opacity: 50%;
+    z-index: 10;
+}
+
 .user-options-panel {
-    /* background-color: var(--clay); */
     padding: 15px;
     text-align: center;
 }
 
-.user-options-panel a {
-    /* font-family: 'Syne-Bold', sans-serif; */
-    color: #fff;
-    margin: 0px 10px;
+.user-options-panel a, #user-options-menu a {
+    color: var(--cloud);
+    margin: 2px 10px;
 }
+
+#user-options-menu {
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* position: absolute; */
+    /* right: 1em; */
+    padding: 1em;
+}
+
+#user-options-menu ul {
+    padding-left: 0;
+}
+#user-options-menu li {
+    list-style: none;
+}
+
+#user-options-menu li.section {
+    margin-top: 0.75em;
+  }
 
 @media screen and (max-width: 899px) {
     .user-profile-post-img {
@@ -826,7 +808,7 @@ p.user-profile {
 .user-card {
     width: 200px;
     margin: 10px 25px;
-    border-bottom: 1px solid var(--ochre);
+    border-bottom: 1px solid var(--clay);
     padding-bottom: 15px;
 }
 
@@ -838,7 +820,7 @@ p.user-profile {
     display: flex;
     justify-content: flex-end;
     padding-right: 5px;
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 
 }
 
@@ -860,9 +842,9 @@ p.user-profile {
         margin: 10px;
         border-radius: 100px;
         width: 40px;
-        background-color: var(--night);
+        background-color: var(--smoke);
         height: 40px;
-        color: white;
+        color: var(--cloud);
     }
 }
 
@@ -870,7 +852,7 @@ p.user-profile {
     position: fixed;
     z-index: 999;
     /* margin-left:5px; */
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
     cursor: pointer;
 }
 
@@ -895,7 +877,7 @@ p.user-profile {
     font-size: 70%;
     font-weight: bold;
     letter-spacing: 1px;
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
 
 .button-circle {
@@ -903,25 +885,31 @@ p.user-profile {
     border-radius: 100px;
 }
 
-.button-danger {
-    background-color: crimson;
-    color: #fff;
-} 
-
 a.fake-button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
+    display: inline-block;
 }
 
 .fake-button i {
-    /* user-options-panel i */
     margin-right: 10px;
     vertical-align: middle;
     font-size: 20px;
-    color: #fff;
+    color: var(--cloud);
 }
 
+a.button-hover-clay:hover {
+    background-color: var(--clay) !important;
+}
+
+.button-shadow-clay {
+    box-shadow: 0 0 10px var(--clay);
+}
+
+.button-shadow-bone {
+    box-shadow: 0 0 10px var(--bone);
+}
 
 /* .confirm-dialog-button {
     /* each button in modal gets this class 
@@ -940,7 +928,7 @@ a.fake-button {
 }
 
 form label {
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
 
 textarea {
@@ -967,25 +955,25 @@ input:focus, textarea:focus {
 
 .edit-post input, .edit-post textarea {
     border: 0;
-    background-color: #fff;
+    background-color: var(--cloud);
 }
 
 .edit-post input[name=title] {
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
     font-size: 2em;
 }
 
 .edit-post input[name=intro] {
-    font-family: 'Syne-Bold', sans-serif;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
     font-size: 1em;
 }
 
 .edit-post textarea {
-    font-family: 'PT Serif', serif;
+    font-family: 'PT Serif', 'Arial', serif;
     font-size: 1em;
 }
 
 .edit-post input[name=tags] {
-    font-family: 'PT Serif', serif;
+    font-family: 'PT Serif', 'Arial', serif;
     font-style: italic;
 }
