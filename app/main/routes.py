@@ -55,15 +55,18 @@ def posts():
     if request.args:
         if request.args.get('tag'):
             tag = find_tag(request.args.get('tag'))
+            title = request.args.get('tag')
             posts = get_posts_for_tag(tag.id)
         elif request.args.get('user_id'):
             if request.args.get('isLive') and current_user.is_authenticated and str(current_user.id) == request.args.get('user_id'):
+                title = "My Drafts"
                 posts = get_posts_by_user(user_id=request.args.get('user_id'), isLive=request.args.get('isLive'))
             else:
                 user = User.query.filter_by(id=request.args.get('user_id')).first_or_404()
                 return redirect(url_for('main.user', username=user.username))
         elif request.args.get('drafts'):
             if current_user.is_authenticated and current_user.isEditor:
+                title = "All drafts"
                 posts = Post.query.filter_by(isLive=False).all()
             else:
                 return redirect(url_for('main.index'))
@@ -78,7 +81,7 @@ def posts():
         message = None
     number = len(posts) if type(posts) == list else posts.count()
     message = "{} post{} found".format(number, "" if number == 1 else "s")
-    return render_template('posts.html', posts=posts, message=message, title="Posts")
+    return render_template('posts.html', posts=posts, message=message, title=title or "Posts")
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])
 @login_required
@@ -90,7 +93,7 @@ def post_new():
             tags = escape(break_up_tags(post, form.tags.data))
             #upload_image(form.images.data, post) ???
             return redirect(url_for('main.post', post_id=post.id))
-        print(form.errors)
+        # print(form.errors)
         return render_template('_post.html', form=form, post=None)
     else:
         return redirect(url_for('main.index'))
