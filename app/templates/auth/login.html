@@ -4,6 +4,7 @@
 <div class='auth-form'>
 <i class="material-icons">lock</i>
 <h1>Sign in</h1>
+<p><a href="{{ url_for('auth.register') }}">No account? Register&rarr;</a></p>
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {{ messages[0] }}
@@ -27,13 +28,9 @@
             <span style="color: red;">{{ error }}</span><br>
         {% endfor %}
     </p>
-    <p><a href="{{ url_for('auth.reset_password_request') }}">Forgot password?</a></p>
+    <p class="syne"><a href="{{ url_for('auth.reset_password_request') }}">Forgot password?</a></p>
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit() }}</p>
+    <p>{{ form.submit(class_="button-base-rounded bg-clay") }}</p>
 </form>
-
-<div id="register">
-    <p><a href="{{ url_for('auth.register') }}">No account? Register&rarr;</a></p>
-</div>
 </div>
 {% endblock %} 

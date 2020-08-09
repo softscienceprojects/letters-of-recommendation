@@ -4,23 +4,10 @@
         {% block title %}
             <title>{% if title %}{{ title }} - Letters{% else %}Letters of recommendation{% endif %}</title>
         {% endblock %}
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" crossorigin="anonymous" integrity="">
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400&family=Rubik:wght@900&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <style>
-            
-            @font-face {
-                font-family: 'Syne-Bold';
-                src: url({{ url_for("static", filename="Webfonts/Syne-Bold.woff") }}) format('woff'),
-                    url({{ url_for("static", filename="Webfonts/Syne-Bold.woff2") }}) format('woff2'),
-                    url({{ url_for("static", filename="Webfonts/Syne-Bold.eot") }}) format('eot');
-                font-weight: normal;
-            }
-
-           
-        </style>
+        <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/base.css') }}" >
+        <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/fonts.css')}}" >
     </head>
     <body>
         <div id="encompass">          

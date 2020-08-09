@@ -6,7 +6,13 @@ schema-notes.md
 sendgrid.env
 app.yaml
 /django_examples
+/.vscode
+.vscode
+/.vagrant
+/__pycache__
 .vscode/settings.json
 .gcloudignore
 /logs
+/etc
 *.pyc
+.DS_Store
