@@ -81,7 +81,7 @@ def posts():
         message = None
     number = len(posts) if type(posts) == list else posts.count()
     message = "{} post{} found".format(number, "" if number == 1 else "s")
-    return render_template('posts.html', posts=posts, message=message, title=title or "Posts")
+    return render_template('posts.html', posts=posts, message=message, title="Posts") #title or "Posts"
 
 @bp.route('/posts/new/', methods=['GET', 'POST'])
 @login_required
