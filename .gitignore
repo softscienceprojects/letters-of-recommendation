@@ -16,3 +16,4 @@ app.yaml
 /etc
 *.pyc
 .DS_Store
+letters.ini
