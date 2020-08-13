@@ -22,7 +22,6 @@ class ConfirmDialog {
         reject('Sorry, something went wrong. Please try later.');
         return;
       }
-      
       this.dialog.showModal();
 
       this.confirmButton.addEventListener("click", () => {
@@ -147,81 +146,81 @@ class ImageUploader {
 
 //////////////////////////////////////////////////////////////////
 
-class ImageDialog {
-  constructor({ parent }) {
-    this.parent = parent || document.body;
+// class ImageDialog {
+//   constructor({ parent }) {
+//     this.parent = parent || document.body;
 
-    this.dialog = undefined;
-    this.confirmButton = undefined;
-    this.cancelButton = undefined;
+//     this.dialog = undefined;
+//     this.confirmButton = undefined;
+//     this.cancelButton = undefined;
 
-    this._createDialog();
-    this._appendDialog();
-  }
+//     this._createDialog();
+//     this._appendDialog();
+//   }
 
-  confirm() {
-    return new Promise((resolve, reject) => {
-      const cannotCreateConfirm =
-        !this.dialog || !this.confirmButton || !this.cancelButton;
-      if (cannotCreateConfirm) {
-        reject('Sorry, something went wrong. Please try later.');
-        return;
-      }
+//   confirm() {
+//     return new Promise((resolve, reject) => {
+//       const cannotCreateConfirm =
+//         !this.dialog || !this.confirmButton || !this.cancelButton;
+//       if (cannotCreateConfirm) {
+//         reject('Sorry, something went wrong. Please try later.');
+//         return;
+//       }
 
-      this.dialog.showModal();
+//       this.dialog.showModal();
 
-      this.confirmButton.addEventListener("click", () => {
-        resolve(true);
-        this._destroy();
-      });
+//       this.confirmButton.addEventListener("click", () => {
+//         resolve(true);
+//         this._destroy();
+//       });
 
-      this.cancelButton.addEventListener("click", () => {
-        resolve(false);
-        this._destroy();
-      });
-    });
-  }
+//       this.cancelButton.addEventListener("click", () => {
+//         resolve(false);
+//         this._destroy();
+//       });
+//     });
+//   }
 
-  _createDialog() {
-    this.dialog = document.createElement("dialog");
-    // dialog is its own HTML element (API)
-    this.dialog.classList.add("confirm-dialog");
+//   _createDialog() {
+//     this.dialog = document.createElement("dialog");
+//     // dialog is its own HTML element (API)
+//     this.dialog.classList.add("confirm-dialog");
 
-    const question = document.createElement("div");
-    question.textContent = this.questionText;
-    question.classList.add("confirm-dialog-question");
-    this.dialog.appendChild(question);
+//     const question = document.createElement("div");
+//     question.textContent = this.questionText;
+//     question.classList.add("confirm-dialog-question");
+//     this.dialog.appendChild(question);
 
-    const buttonGroup = document.createElement("div");
-    buttonGroup.classList.add("confirm-dialog-button-group");
-    this.dialog.appendChild(buttonGroup);
+//     const buttonGroup = document.createElement("div");
+//     buttonGroup.classList.add("confirm-dialog-button-group");
+//     this.dialog.appendChild(buttonGroup);
 
-    this.cancelButton = document.createElement("button");
-    this.cancelButton.classList.add(
-      "confirm-dialog-button",
-      "button-base"
-    );
-    this.cancelButton.type = "button";
-    this.cancelButton.textContent = this.cancelButtonText;
-    buttonGroup.appendChild(this.cancelButton);
+//     this.cancelButton = document.createElement("button");
+//     this.cancelButton.classList.add(
+//       "confirm-dialog-button",
+//       "button-base"
+//     );
+//     this.cancelButton.type = "button";
+//     this.cancelButton.textContent = this.cancelButtonText;
+//     buttonGroup.appendChild(this.cancelButton);
 
-    this.confirmButton = document.createElement("button");
-    this.confirmButton.classList.add(
-      "confirm-dialog-button",
-      "button-base",
-      "button-danger"
-    );
-    this.confirmButton.type = "button";
-    this.confirmButton.textContent = this.confirmButtonText;
-    buttonGroup.appendChild(this.confirmButton);
-  }
+//     this.confirmButton = document.createElement("button");
+//     this.confirmButton.classList.add(
+//       "confirm-dialog-button",
+//       "button-base",
+//       "button-danger"
+//     );
+//     this.confirmButton.type = "button";
+//     this.confirmButton.textContent = this.confirmButtonText;
+//     buttonGroup.appendChild(this.confirmButton);
+//   }
 
-  _appendDialog() {
-    this.parent.appendChild(this.dialog);
-  }
+//   _appendDialog() {
+//     this.parent.appendChild(this.dialog);
+//   }
 
-  _destroy() {
-    this.parent.removeChild(this.dialog);
-    delete this;
-  }
-} // end ImageDialog
+//   _destroy() {
+//     this.parent.removeChild(this.dialog);
+//     delete this;
+//   }
+// } // end ImageDialog
