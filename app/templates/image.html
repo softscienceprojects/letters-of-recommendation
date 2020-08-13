@@ -11,44 +11,41 @@
                     {% endif %}
                 {% endwith %}
                 <p><strong>id:</strong> {{ image.id }} | <strong>asset_id: </strong> {{ image.asset_id }} | 
-                <strong>public_id: </strong> {{ image.public_id }}
-                </p>
+                <strong>public_id: </strong> {{ image.public_id }}</p>
                 <form action="" method="post" >
-                {{ form.hidden_tag() }}
-                <p>
-                {{ form.alt_tag.label }} {{ form.alt_tag }}
-                </p>
-                <p>
-                {{ form.caption.label }} {{ form.caption }}
-                </p>
-                <p>{{ form.submit(class_="button-base-rounded bg-bone color-cloud") }}</p>
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.alt_tag.label }} {{ form.alt_tag }}</p>
+                    <p>{{ form.caption.label }} {{ form.caption }}</p>
+                    <p>{{ form.submit(class_="button-base-rounded bg-bone color-cloud") }}</p>
                 </form>
                 
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
+            </div>
            
-        {% if posts %}
-            {% for post in posts %}
-                <div class="user-posts">
-                    {% if post[1].heroImage_id %}
-                        <div class="user-profile-post-img">
-                            <a href="{{ url_for('main.post', post_id=post.id) }}"><img src={{ post[1].get_post_hero_image() }} /></a>
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="user-posts">
+                        {% if post[1].heroImage_id %}
+                            <div class="user-profile-post-img">
+                                <a href="{{ url_for('main.post', post_id=post.id) }}"><img src={{ post[1].get_post_hero_image() }} /></a>
+                            </div>
+                        {% endif %}
+                        <div class="user-profile-post-post">
+                            <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post[1].title }}</a></p></h2>
+                            {% if post[0] == 'hero' %}<strong>hero</strong>{% endif %}
+                            {% for tag in post[1].posttags.all() %}
+                                <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                            {% endfor %}
                         </div>
-                    {% endif %}
-                    <div class="user-profile-post-post">
-                        <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post[1].title }}</a></p></h2>
-                        {% if post[0] == 'hero' %}<strong>hero</strong>{% endif %}
-                        {% for tag in post[1].posttags.all() %}
-                            <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
-                        {% endfor %}
-                        
                     </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p><em>No posts</em></p>
-        {% endif %}
-        <div class="user-options-panel">        
-                <button id="delete-image" class="button-base  button-base-rounded bg-rust">Delete this image</button>
+                {% endfor %}
+            {% else %}
+                <p><em>This image is not used in any letters</em></p>
+            {% endif %}
+
+            <div class="user-options-panel">        
+                    <button id="delete-image" class="button-base  button-base-rounded bg-rust">Delete this image</button>
+            </div>
         </div>
         <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
     {% endblock %}
