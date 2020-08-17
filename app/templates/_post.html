@@ -5,7 +5,7 @@
     <div>
     {% if post.id %}
         {% if not post.isLive %}
-            <p class="fake-button button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
+            <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
         {% endif %}
         {% if current_user.isEditor %}
             {% if post.isLive == False %}

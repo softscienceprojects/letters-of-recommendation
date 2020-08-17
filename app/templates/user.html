@@ -67,7 +67,7 @@
                         {% endfor %}
                     </div>
                     <div class="post-read-more">
-                        <a class="fake-button button-base-rounded bg-beige" href="{{ url_for('main.post', post_id=post.id) }}">Read &rarr;</a>
+                        <a class="button-base-rounded bg-beige" href="{{ url_for('main.post', post_id=post.id) }}" role="button">Read &rarr;</a>
                     </div>
                 </div>
             {% endfor %}
