@@ -73,7 +73,7 @@ p {
 
 #encompass {
     display: flex;
-    background-color: var(--blue-blush); /* #ce8054; */
+    /* background-color: var(--blue-blush); #ce8054; */
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1; 
     animation-fill-mode: forwards; 
@@ -342,19 +342,25 @@ nav ul li a:hover {
 }
 
 
-dialog {
-    /* modal - its own element 
+.confirm-dialog {
+    /* dialog - a modal - its own element 
       needs spec'ing on mobile 
       so it doesn't look bad.
       comes with pseudo class 
-      dialog::backdrop  */
+      dialog::backdrop.
+      DOESN'T WORK ON SAFARI */
     border: 0;
     padding: 20px;
+    display: block;
+    position: fixed;
+    z-index: 1500;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--cloud);
+    min-width: 15em;
 }
 
-/* .confirm-dialog-question {
-    /* text in modal 
-} */
 
 .content {
     display: block;
@@ -721,16 +727,29 @@ p.user-profile {
 }
 
 .modal-background {
+    /* top: 0; */
+    /* left: 0; */
+    /* bottom: 0; */
+    /* right: 0; */
+    /* display: block; */
+    /* opacity: 1; */
+    /* transform: translate(0, 0); */
+    /* position: fixed; */
+    /* text-align: center; */
+    /* z-index: 1200; */
     height: 100%;
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--cloud);
+    background-color: var(--smoke);
     background-blend-mode: multiply;
     opacity: 50%;
     z-index: 10;
+    overflow: hidden;
 }
+
+/* style="z-index: 1500;display: block;position: absolute;top: 50%;left: 50%;width: 200px;background-color: var(--cloud); */
 
 .user-options-panel {
     padding: 15px;
@@ -932,14 +951,6 @@ a.button-hover-clay:hover {
     box-shadow: 0 0 10px var(--bone);
 }
 
-/* .confirm-dialog-button {
-    /* each button in modal gets this class 
-}
-
-.confirm-dialog-button-group {
-    /* div holding two buttons in the dialogue 
-} */
-
 /* ------------- FORMS ----------------- */
 
 @media screen and (min-width: 900px) {
@@ -965,7 +976,7 @@ textarea {
     padding: 10px;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, button:focus {
     outline: none !important;
     /* outline: 1px solid var(--clay) !important; */
     box-shadow: 0 0 10px var(--bone);

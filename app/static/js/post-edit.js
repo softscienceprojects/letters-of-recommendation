@@ -3,6 +3,7 @@ const tagsInput = document.querySelector("input#tags");
 const tagsDiv = document.querySelector("div#tags")
 let word = ''
 let words = []
+var lastFocus;
 
 onInit = function() {
     if (tagsInput.value != "") {
@@ -64,15 +65,20 @@ const confirmDeleteButton = document.querySelector("#delete-post");
 if (confirmDeleteButton) {
     confirmDeleteButton.addEventListener("click", async () => {
         const dialog = new ConfirmDialog({
+          confirmHeader: "Delete this post",
           confirmButtonText: "Delete",
           cancelButtonText: "Cancel",
           questionText: "Are you sure you would like to delete this post? This action cannot be undone"
         });
+
+        lastFocus = confirmDeleteButton;
   
         const confirmDelete = await dialog.confirm();
         if (confirmDelete) {
           let id = window.location.pathname.split('/')[2]
           window.app.destroy(`/posts/${id}/edit/delete/`)
+      } else {
+          lastFocus.focus();
       }
   });
 

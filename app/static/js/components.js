@@ -1,12 +1,14 @@
 class ConfirmDialog {
     // with thanks https://codepen.io/sindre/pen/RwbvObK
-  constructor({ questionText, confirmButtonText, cancelButtonText, parent }) {
+  constructor({ confirmHeader, questionText, confirmButtonText, cancelButtonText, parent }) {
+    this.confirmHeader = confirmHeader || "";
     this.questionText = questionText || "Are you sure?";
     this.confirmButtonText = confirmButtonText || "Yes";
     this.cancelButtonText = cancelButtonText || "No";
     this.parent = parent || document.body;
 
     this.dialog = undefined;
+    this.back = undefined;
     this.confirmButton = undefined;
     this.cancelButton = undefined;
 
@@ -17,12 +19,12 @@ class ConfirmDialog {
   confirm() {
     return new Promise((resolve, reject) => {
       const cannotCreateConfirm =
-        !this.dialog || !this.confirmButton || !this.cancelButton;
+        !this.dialog || !this.confirmButton || !this.cancelButton || !this.back;
       if (cannotCreateConfirm) {
         reject('Sorry, something went wrong. Please try later.');
         return;
       }
-      this.dialog.showModal();
+      //this.dialog.showModal(); //doesn't work in safari...
 
       this.confirmButton.addEventListener("click", () => {
         resolve(true);
@@ -37,13 +39,25 @@ class ConfirmDialog {
   }
 
   _createDialog() {
-    this.dialog = document.createElement("dialog");
+    this.back = document.createElement("div");
+    this.back.classList.add('modal-background');
+
+    this.dialog = document.createElement("div");
     // dialog is its own HTML element (API)
     this.dialog.classList.add("confirm-dialog");
+    this.dialog.setAttribute("role", "alertdialog");
+    this.dialog.setAttribute('tabindex', '0');
 
     const question = document.createElement("div");
-    question.textContent = this.questionText;
-    question.classList.add("confirm-dialog-question");
+    if (this.confirmHeader.length) {
+        const questionHeader = document.createElement("h1");
+        questionHeader.innerText = this.confirmHeader;
+        question.append(questionHeader);
+    }
+    const pQuestion = document.createElement("p");
+    pQuestion.textContent = this.questionText;
+    question.append(pQuestion);
+    
     this.dialog.appendChild(question);
 
     const buttonGroup = document.createElement("div");
@@ -52,18 +66,21 @@ class ConfirmDialog {
 
     this.cancelButton = document.createElement("button");
     this.cancelButton.classList.add(
-      "confirm-dialog-button",
-      "button-base"
+      "button-base",
+      "button-base-rounded",
+      "bg-bone"
     );
     this.cancelButton.type = "button";
+    this.cancelButton.id = "overlay-cancel";
     this.cancelButton.textContent = this.cancelButtonText;
     buttonGroup.appendChild(this.cancelButton);
 
     this.confirmButton = document.createElement("button");
+    this.confirmButton.id = "overlay-confirm";
     this.confirmButton.classList.add(
-      "confirm-dialog-button",
       "button-base",
-      "button-danger"
+      "button-base-rounded",
+      "bg-rust"
     );
     this.confirmButton.type = "button";
     this.confirmButton.textContent = this.confirmButtonText;
@@ -71,32 +88,46 @@ class ConfirmDialog {
   }
 
   _appendDialog() {
+    // this.parent.aria-hidden="true"
+    this.parent.appendChild(this.back);
     this.parent.appendChild(this.dialog);
+    this.dialog.focus();
   }
 
   _destroy() {
+    this.parent.removeChild(this.back);
     this.parent.removeChild(this.dialog);
     delete this;
   }
 } // end ConfirmDialog
 
-// class CommentForm extends HTMLDivElement {}
-// customElements.define('comment-form', CommentForm, {extends: 'div'})
-
-// class Navigation extends HTMLElement {
-//   constructor() {
-//     super()
-//     //let shadow = elementRef.attachShadow({mode: 'open'});
-//     //let navShadow = navdiv.attachShadow({mode: 'open'});
-//     const shadow = this.attachShadow({mode: 'open'});
-//     const info = document.createElement('span');
-//     const text = this.getAttribute('data-text');
-//     info.textContent = text;
-//   }
-// }
-// customElements.define('menu-nav', Navigation) //{extends: 'nav'}
 
 ///////////////////////////////////////////////////////////////
+
+// class ConfirmOverlay {
+//   constructor({ questionText, confirmButtonText, cancelButtonText, parent }) {
+//     this.questionText = questionText || "Are you sure?";
+//     this.confirmButtonText = confirmButtonText || "Yes";
+//     this.cancelButtonText = cancelButtonText || "No";
+//     this.parent = parent || document.body;
+
+//     this.confirmOverlay = undefined;
+//     this.confirmButton = undefined;
+//     this.cancelButton = undefined;
+
+//     this._createConfirmOverlay();
+//     this._appendConfirmOverlay();
+
+//   }
+
+//   _createConfirmOverlay() {
+
+//     this.confirmOverlay = document.createElement('div')
+//   }
+  
+
+// }
+
 
 class ImageUploader { 
   constructor({parent}) {

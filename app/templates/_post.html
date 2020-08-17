@@ -4,8 +4,18 @@
 <div class='auth-form'>
     <div>
     {% if post.id %}
-        {{ post.isLive | poststatus }}  <button id="delete-post" class="button-base button-danger">Delete this post</button>
-    <hr />
+        {% if not post.isLive %}
+            <p class="fake-button button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
+        {% endif %}
+        {% if current_user.isEditor %}
+            {% if post.isLive == False %}
+               <a href="{{ url_for('main.golive', post_id=post.id) }}" class="button-base  button-base-rounded bg-clay">Make public</a>
+                {% else %}
+                <a href="{{ url_for('main.makedraft', post_id=post.id) }}" class="button-base  button-base-rounded bg-bone">Revert to draft</a>
+            {% endif %}
+        {% endif %}  
+        <button id="delete-post" class="button-base button-base-rounded bg-rust">Delete this post</button>
+        <hr />
     {% endif %}
         
     <form action="" method="post" class="edit-post" name="post" enctype="multipart/form-data" autocomplete="off">
@@ -41,18 +51,10 @@
     <div id="tags"></div>
     <p> {{ form.tags }}</p>
 
-    <p>{{ form.submit() }}</p>
+    <p>{{ form.submit(class_="button-base-rounded bg-clay") }}</p>
     </form>
 
-    {% if post.id %}
-    {% if current_user.isEditor %}
-    {% if post.isLive == False %}
-       <a href="{{ url_for('main.golive', post_id=post.id) }}">Make public</a>
-        {% else %}
-        <a href="{{ url_for('main.makedraft', post_id=post.id) }}">Revert to draft</a>
-    {% endif %}
-    {% endif %}
-    {% endif %}
+    
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/post-edit.js') }}"></script>
     {{ super () }}
