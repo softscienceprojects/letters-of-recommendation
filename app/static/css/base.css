@@ -28,6 +28,10 @@
     color: var(--clay);
 }
 
+.border-smoke {
+    border: 3px solid var(--smoke) !important;
+}
+
 /* **************   BACKGROUNDS ********** */
 .bg-smoke {
     background-color: var(--smoke);
@@ -45,6 +49,10 @@
 
 .bg-beige {
     background-color: var(--beige);
+}
+
+.bg-cloud {
+    background-color: var(--cloud);
 }
 
 /* WARN */
@@ -151,6 +159,11 @@ img.profile-picture {
     height: 300px;
     object-fit: cover;
     border: 5px solid var(--smoke);
+}
+
+.auth-form img.profile-picture {
+    margin-left: 50%;
+    transform: translate(-50%);
 }
 
 #container {
@@ -860,10 +873,6 @@ p.user-profile {
     padding-bottom: 15px;
 }
 
-/* .profile-picture {
-
-} */
-
 .username {
     display: flex;
     justify-content: flex-end;
@@ -997,7 +1006,6 @@ input:focus, textarea:focus, button:focus {
 /* .auth-form */
 input[type=text], 
 input[type=password],
-input[type=files],
 input[type=email],
 textarea {
     font-size: 16px;
@@ -1010,6 +1018,16 @@ textarea {
     -moz-appearance: none;
     -webkit-appearance: none;
 }
+
+input[type=files],
+input[type=file] {
+    display: none;
+}
+
+.form-file-upload {
+    cursor: pointer;
+}
+
 
 input[type=submit] {
     -moz-appearance: none;

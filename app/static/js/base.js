@@ -40,12 +40,26 @@ menuButton.addEventListener('click', function(e) {
 })
 
 
-const imageUploaderButton = document.querySelector("#image-upload")
+// const imageUploaderButton = document.querySelector("#image-upload")
 
-if (imageUploaderButton) {
-    imageUploaderButton.addEventListener("click", async(e) => {
-        e.preventDefault()
-        const imageUpload = new ImageUploader({parent: document.querySelector('.post-content')})
+// if (imageUploaderButton) {
+//     imageUploaderButton.addEventListener("click", async(e) => {
+//         e.preventDefault()
+//         const imageUpload = new ImageUploader({parent: document.querySelector('.post-content')})
+//     })
+// }
+
+const fileUpload = document.querySelector(".form-file-upload")
+
+if (fileUpload) {
+    let filesSelected = document.querySelector('input[type="file"]')
+    filesSelected.addEventListener("change", function(e) {
+        let filenames = []
+        for (let i=0; i < e.target.files.length; i++) {
+            filenames.push(e.target.files.item(i).name)
+        }
+        let filenamesDisplay = document.querySelector("#file-uploaded")
+        filenamesDisplay.innerText = filenames.join(", ");
     })
 }
 

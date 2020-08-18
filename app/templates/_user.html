@@ -16,7 +16,9 @@
         {% endfor %}
     </p>
     <img src={{ current_user.get_profile_photo() }} class="profile-picture" alt={{ current_user.username }}/><br />
-    {{ form.profile_picture(class_="button-base-rounded bg-bone color-cloud") }}
+    {{ form.profile_picture.label(class_="form-file-upload button-base-rounded bg-bone color-cloud") }}
+    <span id="file-uploaded"></span>
+    {{ form.profile_picture }}
     <p>
         {{ form.profile.label }}<br>
         {{ form.profile }}<br>
