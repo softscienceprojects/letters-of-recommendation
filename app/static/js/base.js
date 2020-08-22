@@ -1,6 +1,7 @@
 BASE_URL = window.location.host + "/";
 USER_DEVICE_MOBILE = /Mobile|Touch/i.test(navigator.userAgent) || window.innerWidth<900;
 
+// WINDOW
 window.app = {
     destroy: function(path) {
         console.log(path)
@@ -11,9 +12,25 @@ window.app = {
     }
 }
 
+window.addEventListener("resize", function() {
+    USER_DEVICE_MOBILE = /Mobile|Touch/i.test(navigator.userAgent) || window.innerWidth<900;
+    if (window.innerWidth < 900) {
+        closeNav()
+    } else {
+        if (sessionStorage.getItem('navMenu') === 'closed') {
+            closeNav()
+        } else {
+            openNav()
+        }
+    }
+})
+
+
 //const navdiv = document.querySelector('#navigation-menu')
 let menuButton = document.querySelector('#menu-button');
 let nav = document.querySelector('nav');
+
+
 
 closeNav = function() {
     menuButton.innerHTML = USER_DEVICE_MOBILE ? 'MENU' : '<i class="material-icons">fullscreen</i>';
@@ -57,11 +74,16 @@ if (fileUpload) {
         let filenames = []
         for (let i=0; i < e.target.files.length; i++) {
             filenames.push(e.target.files.item(i).name)
+            // e.target.files.item(i).size
         }
         let filenamesDisplay = document.querySelector("#file-uploaded")
         filenamesDisplay.innerText = filenames.join(", ");
     })
 }
+
+
+
+////// Init stuff out of the way
 
 bodyOnload = function() {
     console.log('(╯°□°）╯︵ ┻━┻')
@@ -74,7 +96,8 @@ bodyOnload = function() {
     } else {
         menuButton.innerHTML = "MENU";
         closeNav()
-    }   
+    }
+    
 }
 
 
