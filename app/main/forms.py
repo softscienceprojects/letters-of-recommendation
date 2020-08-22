@@ -10,7 +10,7 @@ import re
 class EditProfileForm(FlaskForm):
     username = StringField('username', validators=[DataRequired(), Regexp('[0-9a-zA-Z]')])
     profile = TextAreaField('about me', validators=[Length(min=0, max=300)])
-    profile_picture = FileField('choose profile picture')
+    profile_picture = FileField('choose profile picture:')
     submit = SubmitField('submit')
 
     def __init__(self, original_username, *args, **kwargs):
