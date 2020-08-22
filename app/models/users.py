@@ -97,9 +97,9 @@ class User(UserMixin, db.Model):
             url to image file is cloudinary
         """
         if self.profile_picture in ['default.jpg', None]:
-            return url_for('static', filename='images/mobile.png')
+            return url_for('static', filename='images/heather-shevlin-3B_NrzTjajc-unsplash.jpg')
         else:
-            #return url_for('static', filename='images/mobile.png')
+            #return url_for('static', filename='images/heather-shevlin-3B_NrzTjajc-unsplash.jpg')
             return f"https://res.cloudinary.com/{os.environ.get('CLOUDINARY_CLOUD_NAME')}/image/upload/{self.profile_picture}"
  
     ## AUTH METHODS ##
