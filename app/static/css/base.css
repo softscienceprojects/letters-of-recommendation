@@ -79,6 +79,12 @@ p {
     font-size: 16px;
 }
 
+quote {
+    display: block;
+    border-left: 1px solid var(--clay);
+    padding-left: 15px;
+}
+
 #encompass {
     display: flex;
     /* background-color: var(--blue-blush); #ce8054; */
@@ -137,6 +143,18 @@ div.splash-tags p {
 img {
     max-width: 100%;
     max-height: 100%;
+}
+
+.images-overview {
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.image-card {
+    box-sizing: border-box;
+    display: flex;
 }
 
 .image-for-post {
@@ -777,6 +795,8 @@ p.user-profile {
     padding: 15px;
     text-align: center;
     line-height: 2.2em;
+    margin: auto;
+    width: 100%;
 }
 
 .user-options-panel a, #user-options-menu a {

@@ -4,11 +4,11 @@ USER_DEVICE_MOBILE = /Mobile|Touch/i.test(navigator.userAgent) || window.innerWi
 // WINDOW
 window.app = {
     destroy: function(path) {
-        console.log(path)
-        // return fetch(path, {method: "POST"})
-        // .then(response=>response.json())
-        // .then(response=>window.location.replace(response.next))
-        // .catch(error=>console.error(error))
+        // console.log(path)
+        return fetch(path, {method: "POST"})
+        .then(response=>response.json())
+        .then(response=>window.location.replace(response.next))
+        .catch(error=>console.error(error))
     }
 }
 
