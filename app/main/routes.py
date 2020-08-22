@@ -127,6 +127,19 @@ def post_edit_hero(post_id):
     else:
         return redirect(url_for('main.index'))
 
+@bp.route('/posts/<post_id>/remove-hero', methods=['POST'])
+@login_required
+def post_remove_hero(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if post.author == current_user or current_user.isEditor:
+        post.heroImage_id = None
+        db.session.commit()
+        response = jsonify({'post_id': post.id, 'next': url_for('main.post', post_id=post.id)})
+        response.status_code = 202
+        redirect(url_for('main.post', post_id=post.id))
+        return response
+    return redirect(url_for('main.index'))
+
 @bp.route('/posts/<post_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def post_edit(post_id):

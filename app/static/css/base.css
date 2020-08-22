@@ -155,6 +155,7 @@ img {
 .image-card {
     box-sizing: border-box;
     display: flex;
+    margin: 10px auto;
 }
 
 .image-for-post {

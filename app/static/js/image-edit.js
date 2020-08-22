@@ -16,4 +16,16 @@ if (confirmDeleteButton) {
   });
 
 }
+
+
+const removeHeroButton = document.querySelector('#remove-hero')
+
+if (removeHeroButton) {
+    removeHeroButton.addEventListener('click', async () => {
+      let id = window.location.pathname.split('/')[2]
+      // console.log(id)
+      window.app.destroy(`/posts/${id}/remove-hero`)
+      }
+    )
+}
    

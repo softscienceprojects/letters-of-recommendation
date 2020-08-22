@@ -6,6 +6,7 @@
     <form action="" method="post" enctype="multipart/form-data">
     <h1>Select a hero image</h1>
     {{ form.hidden_tag() }}
+    <div style="display:inline-flex">
     {% for option in form.selectHeroList %}   
             <div class="post-image-form"> 
             {{ option }} <img src={{ option.data | image_url }} style="max-width: 100px;"/>
@@ -15,8 +16,12 @@
             <ul>
                 <li><span style="color: red;">Can't set as hero image: {{ error }}</span></li>
             </ul>
-        {% endfor %}    
+        {% endfor %}   
+    </div> 
     <p>{{ form.submit(class_="button-base-rounded bg-bone") }}</p>
     </form>
+    <button id="remove-hero" class="button-base button-base-rounded bg-rust">Remove hero from post</button>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
+    {{ super () }}
 </div>
 {% endblock %}
