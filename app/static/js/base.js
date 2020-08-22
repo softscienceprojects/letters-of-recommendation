@@ -36,6 +36,7 @@ closeNav = function() {
     menuButton.innerHTML = USER_DEVICE_MOBILE ? 'MENU' : '<i class="material-icons">fullscreen</i>';
     nav.classList.remove('display-show');
     nav.classList.add('display-hide');
+    nav.style.transition = '0.5s';
     sessionStorage.setItem('navMenu', 'closed')
 }
 
@@ -43,15 +44,16 @@ openNav = function() {
     menuButton.innerHTML = USER_DEVICE_MOBILE ? 'CLOSE MENU' : '<i class="material-icons">fullscreen_exit</i>';
     nav.classList.remove('display-hide');
     nav.classList.add('display-show')
+    nav.style.transition = '0.5s';
     sessionStorage.setItem('navMenu', 'open')
 }
 
 menuButton.addEventListener('click', function(e) {
     if (sessionStorage.getItem('navMenu') === 'open') {
-        nav.style.transition = '0.5s';
+        // nav.style.transition = '0.5s';
         closeNav()
     } else {
-        nav.style.transition = '0.5s';
+        // nav.style.transition = '0.5s';
         openNav()
     }
 })
