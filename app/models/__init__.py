@@ -77,12 +77,16 @@ def get_tags_for_post(post_id):
     return post.posttags.order_by(Post.datePosted.desc()).all()
 
 def get_posts_for_tag(tag_id, filterLive=True):
-    tag = Tag.query.filter_by(id=tag_id).first()
-    if filterLive==False:
-        return tag.posts.order_by(Post.datePosted.desc()).all()
+
+    if tag_id:
+        tag = Tag.query.filter_by(id=tag_id).first()
+        if filterLive==False:
+            return tag.posts.order_by(Post.datePosted.desc()).all()
+        else:
+            #return Post.query.join(postTags, (postTags.c.tag_id == tag.id)).filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
+            return tag.posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
     else:
-        #return Post.query.join(postTags, (postTags.c.tag_id == tag.id)).filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
-        return tag.posts.filter(Post.isLive==True).order_by(Post.datePosted.desc()).all()
+        return []
 
 def get_posts_by_user(user_id, isLive=True):
     return Post.query.filter_by(user_id=user_id, isLive=isLive).order_by(Post.datePosted.desc()).all()

@@ -55,8 +55,11 @@ def posts():
     if request.args:
         if request.args.get('tag'):
             tag = find_tag(request.args.get('tag'))
-            title = request.args.get('tag')
-            posts = get_posts_for_tag(tag.id)
+            if tag:
+                title = request.args.get('tag')
+                posts = get_posts_for_tag(tag.id)
+            else:
+                posts = []
         elif request.args.get('user_id'):
             if request.args.get('isLive') and current_user.is_authenticated and str(current_user.id) == request.args.get('user_id'):
                 title = "My Drafts"
