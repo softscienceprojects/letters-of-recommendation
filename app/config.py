@@ -20,7 +20,7 @@ class Config(object):
     If using STARTTLS with MAIL_USE_TLS = True, then use MAIL_PORT = 587.
     If using SSL/TLS directly with MAIL_USE_SSL = True, then use MAIL_PORT = 465.
     """
-    MAIL_SERVER="smtp.gmail.com"
+    MAIL_SERVER="smtp.zoho.eu" #"smtp.gmail.com"
     MAIL_PORT = 465
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
