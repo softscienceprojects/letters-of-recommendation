@@ -17,3 +17,4 @@ app.yaml
 *.pyc
 .DS_Store
 letters.ini
+/___blog-posts/
