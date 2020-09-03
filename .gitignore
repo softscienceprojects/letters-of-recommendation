@@ -18,3 +18,5 @@ app.yaml
 .DS_Store
 letters.ini
 /___blog-posts/
+nginx.conf
+letters-of-recommendation.com
