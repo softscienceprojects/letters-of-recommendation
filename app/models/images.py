@@ -60,7 +60,7 @@ class Image(db.Model):
             db.session.delete(self)
             db.session.commit()
         else:
-            print("can't delete??")
+            print("can't delete: ", result)
         return #something...
         
 

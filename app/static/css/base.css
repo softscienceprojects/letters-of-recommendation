@@ -795,7 +795,6 @@ p.user-profile {
 /* style="z-index: 1500;display: block;position: absolute;top: 50%;left: 50%;width: 200px;background-color: var(--cloud); */
 
 .user-options-panel {
-    padding: 15px;
     text-align: center;
     line-height: 2.2em;
     margin: auto;
@@ -807,29 +806,39 @@ p.user-profile {
     margin: 2px 10px;
 }
 
+@keyframes pullDownAnimation { 
+    0% { 
+        translateY: -100%; 
+    } 
+    100% { 
+        top: 0; 
+     } 
+}
+
 #user-options-menu {
+    transition: all .5s ease-in-out;
     display: none;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    text-align: center;
+    /* text-align: center; */
     /* position: absolute; */
     /* right: 1em; */
     padding: 1em;
 }
 
-.button-base-rounded .material-icons {
+.button-base-rounded .material-icons, .button-base .material-icons {
     vertical-align: middle !important;
     font-size: 20px;
     padding-right: 0.25em;
 }
+
 
 #user-options-menu ul {
     padding-left: 0;
 }
 #user-options-menu li {
     list-style: none;
-    margin-bottom: 1em;
 }
 
 #user-options-menu li.section {
@@ -944,10 +953,11 @@ p.user-profile {
 
 /* USED ON POST EDIT - FIX THIS: */
 .button-base {
-    /* display: inline-block; */
+    display: inline-block;
     border: 0;
     padding: 10px 20px;
     margin: 5px 10px 5px 0;
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
 
 .button-base-rounded {
@@ -961,6 +971,7 @@ p.user-profile {
     letter-spacing: 1px;
     font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
+
 
 
 .button-circle {
