@@ -1,6 +1,7 @@
 :root {
     /* Neutral */
     --smoke: #2b2b2b;
+    --offsmoke: #555555;
     --bone: #c5bebb;
     --blue-blush: #f1f1f1;
     --cloud: #fbfbfb;
@@ -35,6 +36,10 @@
 /* **************   BACKGROUNDS ********** */
 .bg-smoke {
     background-color: var(--smoke);
+}
+
+.bg-offsmoke {
+    background-color: var(--offsmoke);
 }
 
 .bg-clay {
@@ -232,7 +237,7 @@ code {
 }
 
 h1#title {
-    color: var(--blue-blush);
+    color: var(--cloud);
     font-size: 4rem;
     text-transform: capitalize;
 }
@@ -303,11 +308,13 @@ footer {
     padding: 20px 0;
     font-size: 80%;
     background-color: var(--smoke);
-    color: var(--bone);
+    color: var(--clay);
+    font-family: 'Syne-Bold', 'Arial', sans-serif;
 }
 
 footer a {
-    color: var(--bone)
+    /* font-weight: 500; */
+    color: var(--bone);
 }
 
 nav {
