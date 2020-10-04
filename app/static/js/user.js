@@ -12,11 +12,15 @@ openUserMenu = function(e) {
         userMenuButton = document.querySelector('#open-user-menu');
     if (window.app.USER_OPTIONS === "closed") {
         userMenuButton.classList.add("button-shadow-clay")
-        userOptionMenu.style.display = "flex";
+        // userOptionMenu.style.display = "flex";
+        // userOptionMenu.removeAttribute("hidden")
+        userOptionMenu.classList.add("open");
         window.app.USER_OPTIONS = "open"  
     } else {
-        userOptionMenu.style.display = "none";
+        // userOptionMenu.style.display = "none";
+        // userOptionMenu.setAttribute("hidden", true)
         userMenuButton.classList.remove("button-shadow-clay")
+        userOptionMenu.classList.remove("open");
         window.app.USER_OPTIONS = "closed" 
     }
 }
