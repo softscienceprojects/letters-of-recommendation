@@ -262,6 +262,11 @@ a.div-link {
     display: block;
 }
 
+.edit-image {
+    position: absolute;
+    right: calc(100% - 50vw);
+    top: 10px;
+}
 
 a.icon-block i {
     display:block;

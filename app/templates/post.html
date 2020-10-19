@@ -7,7 +7,7 @@
             </div>
         {% endif %}
         {% if post.author == current_user or current_user.isEditor  %} 
-            <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" style="float:right;padding:10px;" title="change hero image">photo_camera</i></a>
+            <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit edit-image" title="change hero image">photo_camera</i></a>
         {% endif %}
         <div class="post-title-details">
             <h1>{{ post.title }}</h1>
