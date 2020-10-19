@@ -13,6 +13,9 @@
                 
                 <div class="post-card-details">
                         <h2 class='byline'><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                        {% if post.intro %}
+                        <h3 class="syne" style="margin: auto;">{{ post.intro }}</h3>
+                        {% endif %}
                         {% for tag in post.posttags %}
                             <span class="splash-tag bg-clay"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
