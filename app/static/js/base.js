@@ -59,7 +59,6 @@ menuButton.addEventListener('click', function(e) {
     }
 })
 
-
 // const imageUploaderButton = document.querySelector("#image-upload")
 
 // if (imageUploaderButton) {
@@ -90,17 +89,10 @@ if (fileUpload) {
 
 bodyOnload = function() {
     console.log('(╯°□°）╯︵ ┻━┻')
-    if( !USER_DEVICE_MOBILE ) {
-        if (!sessionStorage.getItem('navMenu') || sessionStorage.getItem('navMenu') === 'closed') {
-            closeNav()
-        } else {
-            openNav()
-        }
-    } else {
+    closeNav()
+    if( USER_DEVICE_MOBILE ) {
         menuButton.innerHTML = "MENU";
-        closeNav()
     }
-    
 }
 
 
