@@ -61,6 +61,7 @@ def create_app(config_class=Config):
     app.jinja_env.filters['poststatus'] = poststatus
     app.jinja_env.filters['test_erin'] = test_erin
     app.jinja_env.filters['image_url'] = get_self_image_for_select_buttons
+    app.jinja_env.filters['autoversion'] = autoversion
 
     return app
 

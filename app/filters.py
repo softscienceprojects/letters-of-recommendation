@@ -1,3 +1,4 @@
+import os
 import re
 from markupsafe import Markup, escape
 
@@ -28,6 +29,20 @@ def poststatus(value):
     else:
         return ""
 
+def autoversion(filename):
+    """
+    python -c "from app.filters import autoversion; autoversion('app/static')"
+    thx https://stackoverflow.com/questions/41144565/flask-does-not-see-change-in-js-file
+        https://ana-balica.github.io/2014/02/01/autoversioning-static-assets-in-flask/
+    """
+    fullpath = os.path.join('app/', filename[1:])
+    try:
+        last_updated = str(os.path.getmtime(fullpath))
+    except OSError:
+        return filename
+    
+    newfilename = "{0}?v={1}".format(filename, last_updated)
+    return newfilename
 
 ####### DECORATORS ####################
 
