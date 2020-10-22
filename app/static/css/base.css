@@ -737,8 +737,6 @@ nav ul li a:hover {
 } */
 
 .post-card-details {
-    position: -webkit-sticky;
-    position: sticky;
     top: 0;
     height: 200px;
     /* bottom: 10%; */
