@@ -33,7 +33,7 @@ tagsInput.addEventListener('input', function(e) {
 
 createButton = function(word) {
     let tagButton = document.createElement('button')
-    tagButton.classList.add('bg-beige', 'syne', 'button-base')
+    tagButton.classList.add('bg-beige', 'button-base')
     tagButton.id = `${word}-taglist`
     tagButton.innerText = word
     tagButton.addEventListener('click', tagButtonClicked)

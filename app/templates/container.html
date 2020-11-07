@@ -6,10 +6,15 @@
         {% block content %}{% endblock %}
                 
     <footer>
-        <a  class="fake-button button-base bg-offsmoke color-cloud" href="{{ url_for('main.about') }}">About</a>  
-        <a class="fake-button button-base bg-offsmoke color-cloud" href="{{ url_for('main.privacy') }}">Terms &amp; Privacy</a>
-        <br />
-        © Letters of Recommendation 2020
+        <div>
+            <div>
+            <a class="color-cloud" href="{{ url_for('main.about') }}">About</a> <br />  
+            <a class="color-cloud" href="{{ url_for('main.privacy') }}">Terms &amp; Privacy</a>
+            </div>
+            <div>
+            © Letters of Recommendation 2020
+            </div>
+        </div>
     </footer>
     </div>                 
  

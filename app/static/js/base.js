@@ -34,18 +34,16 @@ let nav = document.querySelector('nav');
 
 
 closeNav = function() {
-    menuButton.innerHTML = USER_DEVICE_MOBILE ? 'MENU' : '<i class="material-icons">fullscreen</i>';
     nav.classList.remove('display-show');
-    nav.classList.add('display-hide');
     nav.style.transition = '0.5s';
+    nav.classList.add('display-hide');
     sessionStorage.setItem('navMenu', 'closed')
 }
 
 openNav = function() {
-    menuButton.innerHTML = USER_DEVICE_MOBILE ? 'CLOSE MENU' : '<i class="material-icons">fullscreen_exit</i>';
     nav.classList.remove('display-hide');
-    nav.classList.add('display-show')
     nav.style.transition = '0.5s';
+    nav.classList.add('display-show');
     sessionStorage.setItem('navMenu', 'open')
 }
 
@@ -91,7 +89,7 @@ bodyOnload = function() {
     console.log('(╯°□°）╯︵ ┻━┻')
     closeNav()
     if( USER_DEVICE_MOBILE ) {
-        menuButton.innerHTML = "MENU";
+        // menuButton.innerHTML = "MENU";
     }
 }
 

@@ -15,11 +15,11 @@
            
         </div>
     </div>
- 
-    
-    {% if post.intro %}
+
+
+  {% if post.intro %}
     <section class="post-intro">
-        <h2 class="syne" style="margin: auto;">{{ post.intro }}</h2>
+        <h2 style="margin: auto;">{{ post.intro }}</h2>
     </section>
     {% endif %}
 
@@ -47,7 +47,6 @@
     {% endif %}
 
  
-
     <div class="post-content">
    {% if post.author == current_user or current_user.isEditor %} 
         {% if not post.isLive %}
