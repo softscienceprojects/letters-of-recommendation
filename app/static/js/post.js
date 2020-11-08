@@ -13,7 +13,7 @@ function changeSlide(direction) {
         slide = window.app.SLIDES.length-1
     }
     window.app.SLIDES[slide].style.display='flex';
-    SLIDE_NUM[slide].textContent = `${slide+1} of ${window.app.SLIDES.length}`;
+    SLIDE_NUM[slide].innerHTML = `${slide+1} <i>of</i> ${window.app.SLIDES.length}`;
 }
 
 function slideNavShow(elem) {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         SLIDES[0].style.display="flex";
 
         if (SLIDES.length > 1) {
-            SLIDE_NUM[0].textContent = `1 of ${SLIDES.length}`;
+            SLIDE_NUM[0].innerHTML = `1 <i>of</i> ${SLIDES.length}`;
             window.app.SLIDES = SLIDES;
             NEXT.style.cursor = "pointer";
             PREV.style.cursor = "pointer";

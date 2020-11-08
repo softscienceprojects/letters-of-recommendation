@@ -6,8 +6,15 @@
             <div class="hero-image-display" style="background-image: url( {{ post.get_post_hero_image() }} );">
             </div>
         {% endif %}
+
         {% if post.author == current_user or current_user.isEditor  %} 
+        <div class="user-top-of-profile">
+            {% if not post.isLive %}
+                <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
+            {% endif %}    
             <a href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit edit-image" title="change hero image">photo_camera</i></a>
+            <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" title="edit this post">edit</i></a>
+        </div>
         {% endif %}
         <div class="post-title-details">
             <h1>{{ post.title }}</h1>
@@ -37,8 +44,9 @@
                 <div class="slideshow-caption">
                     {% if image.caption %}
                         {{ image.caption }} <br />
-                        <span class="slide-number"></span>
                     {% endif %}
+                        <span class="slide-number"></span>
+                    
                 </div>
             </div>
             {% endfor %}
@@ -48,12 +56,6 @@
 
  
     <div class="post-content">
-   {% if post.author == current_user or current_user.isEditor %} 
-        {% if not post.isLive %}
-        <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
-        {% endif %}
-        <a href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons button-circle edit" style="float:right;margin:10px;" title="edit this post">edit</i></a>
-    {% endif %}
     <section class="post-body">
         <p>{{ post.body | safe }}</p>
     </section>
@@ -69,9 +71,9 @@
             {% endif %}
         {% endif %}
         <p><span class="datetime">Published on {{ post.datePosted | daydateformat }}</span> | <a href="{{ url_for('main.users', liked_post=post.id) }}"><span>Likes:</span> {{ post.number_of_likes() }}</a></p>
-        <span class="label">Read more &rarr;</span>
+        <span class="label"><b><i>Read more</i></b>&rarr;</span>
         {% for tag in post.posttags.all() %}
-            <span class="splash-tag bg-clay"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+            <span class="splash-tag post-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
         {% endfor %}
     
         {% if not current_user.is_anonymous %}

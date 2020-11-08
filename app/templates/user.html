@@ -66,7 +66,7 @@
                             <p>{{ post.intro }}</p>
                         {% endif %}
                         {% for tag in post.posttags.all() %}
-                            <span class="splash-tag bg-beige"><a class="color-smoke" href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                            <span class="splash-tag post-tag"><a class="color-smoke" href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
                     </div>
                     <div class="post-read-more">
