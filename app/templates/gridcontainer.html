@@ -12,6 +12,11 @@
                 </div>
             {% endif %}
             </div>
+            {% if request.endpoint == 'main.images' %}
+            <div class="user-options-panel">        
+                <a href="{{ url_for('main.images_upload') }}" class="button-base button-base-rounded bg-clay">Upload images</a>
+            </div>
+            {% endif %}
             <div class="grid-container">
                     {% block content %}{% endblock %}
             </div>

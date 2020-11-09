@@ -14,7 +14,7 @@
                 <div class="post-card-details">
                         <h2 class='byline'><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                         {% for tag in post.posttags %}
-                            <span class="splash-tag bg-clay"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                            <span class="splash-tag post-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
                 </div>
                     {% if post.heroImage_id %}
