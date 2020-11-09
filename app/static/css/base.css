@@ -136,6 +136,7 @@ div.splash-tags p {
 
 .splash-tag a, .post-tag a {
     text-decoration: none;
+    font-weight: 900;
 }
 
 .splash-tag {
@@ -519,12 +520,12 @@ nav ul li a:hover {
 }
 
 .hero-image-display {    
-    /* height: 100vh;
+    height: 100vh;
     width: calc(100% - 33%);
     box-sizing: border-box;
     overflow: hidden;
     background-position: center;
-    background-size: cover; */
+    background-size: cover;
 }
 
 .hero-image-display img {
@@ -552,11 +553,11 @@ nav ul li a:hover {
 }
 @media only screen and (max-width: 899px) {
     .post-slideshow {
+        display: flex;
+        margin: auto;
         max-width: 95vw !important;
-    }
-
-    .post-slideshow {
-        min-height: 55vh;
+        /* min-height: 55vh; */
+        height: 85vh;
     }
 
     #prev-slide i, #next-slide i {
@@ -589,19 +590,10 @@ nav ul li a:hover {
     /* display: inline-block; */
 }
 
-.post-slideshow {
-    display: flex; 
-    /* margin: auto; */
-    /* width: 90%;
-    max-width: 70vw;
-    height: 85vh;
-    margin: auto;
-    position: relative; */ 
-}
-
 .slideshow-container {
     display: none;  
     width: 100%;
+    height: 85vh;
     margin: auto;
     flex-direction: column;
     animation: fadeInSlideshow ease 0.8s;
@@ -624,7 +616,7 @@ nav ul li a:hover {
     z-index: 10;
     line-height: 75vh;
     opacity: 0;
-    height: 75vh !important;
+    height: 75vh;
 }
 
 #prev-slide i.material-icons, #next-slide i.material-icons {
@@ -651,9 +643,16 @@ nav ul li a:hover {
 
 .post-slideshow {
     /* display: flex; */
-    height: 85vh;
+    /* height: 85vh; */
     /* display: block; */
+    /* margin: auto; */
+    /* display: flex;  */
+    /* margin: auto; */
+    /* width: 90%;
+    max-width: 70vw;
+    height: 85vh;
     margin: auto;
+    position: relative; */ 
 }
 
 .slideshow-image img {
@@ -769,6 +768,7 @@ p.user-profile {
 
 .user-top-of-profile {
     text-align: center;
+    margin: 10px 0;
 }
 
 .modal-background {
@@ -833,9 +833,15 @@ p.user-profile {
 
 
 .button-base-rounded .material-icons, .button-base .material-icons {
-    /* vertical-align: middle !important;
+    vertical-align: middle !important;
+    /* font-size: 20px; */
+    /* padding-right: 0.25em; */
+}
+
+.button-circle .material-icons {
+    vertical-align: middle !important;
+    padding: 1em 0;
     font-size: 20px;
-    padding-right: 0.25em; */
 }
 
 
@@ -942,6 +948,10 @@ p.user-profile {
         text-align: center; */
     }
 
+    .menu-button {
+
+    }
+
     #menu-button:hover {
         /* background-color: var(--clay); */
     }
@@ -968,21 +978,23 @@ p.user-profile {
 }
 
 .button-base-rounded {
-    /* display: inline-block;
+    display: inline-block;
     padding: 10px 20px;
     border-radius: 30px;
     border: none;
     text-transform: uppercase;
     font-size: 70%;
     font-weight: bold;
-    letter-spacing: 1px; */
+    letter-spacing: 1px;
 }
 
 
 
 .button-circle {
-    /* padding: 10px;
-    border-radius: 100px; */
+    padding: 7px;
+    border-radius: 100px;
+    line-height:1;
+    margin: 1em;
 }
 
 a.fake-button {
@@ -1007,7 +1019,7 @@ a.button-hover-clay:hover {
 }
 
 .button-shadow-bone {
-    /* box-shadow: 0 0 10px var(--bone); */
+    box-shadow: 0 0 10px var(--bone);
 }
 
 /* ------------- FORMS ----------------- */
