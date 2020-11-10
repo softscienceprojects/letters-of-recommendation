@@ -233,6 +233,11 @@ h1 {
     /* line-break: anywhere; */
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+}
+
 blockquote {
     font-family: 'RoslindaleV2', serif;
     font-size: 200%;
@@ -521,7 +526,7 @@ nav ul li a:hover {
 
 .hero-image-display {    
     height: 100vh;
-    width: calc(100% - 33%);
+    /* width: calc(100% - 33%); */
     box-sizing: border-box;
     overflow: hidden;
     background-position: center;
@@ -719,6 +724,7 @@ nav ul li a:hover {
 @media only screen and (max-width: 899px) {
     .post-body {
         /* line-height: 1.5; */
+        font-size: 85%;
     }
 }
 
@@ -790,7 +796,7 @@ p.user-profile {
 /* style="z-index: 1500;display: block;position: absolute;top: 50%;left: 50%;width: 200px;background-color: var(--cloud); */
 
 .user-options-panel {
-    text-align: center;
+    text-align: right;
     /* line-height: 2.2em;
     margin: auto; */
     width: 100%;
@@ -866,7 +872,7 @@ p.user-profile {
 
 @media screen and (max-width: 899px) {
     .user-profile-post-img {
-        /* width: 40% !important; */
+        width: 40% !important;
     }
 
     .user-profile-post-post {
@@ -882,38 +888,45 @@ p.user-profile {
     }
 
     .post-read-more {
+        display: none;
         /* margin-top: -10% !important;
         text-align: right;
         width: 100%; */
+    }
+
+    .user-posts {
+        border: 2px solid var(--beige);
+        padding: 5px;
+        margin: 10px;
     }
 }
 
 
 .user-posts {
-    /* display: flex;
+    display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid var(--beige);
+    /*border-bottom: 1px solid var(--beige);
     height: 150px;
     margin: 10px 0;
     padding: 20px 0; */
 }
 
 .user-profile-post-img {
-    /* width: 20%;
-    height: 100%; */
+    width: 20%;
+    height: 100%;
 }
 
 .user-profile-post-post {
-    /* margin-left: 10px;
+    margin-left: 10px;
     width: 55%;
     height:100%;
-    overflow: hidden; */
+    overflow: hidden;
 }
 
 .post-read-more {
-    /* margin: auto;
+    margin: auto;
     min-width: 100px;
-    text-align: right; */
+    text-align: right;
 }
 
 .user-card {
@@ -938,9 +951,10 @@ p.user-profile {
         margin: auto;
         background-color: var(--offsmoke);
         text-align: center;
-        height: 2em;
-        padding-top: 1em;
+        height: 2.5em;
+        padding: 1em 0 1em;
         color: var(--cloud);
+        font-size: 90%;
     }
 }
 @media only screen and (min-width: 900px) {
@@ -954,6 +968,10 @@ p.user-profile {
         background-color: var(--smoke);
         height: 25px;
         text-align: center; */
+    }
+
+    #menu-button #letters-of-recommendation {
+        display: none;
     }
 
     .menu-button {
@@ -1002,7 +1020,7 @@ p.user-profile {
     padding: 7px;
     border-radius: 100px;
     line-height:1;
-    margin: 1em;
+    margin: 0.5em;
 }
 
 a.fake-button {
