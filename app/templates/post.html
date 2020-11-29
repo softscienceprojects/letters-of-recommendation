@@ -2,12 +2,19 @@
 
 {% block content %}
     <div class="post-leaderboard">
-        {% if post.heroImage_id %}
-            <div class="hero-image-display" style="background-image: url( {{ post.get_post_hero_image() }} );">
+            <div class="hero-image-display" {% if post.heroImage_id %}style="background-image: url( {{ post.get_post_hero_image() }} );"{% endif %}>
             </div>
-        {% endif %}
-
-        {% if post.author == current_user or current_user.isEditor  %} 
+                <div class="post-title-details">
+                    <h1>{{ post.title }}</h1>
+                    <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2> 
+                    {% if post.intro %}
+                    <section class="post-intro">
+                    <h2 style="margin: auto;">{{ post.intro }}</h2>
+                    </section>
+                    {% endif %}
+                </div>       
+    </div>
+    {% if post.author == current_user or current_user.isEditor  %} 
         <div class="user-options-panel">
             {% if not post.isLive %}
                 <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
@@ -16,19 +23,9 @@
             <a class="button-circle color-bone button-shadow-bone" href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons edit" title="edit this post">edit</i></a>
         </div>
         {% endif %}
-        <div class="post-title-details">
-            <h1>{{ post.title }}</h1>
-            <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2> 
-           
-        </div>
-    </div>
 
 
-  {% if post.intro %}
-    <section class="post-intro">
-        <h2 style="margin: auto;">{{ post.intro }}</h2>
-    </section>
-    {% endif %}
+ 
 
     {% if post.images.count() > 0 %}
     <section class="post-slideshow" data-component="slideshow">

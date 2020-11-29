@@ -1,31 +1,34 @@
-{% extends "gridcontainer.html" %}
+{% extends "container.html" %}
 
 {% block content %}
     {% block posts_list %}
         
         {% if posts %}
+        <div class="posts">
             {% for post in posts %}
                 {% if post.isLive==True %}
                 <article class="post-card live">
                 {% else %}
                 <article class="post-card draft">
                 {% endif %}
-                
+                 {% if post.heroImage_id %}
+                    <div class="image-for-post" style="background-image: url({{ post.get_post_hero_image() }});">
+                        <a href="{{ url_for('main.post', post_id=post.id) }}"></a>
+                    </div>
+                {% endif %}
                 <div class="post-card-details">
                         <h2 class='byline'><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post.title }}</a></h2>
                         {% for tag in post.posttags %}
                             <span class="splash-tag post-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                         {% endfor %}
                 </div>
-                    {% if post.heroImage_id %}
-                        <div class="image-for-post" style="background-image: url({{ post.get_post_hero_image() }});">
-                            <a href="{{ url_for('main.post', post_id=post.id) }}"></a>
-                        </div>
-                    {% endif %}
+                   
                     
                 </article>
             {% endfor %}
+            </div>
         {% else %}
+        <div class="auth-form">
         <article class="post-card live">
         <div class="post-card-details">
             <h2 class="byline"> No posts found</h2>
@@ -33,6 +36,7 @@
         <div class="image-for-post" style="background-image: url({{ url_for('static', filename='images/heather-shevlin-3B_NrzTjajc-unsplash.jpg') }});">
         </div>
         </article>
+        </div>
         {% endif %}
     {% endblock %}
 {% endblock %}

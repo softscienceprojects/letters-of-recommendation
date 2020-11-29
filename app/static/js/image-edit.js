@@ -1,3 +1,4 @@
+// D E S T O Y
 const confirmDeleteButton = document.querySelector("#delete-image");
 
 if (confirmDeleteButton) {
@@ -17,6 +18,7 @@ if (confirmDeleteButton) {
 
 }
 
+// database call to remove hero from a post
 
 const removeHeroButton = document.querySelector('#remove-hero')
 
@@ -28,4 +30,27 @@ if (removeHeroButton) {
       }
     )
 }
-   
+
+
+// Choose hero by clicking on image
+
+const imagesDivs = document.querySelectorAll('.post-image-form')
+
+if (imagesDivs) {
+  imagesDivs.forEach(function(n) {
+    var img = n.querySelector('img');
+    var input = n.querySelector('input');
+    img.addEventListener('click', function(e) {
+        input.checked = true;
+        e.target.parentElement.classList.add('button-shadow-bone');
+    })
+    // imagsDivs[0].parentElement
+    input.addEventListener('change', function(e) {
+      console.log(e)
+
+    })
+    // if (input.checked === false) {
+    //   input.parentElement.classList.remove('button-shadow-bone')
+    // }
+  })
+}
