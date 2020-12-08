@@ -2,6 +2,8 @@
 .flaskenv
 env-notes.txt
 /venv
+# move you back later post-posgres sort
+app/config.py
 schema-notes.md
 sendgrid.env
 app.yaml
