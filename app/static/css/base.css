@@ -276,7 +276,7 @@ footer a {
 
 nav {
     margin-top: 0;
-    background-color: var(--offsmoke); /* #ce8054; */  
+    /* background-color: var(--offsmoke); #ce8054; */
     position: fixed;
     top: 0;
     height: 100vh;
@@ -284,6 +284,16 @@ nav {
     z-index: 998;
     display: flex;
     align-items: center;
+}
+
+nav #nav-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: var(--offsmoke); /* #ce8054; */
+    background-color: rgba(0,0,0, 0.1);  
+    filter: blur(250px);
+    -webkit-filter: blur(250px);
 }
 
 .display-hide {
@@ -326,7 +336,8 @@ nav ul {
 nav ul li a {
     font-size: 2rem;
     text-decoration: none;
-    color: var(--cloud);
+    /* color: var(--cloud); */
+    color: var(--smoke)
 }
 
 nav ul li a:hover {
@@ -632,8 +643,13 @@ nav ul li a:hover {
 /* style="z-index: 1500;display: block;position: absolute;top: 50%;left: 50%;width: 200px;background-color: var(--cloud); */
 
 .user-options-panel {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
+}
+
+.user-options-panel > a:not(i.material-icons) {
+    color: red;
 }
 
 .user-options-panel a, #user-options-menu a {
@@ -650,7 +666,7 @@ nav ul li a:hover {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    padding: 1em;
+    /* padding: 1em; */
     height: auto;
 }
 
@@ -688,10 +704,20 @@ nav ul li a:hover {
     font-size: 20px;
 }
 
-/* #user-options-menu ul {} */
+#user-options-menu ul {
+    padding-inline-start: 0;
+}
 
 #user-options-menu li {
     list-style: none;
+    border-top: 1px solid var(--bone);
+    /* border-bottom: 1px solid var(--bone); */
+    margin: 2px;
+}
+
+i.material-icons.user-option {
+    font-size: 15px;
+    padding-right: 5px;
 }
 
 /* #user-options-menu li.section {} */
@@ -785,10 +811,10 @@ nav ul li a:hover {
 
 /* USED ON POST EDIT - FIX THIS: */
 .button-base {
-    /* display: inline-block;
+    display: inline-block;
     border: 0;
     padding: 10px 20px;
-    margin: 5px 10px 5px 0; */
+    margin: 5px 10px 5px 0; 
 }
 
 .button-base-rounded {

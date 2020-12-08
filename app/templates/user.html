@@ -4,9 +4,9 @@
     {% block userpage %}
     <div class="user-options-panel">
             {% if user == current_user %}
-                <a class="button-base bg-bone" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons user-option">filter_none</i>Your feed</a>
-                <a class="button-base bg-bone" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
-                <a class="button-base bg-bone" href="" id="open-user-menu"><i class="material-icons">dehaze</i>&nbsp;Options</a>
+                <a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons user-option">filter_none</i>Your feed</a>
+                <a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
+                <a class="button-base-rounded button-shadow-bone button-hover-clay" href="" id="open-user-menu"><i class="material-icons user-option">dehaze</i>&nbsp;Options</a>
             {% elif not current_user.is_following(user) %}
                 <p><a href="{{ url_for('main.follow', username=user.username) }}" class="button-base-rounded bg-clay">follow</a></p>
             {% else %}
@@ -17,19 +17,19 @@
             <div id="user-options-menu" class="menu" >
                 {% if user.isEditor == True %}
                     <ul>
-                        <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.posts', drafts='all') }}"><i class="material-icons">clear_all</i>All Drafts</a></li>
+                        <li><a class="" href="{{ url_for('main.posts', drafts='all') }}"><i class="material-icons">clear_all</i>All Drafts</a></li>
                     </ul>
                 {% endif %}
                 {% if user.isWriter == True or user.isEditor == True %}
                     <ul>
-                        <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></li>
-                        <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a></li>
-                        <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">subject</i>My Drafts</a></li>
+                        <li><a class="" href="{{ url_for('main.images') }}"><i class="material-icons">camera_alt</i>Manage Images</a></li>
+                        <li><a class="" href="{{ url_for('main.post_new') }}"> <i class="material-icons">create</i>Write a post</a></li>
+                        <li><a class="" href="{{ url_for('main.posts', user_id=user.id, isLive=False) }}"><i class="material-icons">subject</i>My Drafts</a></li>
                     </ul>
                 {% endif %}
                 <ul>
-                    <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('main.edit_user', username=current_user.username) }}"><i class='material-icons'>face</i><span class="fake-button-icon">Edit profile</span></a></li>
-                    <li><a class="button-base-rounded button-shadow-bone button-hover-clay" href="{{ url_for('auth.change_password', user_id=current_user.id) }}"><i class="material-icons">security</i>Password</a></li>
+                    <li><a class="" href="{{ url_for('main.edit_user', username=current_user.username) }}"><i class='material-icons'>face</i><span class="fake-button-icon">Edit profile</span></a></li>
+                    <li><a class="" href="{{ url_for('auth.change_password', user_id=current_user.id) }}"><i class="material-icons">security</i>Password</a></li>
                 </ul>
             </div>
         {% endif %}
