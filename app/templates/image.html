@@ -34,7 +34,7 @@
                             <h2 class="byline"><a href="{{ url_for('main.post', post_id=post.id) }}">{{ post[1].title }}</a></p></h2>
                             {% if post[0] == 'hero' %}<strong>hero</strong>{% endif %}
                             {% for tag in post[1].posttags.all() %}
-                                <span class="splash-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
+                                <span class="splash-tag post-tag"><a href="{{ url_for('main.posts', tag=tag.name) }}">{{ tag.name }}</a></span>
                             {% endfor %}
                         </div>
                     </div>

@@ -228,7 +228,10 @@ quote {
 
 /* code {} */
 
-/* h1#title {} */
+a h1#title {
+    color: var(--cloud);
+    text-align: center;
+}
 
 .post-title-details > h2.byline {
     text-transform: lowercase;
@@ -372,9 +375,12 @@ nav ul li a:hover {
     -moz-column-gap: 0.5em;
     -webkit-column-gap: 0.5em;
     column-gap: 0.5em;
+    padding: 0.5em;
 }
 
-/* .grid-view-wrapper {} */
+.grid-view-wrapper {
+    margin-top: 3em;
+}
 
 .auth-form {
     flex: 1 0 auto;
@@ -383,7 +389,9 @@ nav ul li a:hover {
     margin-top: 11px;
 }
 
-/* .all-header {} */
+.all-header {
+    text-align: center;
+}
 
 /* .all-header h1 {} */
 
@@ -562,8 +570,8 @@ nav ul li a:hover {
 }
 
 .post-content {
-    /* flex-grow: 1;
-    justify-content: center; */
+    flex-grow: 1;
+    /*justify-content: center; */
     /* position: relative; */
     /* max-width: 100%; */
     margin: 2em auto 0 auto;
@@ -652,6 +660,7 @@ nav ul li a:hover {
     justify-content: flex-end;
     width: 100%;
     margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 
@@ -860,7 +869,7 @@ a.fake-button {
 }
 
 a.button-hover-clay:hover {
-    /* background-color: var(--clay) !important; */
+    background-color: var(--clay) !important;
 }
 
 .button-shadow-clay {
