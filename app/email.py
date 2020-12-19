@@ -17,7 +17,7 @@ def send_email(subject, to, template, sender=None):
         msg.sender = sender
     
     with current_app.app_context():
-        print('sending: ', msg)
+        # print('sending: ', msg)
         try:
             mail.send(msg)
             print('sent')
