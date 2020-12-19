@@ -140,3 +140,4 @@ migrations/versions/__pycache__/ec2ec061bba3_tags.cpython-38.pyc
 migrations/versions/__pycache__/fe2760a3bd76_post_images.cpython-38.pyc
 migrations/versions/__pycache__/ff627bdd6649_image_table.cpython-38.pyc
 migrations/versions/__pycache__/fffbfed68b59_messages.cpython-38.pyc
+README-internal.md
