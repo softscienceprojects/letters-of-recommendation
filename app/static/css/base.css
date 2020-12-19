@@ -286,14 +286,20 @@ nav {
     align-items: center;
 }
 
+#nav-contents {
+    position: absolute;
+    z-index: 1000;
+}
+
 nav #nav-background {
     height: 100%;
     width: 100%;
     position: absolute;
     background-color: var(--offsmoke); /* #ce8054; */
-    background-color: rgba(0,0,0, 0.1);  
-    filter: blur(250px);
-    -webkit-filter: blur(250px);
+    background-color: rgba(0,0,0, 0.7);  
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 200;
 }
 
 .display-hide {
@@ -326,9 +332,6 @@ nav #nav-background {
     /* .content {} */
 }
 
-
-/* #nav-contents {} */
-
 nav ul {
     list-style-type: none;
 }
@@ -337,7 +340,7 @@ nav ul li a {
     font-size: 2rem;
     text-decoration: none;
     /* color: var(--cloud); */
-    color: var(--smoke)
+    color: var(--cloud)
 }
 
 nav ul li a:hover {
