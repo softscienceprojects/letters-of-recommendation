@@ -234,9 +234,9 @@ def images():
     images = Image.query.order_by(Image.id.desc()).all()
     return render_template('images.html', images=images, title="Images")
 
-@bp.route('/images/<asset_id>', methods=['GET', 'POST'])
+@bp.route('/images/<asset_id>/edit/', methods=['GET', 'POST'])
 @login_required
-def image_show(asset_id):
+def image_edit(asset_id):
     image = Image.query.filter_by(asset_id=asset_id).first()
     posts = [('post', i) for i in image.posts.order_by(Post.datePosted.desc()).all()]
     heros = [('hero', h) for h in Post.query.filter_by(heroImage_id=image.id).all()]
@@ -252,6 +252,10 @@ def image_show(asset_id):
         form.caption.data = image.caption
     return render_template('image.html', image=image, posts=posts+heros, form=form)
 
+@bp.route('/images/<asset_id>/', methods=['GET', 'POST'])
+def image_show(asset_id):
+    image = Image.query.filter_by(asset_id=asset_id).first()
+    return render_template('image-show.html', image=image)
 
 @bp.route('/images/upload/', methods=['GET', 'POST'])
 @login_required

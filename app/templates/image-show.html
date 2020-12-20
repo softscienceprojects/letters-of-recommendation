@@ -1,0 +1,32 @@
+{% extends "container.html" %}
+
+{% block content %}
+    {% block imagepage %}
+        <div id="user-profile">
+            <div class="user-top-of-profile">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <span class="flash-messages">{{ messages[0] }}</span>
+                    {% endif %}
+                {% endwith %}
+                {% if current_user.isEditor %}
+                <div class="user-options-panel">
+                    <a class="button-circle color-bone button-shadow-bone" href="{{ url_for('main.image_edit', asset_id=image.asset_id) }}"><i class="material-icons edit" title="edit this image">edit</i></a>
+                </div>
+                {% endif %}
+                </div>
+                
+                <img src="{{ image.get_postedit_format_photo() }}" class="" />
+                {% if image.caption %}
+                <div class="post-content">
+                    <div class="post-body">
+                        {{ image.caption }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+           
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>
+    {% endblock %}
+{% endblock %}
