@@ -69,7 +69,7 @@ class ImageForm(FlaskForm):
 class EditImageForm(FlaskForm):
     alt_tag = StringField('alt tag')
     caption = StringField('caption', validators=[Length(min=0, max=160)])
-    submit = SubmitField('update image')
+    submit = SubmitField('save changes')
 
     def __init__(self, *args, **kwargs):
         super(EditImageForm, self).__init__(*args, **kwargs)

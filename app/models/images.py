@@ -64,6 +64,14 @@ class Image(db.Model):
         else:
             print("can't delete: ", result)
         return #something...
+
+    def imageTogglePublic(self):
+        if self.is_public:
+            self.is_public = False
+            return self
+        else:
+            self.is_public = True
+            return self
         
 
 ## HELPER - note this is outside of class

@@ -16,10 +16,15 @@
                     {{ form.hidden_tag() }}
                     <p>{{ form.alt_tag.label }} {{ form.alt_tag }}</p>
                     <p>{{ form.caption.label }} {{ form.caption }}</p>
-                    <p>{{ form.submit(class_="button-base-rounded bg-bone color-cloud") }}</p>
+                    <p>{{ form.submit(class_="button-base-rounded bg-clay color-cloud button-hover-shadow-bone") }}</p>
                 </form>
-                
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
+                <br />
+                 {% if image.is_public == True %}
+                    <span class="button-base  button-base-rounded border-bone">Image is public</span><a href="{{ url_for('main.goprivate', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-clay">Make private</a>
+                {% else %}
+                    <span class="button-base  button-base-rounded border-bone">Image is private</span><a href="{{ url_for('main.gopublic', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-bone">Make public</a>
+                {% endif %}
             </div>
            
             {% if posts %}
@@ -40,11 +45,15 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p><em>This image is not used in any letters</em></p>
+            <div class="post-content">
+                <div class="post-body">
+                    <p><em>This image is not used in any letters</em></p>
+                </div>
+            </div>
             {% endif %}
 
             <div class="user-options-panel">        
-                    <button id="delete-image" class="button-base  button-base-rounded bg-rust">Delete this image</button>
+                <button id="delete-image" class="button-base  button-base-rounded bg-rust">Delete this image</button>
             </div>
         </div>
         <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>

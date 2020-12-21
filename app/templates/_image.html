@@ -1,7 +1,7 @@
 {% extends "container.html" %}
 
 {% block content %}
-    <div class="auth-form">
+    <div class="auth-form" style="text-align: center;">
     <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
@@ -15,7 +15,7 @@
         {% endfor %}
     </p>
     
-    <p>{{ form.submit(class_="button-base-rounded bg-clay color-cloud") }}</p>
+    <p>{{ form.submit(class_="button-base-rounded bg-clay color-cloud button-hover-shadow-bone") }}</p>
     </form>
     </div>
 {% endblock %}

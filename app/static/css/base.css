@@ -695,10 +695,17 @@ nav ul li a:hover {
     transition: opacity 0.25s ease-in, max-height 0.25s linear;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
     text-align: center;
-    /* padding: 1em; */
+    padding: 1em;
     height: auto;
+}
+
+
+@media screen and (max-width: 899px) {
+    #user-options-menu {
+        justify-content: center;
+    }
 }
 
 @keyframes slide-down {
@@ -862,6 +869,10 @@ i.material-icons.user-option {
     letter-spacing: 1px;
 }
 
+.border-bone {
+    border: 1px solid #eee;
+}
+
 .button-circle {
     padding: 7px;
     border-radius: 100px;
@@ -886,8 +897,8 @@ a.button-hover-clay:hover {
     background-color: var(--clay) !important;
 }
 
-.button-shadow-clay {
-    /* box-shadow: 0 0 10px var(--clay); */
+a.button-hover-shadow-bone:hover {
+    box-shadow: 0 0 10px var(--bone);
 }
 
 .button-shadow-bone {
