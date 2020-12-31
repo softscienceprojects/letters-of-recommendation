@@ -116,6 +116,7 @@ body {
 }
 
 .splash-tags {
+    /* font-family: 'Atkinson Hyperlegible'; */
     display: flex;
     margin: auto;
     width: 100%;
@@ -132,6 +133,7 @@ div.splash-tags p {
 }
 
 .splash-tag {
+    font-family: 'Atkinson Hyperlegible';
     padding: 8px 15px;
     text-transform: uppercase;
     font-size: 80%;
@@ -140,6 +142,8 @@ div.splash-tags p {
 }
 
 .post-tag {
+    font-family: 'Atkinson Hyperlegible';
+    letter-spacing: 2px;
     border: 1px solid var(--clay);
     line-height: 3em;
 }
@@ -843,6 +847,7 @@ i.material-icons.user-option {
 }
 
 #menu-button {
+    font-family: 'Atkinson Hyperlegible';
     position: fixed;
     z-index: 999;
     cursor: pointer;
