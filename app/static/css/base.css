@@ -42,7 +42,7 @@
 }
 
 .bg-clay {
-    background-color: var(--clay)
+    background-color: var(--clay) !important;
 }
 
 /* NEUTRAL */
@@ -268,7 +268,9 @@ a h1#title {
 
 /* .flag-edit {} */
 
-/* p.datetime {} */
+p.datetime {
+    color: var(--clay);
+}
 
 /* span.label {} */
 
@@ -395,7 +397,7 @@ nav ul li a:hover {
     flex: 1 0 auto;
     width: calc(100% - 25vw);
     margin: auto;
-    margin-top: 11px;
+    margin-top: 7px;
 }
 
 .all-header {
@@ -860,6 +862,9 @@ i.material-icons.user-option {
 
 /* USED ON POST EDIT - FIX THIS: */
 .button-base {
+    font-family: 'Atkinson Hyperlegible';
+    text-transform: uppercase;
+    letter-spacing: 1px;
     display: inline-block;
     border: 0;
     padding: 10px 20px;

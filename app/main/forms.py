@@ -40,7 +40,7 @@ class PostHero(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
-    images = MultipleFileField('images: ')
+    images = MultipleFileField('Add images')
     removeImages = SelectMultipleField("Remove this image from post: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
     intro = StringField('intro: ', render_kw={'placeholder': 'intro...'})
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})

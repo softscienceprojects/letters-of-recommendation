@@ -24,11 +24,11 @@
         {% for error in form.title.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
-    {% if post.author %}<h2>by {{ post.author.username }}</h2>{% endif %}
-    {% if post.datePosted %}<p class="datetime">{{ post.datePosted | datetimeformat }}</p>{% endif %}
+    {% if post.author %}<h2 style="margin-left:0.75em;">by {{ post.author.username }}</h2>{% endif %}
+    {% if post.datePosted %}<p class="datetime" style="margin-left:0.75em;">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     
     {% if post.id %}
-        <h3>Remove image from slideshow</h3>
+       <!-- <h3 style="margin-left:0.75em;">Remove image from slideshow</h3> -->
         {% for option in form.removeImages %}
             <div class="post-image-form">
                 {{ option }} <img src={{ option.data | image_url }} class="profile-picture" alt={{ option.data }} />
@@ -52,10 +52,10 @@
         {% for error in form.body.errors %}
         <span style="color: red;">{{ error }}</span>
         {% endfor %}
-    <div id="tags"></div>
+    <div id="tags" style="margin-left:0.75em;"></div>
     <p> {{ form.tags }}</p>
 
-    <p>{{ form.submit(class_="button-base-rounded bg-bone") }}</p>
+    <p>{{ form.submit(class_="button-base-rounded bg-clay") }}</p>
     </form>
 
     
