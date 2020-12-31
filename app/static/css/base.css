@@ -847,10 +847,13 @@ i.material-icons.user-option {
 }
 
 #menu-button {
-    font-family: 'Atkinson Hyperlegible';
     position: fixed;
     z-index: 999;
     cursor: pointer;
+}
+
+.hyperlegible {
+    font-family: 'Atkinson Hyperlegible';
 }
 
 /* #menu-button i {} */
