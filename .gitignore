@@ -26,3 +26,6 @@ app/letters-development-v2.db
 # wtf happened
 # migrations/versions/aa385809c318_new_db.py
 README-internal.md
+lettersofrec-03012021.sql
+letters2
+lettersofrec.sql
