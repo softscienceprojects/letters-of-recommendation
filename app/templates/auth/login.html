@@ -3,7 +3,7 @@
 {% block content %}
 <div class='auth-form'>
 <h1>Sign in</h1>
-<p><a href="{{ url_for('auth.register') }}">No account? Register&rarr;</a></p>
+<!-- <p><a href="{{ url_for('auth.register') }}">No account? Register&rarr;</a></p> -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {{ messages[0] }}
