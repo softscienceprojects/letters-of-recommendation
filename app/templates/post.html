@@ -6,7 +6,7 @@
             </div>
                 <div class="post-title-details">
                     <h1>{{ post.title }}</h1>
-                    <h2 class="byline">by <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a></h2> 
+                    <h2 class="byline">by {% if post.author.isPublic %}<a href="{{ url_for('main.user', username=post.author.username) }}">{% endif %}{{ post.author.username }}{% if post.author.isPublic %}</a>{% endif %}</h2> 
                     {% if post.intro %}
                     <section class="post-intro">
                     <h2 style="margin: auto;">{{ post.intro }}</h2>

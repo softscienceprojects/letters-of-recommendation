@@ -3,6 +3,7 @@
 {% block content %}
     {% block userpage %}
     <div class="user-options-panel">
+        {% if not current_user.is_anonymous %}
             {% if user == current_user %}
                 <a class="button-base-rounded border-bone button-hover-shadow-bone" href="{{ url_for('main.user_feed', username=user.username) }}"><i class="material-icons user-option">filter_none</i>Your feed</a>
                 <a class="button-base-rounded border-bone button-hover-shadow-bone" href="{{ url_for('main.posts', liked=user.username) }}"><i class="material-icons user-option">favorite</i>  Liked posts</a>
@@ -12,6 +13,7 @@
             {% else %}
                 <p><a href="{{ url_for('main.unfollow', username=user.username) }}" class="button-base-rounded bg-bone">unfollow</a></p>
             {% endif %}
+        {% endif %}
         </div>
         {% if user == current_user %}
             <div id="user-options-menu" class="menu" >

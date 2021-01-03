@@ -17,6 +17,8 @@ import pdb
 
 # @bp.before_app_request
 # def before_request():
+    # print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+    # print(request.environ['REMOTE_ADDR'])
 #     if current_user.is_authenticated:
 #         current_user.lastLoggedIn = datetime.utcnow()
 #         db.session.commit()
@@ -309,8 +311,8 @@ def images_delete(asset_id):
 ## USERS #####################################################
 
 @bp.route('/user/<username>/', methods=['GET'])
-@login_required
-@check_confirmed
+# @login_required
+# @check_confirmed
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = get_posts_by_user(user_id=user.id)
