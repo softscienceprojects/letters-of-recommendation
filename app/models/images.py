@@ -17,6 +17,7 @@ class Image(db.Model):
     alt_tag = db.Column(db.String)
     is_public = db.Column(db.Boolean, default=False)
     uploaded_datetime = db.Column(db.DateTime, nullable=True)
+    cv_tags = db.Column(db.String)
     
 
     # posts = db.relationship('Post', secondary=postTags, lazy='dynamic', backref=db.backref('posttags', lazy='dynamic'))
