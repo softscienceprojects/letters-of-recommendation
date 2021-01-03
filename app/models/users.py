@@ -31,6 +31,7 @@ class User(UserMixin, db.Model):
     isWriter = db.Column(db.Boolean, default=False)
     isEditor = db.Column(db.Boolean, default=False)
     isMember = db.Column(db.Boolean, default=False)
+    isPublic = db.Column(db.Boolean, default=False)
     signupDate = db.Column(db.DateTime, default=datetime.utcnow)
     lastLoggedIn = db.Column(db.DateTime, default = datetime.utcnow)
     confirmed = db.Column(db.Boolean, default=False)
