@@ -88,7 +88,8 @@ def get_posts_for_tag(tag_id, filterLive=True):
     else:
         return []
 
-def get_posts_by_user(user_id, isLive=True):
+def get_posts_by_user(user_id, **kwargs):
+    isLive = False if kwargs.get('isLive', '') in ('False', False) else True
     return Post.query.filter_by(user_id=user_id, isLive=isLive).order_by(Post.datePosted.desc()).all()
 
 def hash_string_value(string_text):
