@@ -27,8 +27,8 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Username can only contains letters and numbers')
     
 
-class SelectHeroPartial(Form):
-    selectHero = RadioField("Select hero image: ", choices = [1,2,3])
+# class SelectHeroPartial(Form):
+#     selectHero = RadioField("Select hero image: ", choices = [1,2,3])
 
 class PostHero(FlaskForm):
     selectHeroList = RadioField("Select hero image: ") #FieldList(FormField(SelectHeroPartial))
@@ -40,8 +40,6 @@ class PostHero(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('title: ', validators=[DataRequired()], render_kw={'placeholder': 'title'})
-    images = MultipleFileField('Add images')
-    removeImages = SelectMultipleField("Remove this image from post: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
     intro = StringField('intro: ', render_kw={'placeholder': 'intro...'})
     body = TextAreaField('write: ', validators=[DataRequired()], render_kw={'placeholder': 'write...'})
     tags = StringField('tags: ', render_kw={'placeholder': 'tag/s comma separated'})
@@ -65,6 +63,15 @@ class ImageForm(FlaskForm):
     #     #inherit the original functionality from FlaskForm
     #     super(EditProfileForm, self).__init__(*args, **kwargs)
     #     self.original_username = original_username
+
+class ImageSlideshowForm(FlaskForm):
+    image_options = SelectMultipleField("Choose images for slideshow: ", widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
+    submit = SubmitField('save selection')
+
+    def __init__(self, original_images=None, *args, **kwargs):
+        super(ImageSlideshowForm, self).__init__(*args, **kwargs)
+        if original_images:
+            self.original_images = original_images
 
 class EditImageForm(FlaskForm):
     alt_tag = StringField('alt tag')

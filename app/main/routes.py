@@ -8,7 +8,7 @@ from app import db, mail
 from app.main import bp
 from app.auth import routes
 from app.filters import check_confirmed
-from app.main.forms import EditProfileForm, PostForm, CommentForm, ImageForm, PostHero, EditImageForm
+from app.main.forms import EditProfileForm, PostForm, CommentForm, ImageForm, PostHero, EditImageForm, ImageSlideshowForm
 from app.models import *
 from werkzeug.http import HTTP_STATUS_CODES
 from cloudinary.uploader import upload as _cloudinary_upload
@@ -147,14 +147,13 @@ def post_remove_hero(post_id):
 def post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostForm(post)
-    form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
+
     if post.author == current_user or current_user.isEditor:
         if form.validate_on_submit():
             post.title = form.title.data
             post.intro = form.intro.data
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
-            remove_images = post.remove_images_from_post(form.removeImages.data)
             db.session.commit()
             upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
@@ -241,6 +240,12 @@ def image_show(asset_id):
     image = Image.query.filter_by(asset_id=asset_id).first()
     return render_template('image-show.html', image=image)
 
+@bp.route('/images/create-slideshow/<post_id>/', methods=['GET', 'POST'])
+def image_post_slideshow(post_id):
+    images = Image.query.order_by(Image.id.desc()).all()
+    form = ImageSlideshowForm()
+    form.image_options.choices = [(image.asset_id, image.id) for image in images] if images else []
+    return render_template('_imagesslideshow.html', images=images, form=form, title="Images for Slideshow")
 
 @bp.route('/images/<asset_id>/edit/', methods=['GET', 'POST'])
 @login_required

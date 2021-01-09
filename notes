@@ -1,0 +1,28 @@
+{% if post.id %}
+    <!-- <h3 style="margin-left:0.75em;">Remove image from slideshow</h3> -->
+    {% for option in form.removeImages %}
+        <div class="post-image-form">
+            {{ option }} <img src={{ option.data | image_url }} class="profile-picture" alt={{ option.data }} />
+        </div>
+    {% endfor %}
+    {% for error in form.removeImages.errors %}
+        <ul>
+            <li><span style="color: red;">Cannot remove image: {{ error }}</span></li>
+        </ul>
+    {% endfor %}
+{% endif %}
+{# <h3>Upload new images to this post</h3> #}
+{{ form.images.label(class_="form-file-upload button-base bg-cloud color-smoke border-smoke") }}<br>
+<div style="max-width: 300px;margin: 2em auto 2em 0;padding: 5px;" class="bg-cloud color-clay">
+    <span id="file-uploaded"></span>
+</div>
+{{ form.images }}
+
+form.removeImages.choices = post.get_image_choices() #[(image.asset_id, image.id) for image in post.images] if post.images else []
+remove_images = post.remove_images_from_post(form.removeImages.data)
+
+{% for error in form.selectHeroList.errors %}
+    <ul>
+        <li><span style="color: red;">Can't set as hero image: {{ error }}</span></li>
+    </ul>
+{% endfor %} 

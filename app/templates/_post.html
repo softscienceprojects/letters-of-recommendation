@@ -27,25 +27,6 @@
     {% if post.author %}<h2 style="margin-left:0.75em;">by {{ post.author.username }}</h2>{% endif %}
     {% if post.datePosted %}<p class="datetime" style="margin-left:0.75em;">{{ post.datePosted | datetimeformat }}</p>{% endif %}
     
-    {% if post.id %}
-       <!-- <h3 style="margin-left:0.75em;">Remove image from slideshow</h3> -->
-        {% for option in form.removeImages %}
-            <div class="post-image-form">
-                {{ option }} <img src={{ option.data | image_url }} class="profile-picture" alt={{ option.data }} />
-            </div>
-        {% endfor %}
-        {% for error in form.removeImages.errors %}
-            <ul>
-                <li><span style="color: red;">Cannot remove image: {{ error }}</span></li>
-            </ul>
-        {% endfor %}
-    {% endif %}
-    {# <h3>Upload new images to this post</h3> #}
-    {{ form.images.label(class_="form-file-upload button-base bg-cloud color-smoke border-smoke") }}<br>
-    <div style="max-width: 300px;margin: 2em auto 2em 0;padding: 5px;" class="bg-cloud color-clay">
-        <span id="file-uploaded"></span>
-    </div>
-    {{ form.images }}
 
     <p>{{ form.intro }}</p>
     <p>{{ form.body }}</p>
