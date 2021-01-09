@@ -30,10 +30,10 @@
 
     {% if post.images.count() > 0 %}
     <section class="post-slideshow" data-component="slideshow">
-        
+        {% if post.images.count() > 1 %}
         <div id="prev-slide" aria-label="previous image"><i class="material-icons">arrow_back</i></div>
         <div id="next-slide" aria-label="next image"><i class="material-icons">arrow_forward</i></div>
-        
+        {% endif %}
             {% for image in post.images %}
             <div class="slideshow-container">
                 <div class="slideshow-image">

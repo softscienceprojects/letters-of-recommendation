@@ -83,22 +83,22 @@ class Post(db.Model):
             hero = Image.query.filter_by(id=image_id).first()
             return hero.asset_id
 
-    def get_image_choices(self):
-        imagesList = []
-        if self.images and self.images != []:
-            imagesList = [(image.asset_id, image.id) for image in self.images]
-        return imagesList
+    # def get_image_choices(self):
+    #     imagesList = []
+    #     if self.images and self.images != []:
+    #         imagesList = [(image.asset_id, image.id) for image in self.images]
+    #     return imagesList
         
 
-    def get_hero_image_choices(self):
-        imagesList = []
-        if self.images:
-            imagesList = [(image.asset_id, image.id) for image in self.images]
-            hero = Image.query.filter_by(id=self.heroImage_id).first()
-            heroSelectPair = (hero.asset_id, hero.id)
-            if heroSelectPair not in imagesList:
-                imagesList.append(heroSelectPair)
-        return imagesList
+    # def get_hero_image_choices(self):
+    #     imagesList = []
+    #     if self.images:
+    #         imagesList = [(image.asset_id, image.id) for image in self.images]
+    #         hero = Image.query.filter_by(id=self.heroImage_id).first()
+    #         heroSelectPair = (hero.asset_id, hero.id)
+    #         if heroSelectPair not in imagesList:
+    #             imagesList.append(heroSelectPair)
+    #     return imagesList
 
     def set_post_hero_image(self, image_asset_id):
         image = Image.query.filter_by(asset_id=image_asset_id).first()
@@ -106,17 +106,51 @@ class Post(db.Model):
         db.session.commit()
         return self
 
-    def remove_images_from_post(self, images_list):
+    # def remove_images_from_post(self, images_list):
+    #     """
+    #     will expect a list of image asset_id's
+    #     note this will not 'unset' the hero image, 
+    #     which is set separately to images associated with this post
+    #     (You gotta write a method for this babes)
+    #     """
+    #     for asset_id in images_list:
+    #         image = Image.query.filter_by(asset_id=asset_id).first()
+    #         self.images.remove(image)
+    #     return self
+    
+    # def get_post_images(self):
+    #     """
+
+    #     """
+    #     return self.images.all()
+
+    def set_post_images(self, image_list):
         """
-        will expect a list of image asset_id's
-        note this will not 'unset' the hero image, 
-        which is set separately to images associated with this post
-        (You gotta write a method for this babes)
+        image_lists should be a list of image assest id's
         """
-        for asset_id in images_list:
-            image = Image.query.filter_by(asset_id=asset_id).first()
-            self.images.remove(image)
-        return self
+        post_images = self.images.all() or []
+        for image_asset_id in image_list:
+            image = Image.query.filter_by(asset_id=image_asset_id).first()
+            if image not in post_images:
+                # print("going to add... ", image)
+                self.images.append(image)
+        for image in post_images:
+            if image.asset_id not in image_list:
+                # print("going to remove... ", image)
+                self.images.remove(image)
+        # print("**********")
+        # print(post_images)
+        # print("**********")
+        db.session.commit()
+
+    def get_post_images_for_forms(self):
+        post_images = self.images.all()
+        images = []
+        if post_images:
+            for image in post_images:
+                selected_image = Image.query.filter_by(id=image.id).first()
+                images.append(selected_image.asset_id)
+        return images
 
     def posts_by_user_follow(user):
         """

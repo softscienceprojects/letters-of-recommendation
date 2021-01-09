@@ -4,9 +4,8 @@
   
     
     <form action="" method="post" enctype="multipart/form-data">
-    <h1>Select images</h1>
     {{ form.hidden_tag() }}
-    <div style="display:inline-flex; flex-wrap:wrap">
+
     {% if images %}
     {% for image in form.image_options %}
         <div class="image-card"> 
@@ -14,7 +13,7 @@
         </div>
     {% endfor %} 
     {% endif %}  
-    </div> 
+
     <p>{{ form.submit(class_="button-base-rounded bg-bone") }}</p>
     </form>
     <script type="text/javascript" src="{{ url_for('static', filename='js/image-edit.js') }}"></script>

@@ -178,6 +178,9 @@ img {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
 }
 
 .image-for-post {

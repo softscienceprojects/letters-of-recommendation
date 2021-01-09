@@ -243,8 +243,16 @@ def image_show(asset_id):
 @bp.route('/images/create-slideshow/<post_id>/', methods=['GET', 'POST'])
 def image_post_slideshow(post_id):
     images = Image.query.order_by(Image.id.desc()).all()
+    post = Post.query.filter_by(id=post_id).first_or_404()
     form = ImageSlideshowForm()
     form.image_options.choices = [(image.asset_id, image.id) for image in images] if images else []
+    if post.author == current_user or current_user.isEditor:
+        if form.validate_on_submit():
+            # print(form.image_options.data) #['c0213b094b538f876f4f6a520823824c', '5eafc17a3e8a737880a0a01b939dd0fa']
+            p = post.set_post_images(form.image_options.data)            
+            return redirect(url_for('main.post', post_id=post.id))
+        elif request.method == 'GET':
+            form.image_options.data = post.get_post_images_for_forms()
     return render_template('_imagesslideshow.html', images=images, form=form, title="Images for Slideshow")
 
 @bp.route('/images/<asset_id>/edit/', methods=['GET', 'POST'])
