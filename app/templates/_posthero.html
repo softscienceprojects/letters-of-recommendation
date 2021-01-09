@@ -9,7 +9,7 @@
     <div style="display:inline-flex; flex-wrap:wrap">
     {% for option in form.selectHeroList %}   
             <div class="post-image-form"> 
-            {{ option }} <img src={{ option.data | image_url }} style="max-width: 100px;"/>
+            {{ option }}<input type="checkbox" checked="checked" class="geekmark">  <img src={{ option.data | image_url }} style="max-width: 100px;"/>
             </div>
         {% endfor %}
         {% for error in form.selectHeroList.errors %}

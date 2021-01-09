@@ -36,6 +36,10 @@
     border: 3px solid var(--bone) !important;
 }
 
+.border-white {
+    border: 1px solid #eee;
+}
+
 /* **************   BACKGROUNDS ********** */
 .bg-smoke {
     background-color: var(--smoke);
@@ -895,10 +899,6 @@ i.material-icons.user-option {
     letter-spacing: 1px;
 }
 
-.border-white {
-    border: 1px solid #eee;
-}
-
 .button-circle {
     padding: 12px;
     border-radius: 100px;
@@ -980,6 +980,22 @@ textarea {
 input[type=files],
 input[type=file] {
     display: none;
+    visibility: hidden;
+}
+
+.grid-container input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+    border: 3px solid var(--smoke);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+.grid-container input[type=checkbox]:checked {
+    background-color: black !important;
+    width: 25px;
+    height: 25px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 
 .form-file-upload {
