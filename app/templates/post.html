@@ -19,8 +19,8 @@
             {% if not post.isLive %}
                 <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
             {% endif %}    
-            <a class="button-circle color-bone button-shadow-bone" href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons edit edit-image" title="change hero image">photo_camera</i></a>
-            <a class="button-circle color-bone button-shadow-bone" href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons edit" title="edit this post">edit</i></a>
+            <a class="button-circle color-bone  border-white button-hover-shadow-bone" href="{{ url_for('main.post_edit_hero', post_id=post.id) }}" class="icon-block"><i class="material-icons edit edit-image" title="change hero image">photo_camera</i></a>
+            <a class="button-circle color-bone  border-white button-hover-shadow-bone" href="{{ url_for('main.post_edit', post_id=post.id) }}" class="icon-block"><i class="material-icons edit" title="edit this post">edit</i></a>
         </div>
         {% endif %}
 

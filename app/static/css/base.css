@@ -287,6 +287,7 @@ footer {
     padding: 20px 0;
     background-color: var(--smoke);
     color: var(--clay);
+    display: flex;
 }
 
 footer a {
@@ -891,12 +892,12 @@ i.material-icons.user-option {
     letter-spacing: 1px;
 }
 
-.border-bone {
+.border-white {
     border: 1px solid #eee;
 }
 
 .button-circle {
-    padding: 7px;
+    padding: 12px;
     border-radius: 100px;
     line-height:1;
     margin: 0.5em;

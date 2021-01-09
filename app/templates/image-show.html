@@ -11,7 +11,7 @@
                 {% endwith %}
                 {% if current_user.isEditor %}
                 <div class="user-options-panel">
-                    <a class="button-circle color-bone button-shadow-bone button-hover-clay" href="{{ url_for('main.image_edit', asset_id=image.asset_id) }}"><i class="material-icons edit" title="edit this image">edit</i></a>
+                    <a class="button-circle  color-bone  border-white button-hover-shadow-bone" href="{{ url_for('main.image_edit', asset_id=image.asset_id) }}"><i class="material-icons edit" title="edit this image">edit</i></a>
                 </div>
                 {% endif %}
                 </div>

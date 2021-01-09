@@ -21,9 +21,9 @@
                 <img src="{{ image.get_postedit_format_photo() }}" class="" />
                 <br />
                  {% if image.is_public == True %}
-                    <span class="button-base  button-base-rounded border-bone">Image is public</span><a href="{{ url_for('main.goprivate', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-clay">Make private</a>
+                    <span class="button-base  button-base-rounded border-white">Image is public</span><a href="{{ url_for('main.goprivate', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-clay">Make private</a>
                 {% else %}
-                    <span class="button-base  button-base-rounded border-bone">Image is private</span><a href="{{ url_for('main.gopublic', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-bone">Make public</a>
+                    <span class="button-base  button-base-rounded border-white">Image is private</span><a href="{{ url_for('main.gopublic', asset_id=image.asset_id) }}" class="button-base  button-base-rounded bg-bone">Make public</a>
                 {% endif %}
             </div>
            
