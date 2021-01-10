@@ -16,7 +16,7 @@
     </div>
     {% if post.author == current_user or current_user.isEditor  %} 
         <div class="user-options-panel">
-            <a href="{{ url_for('main.image_post_slideshow', post_id=post.id) }}" class="button-base  button-base-rounded bg-clay">Add slideshow</a>
+            <a href="{{ url_for('main.image_post_slideshow', post_id=post.id) }}" class="button-circle color-bone  border-white button-hover-shadow-bone icon-block"><i class="material-icons edit edit-image" title="add a slideshow">photo_library</i></a>
             {% if not post.isLive %}
                 <p class="button-base bg-bone syne" style="color: white; display: inline-block;"><span class="flag-edit">{{ post.isLive | poststatus }}</span></p>
             {% endif %}    

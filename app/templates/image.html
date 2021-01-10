@@ -4,7 +4,7 @@
     {% block imagepage %}
         <div id="user-profile">
             <div class="user-top-of-profile">
-                <h1>{{image.filename}}</h1>
+                <h1 style="line-break: anywhere;">{{image.filename}}</h1>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         {{ messages[0] }}

@@ -319,7 +319,7 @@ def images_delete(asset_id):
     image.delete_image()
     response = jsonify({'next': url_for('main.images')})
     response.status_code = 202
-    #redirect(url_for('main.images'))
+    redirect(url_for('main.images'))
     return response
     
 ## USERS #####################################################

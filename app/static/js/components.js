@@ -90,7 +90,8 @@ class ConfirmDialog {
   _appendDialog() {
     // this.parent.aria-hidden="true"
     this.parent.appendChild(this.back);
-    this.parent.appendChild(this.dialog);
+    document.body.appendChild(this.dialog);
+    // this.parent.appendChild(this.dialog);
     this.dialog.focus();
   }
 

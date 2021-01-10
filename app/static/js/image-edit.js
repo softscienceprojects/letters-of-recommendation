@@ -15,6 +15,7 @@ window.initImageEditOptions = function() {
             let asset_id = window.location.pathname.split('/')[2]
             window.app.destroy(`/images/${asset_id}/delete/`)
         }
+
     });
 
   }
