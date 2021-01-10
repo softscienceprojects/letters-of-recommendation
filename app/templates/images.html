@@ -5,6 +5,11 @@
     {% block images_list %}
      
         {% if images %}
+            {% if not current_user.isEditor and not public_images %}
+            <div>
+                <h1>No images</h1>
+            </div>
+            {% endif %}
             {% for image in images %}
                 {% if image.is_public == True or current_user.isEditor %}
                 <div class="image-card">
@@ -13,7 +18,7 @@
                 {% endif %}
             {% endfor %}
         {% else %}
-            <p> no images</p>
+            <p>No images</p>
         {% endif %}
     {% endblock %}
 {% endblock %}

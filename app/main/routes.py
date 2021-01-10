@@ -230,10 +230,11 @@ def comment():
 ## IMAGES ###################################################
 
 @bp.route('/images/', methods=['GET'])
-@login_required
+# @login_required
 def images():
     images = Image.query.order_by(Image.id.desc()).all()
-    return render_template('images.html', images=images, title="Images")
+    public_images = True if True in [i.is_public for i in images] else False
+    return render_template('images.html', images=images, title="Images", public_images = public_images)
 
 @bp.route('/images/<asset_id>/', methods=['GET', 'POST'])
 def image_show(asset_id):

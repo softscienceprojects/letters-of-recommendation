@@ -1,4 +1,4 @@
-initImageEditOptions = function() {
+window.initImageEditOptions = function() {
   // D E S T O Y
   const confirmDeleteButton = document.querySelector("#delete-image");
 
@@ -75,8 +75,4 @@ initImageEditOptions = function() {
       image.classList.remove('button-shadow-bone');
     }
   }
-}
-
-window.onload = function() {
-  initImageEditOptions()
-}
+} 
