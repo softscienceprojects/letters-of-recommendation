@@ -35,11 +35,12 @@ window.initImageEditOptions = function() {
 
   // Choose hero by clicking on image
 
-  const imagesDivsRadio = document.querySelectorAll('.post-image-form') 
   const imagesDivsMulti = document.querySelectorAll('.image-card')
+  const imagesDivsRadio = document.querySelectorAll('.post-image-form') 
 
-  if (imagesDivsRadio.length || imagesDivsMulti.length) {
-    imagesDivs = imagesDivsRadio.length ? imagesDivsRadio : imagesDivsMulti
+
+  if (imagesDivsMulti.length || imagesDivsRadio.length) {
+    imagesDivs = imagesDivsMulti.length ? imagesDivsMulti : imagesDivsRadio
     imagesDivs.forEach(function(n) {
       var img = n.querySelector('img');
       var input = n.querySelector('input');
@@ -51,13 +52,15 @@ window.initImageEditOptions = function() {
             selectImage(input, img, false)
           }
       });
-      input.addEventListener('change', function(e) {
-        if (!input.checked) {
-          selectImage(input, img, false)
-          } else {
-            selectImage(input, img, true)
-          }
-      })
+      
+        input.addEventListener('change', function(e) {
+          if (!input.checked) {
+            selectImage(input, img, false)
+            } else {
+              selectImage(input, img, true)
+            }
+        })
+      
 
       if (input.checked) {
         img.classList.add('button-shadow-bone');
@@ -66,13 +69,27 @@ window.initImageEditOptions = function() {
     })
   }
 
-  function selectImage(checkbox, image, is_checked) {
-    if (is_checked) {
-      checkbox.checked = true; 
+  function selectImage(input_selected, image, is_checked) {
+    if (input_selected['type'] !== 'radio') {
+      if (is_checked) {
+        input_selected.checked = true; 
+        image.classList.add('button-shadow-bone');
+      } else {
+        input_selected.checked = false;
+        image.classList.remove('button-shadow-bone');
+      }
+    }
+
+    if (input_selected['type'] === 'radio') {
+      input_selected.checked = true;
       image.classList.add('button-shadow-bone');
-    } else {
-      checkbox.checked = false;
-      image.classList.remove('button-shadow-bone');
+      // input_selected.parentElement.querySelector('img').classList.add('button-shadow-bone');
+      let radio_buttons = document.querySelectorAll('input[name="selectHeroList"]');
+          for (let rb of radio_buttons) {
+              if (!rb.checked ) {
+                rb.parentElement.querySelector('img').classList.remove('button-shadow-bone');
+              }
+          }
     }
   }
 } 
