@@ -155,7 +155,7 @@ def post_edit(post_id):
             post.body = form.body.data
             tags = escape(break_up_tags(post, form.tags.data))
             db.session.commit()
-            upload_image(form.images.data, post)
+            # upload_image(form.images.data, post)
             return redirect(url_for('main.post', post_id=post.id))
         elif request.method == 'GET':
             form.title.data = post.title
