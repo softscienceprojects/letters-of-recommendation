@@ -36,6 +36,10 @@
     border: 3px solid var(--bone) !important;
 }
 
+.border-bone-thin {
+    border: 1px solid var(--bone) !important;
+}
+
 .border-white {
     border: 1px solid #eee;
 }
@@ -184,7 +188,7 @@ img {
     break-inside: avoid;
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .image-for-post {
@@ -399,7 +403,7 @@ nav ul li a:hover {
     -moz-column-gap: 0.5em;
     -webkit-column-gap: 0.5em;
     column-gap: 0.5em;
-    padding: 0.5em;
+    padding: 0.5em 0.5em 5em 0.5em;
 }
 
 .grid-view-wrapper {
@@ -984,16 +988,18 @@ input[type=file] {
 }
 
 .grid-container input[type=checkbox] {
+    color: white;
+    padding: 10px;
     width: 25px;
     height: 25px;
     border: 3px solid var(--smoke);
+    position: relative;
     -moz-appearance: none;
     -webkit-appearance: none;
 }
+
 .grid-container input[type=checkbox]:checked {
     background-color: black !important;
-    width: 25px;
-    height: 25px;
     -moz-appearance: none;
     -webkit-appearance: none;
 }
@@ -1006,6 +1012,11 @@ input[type=file] {
 input[type=submit] {
     -moz-appearance: none;
     -webkit-appearance: none;
+}
+
+.grid-container input[type=submit] {
+    position: fixed;
+    bottom: 10px;
 }
 
 .edit-post input, .edit-post textarea {
