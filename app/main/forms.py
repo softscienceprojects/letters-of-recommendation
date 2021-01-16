@@ -56,7 +56,7 @@ class PostForm(FlaskForm):
 
 
 class ImageForm(FlaskForm):
-    images = MultipleFileField('upload images (jpg, gif, png only)')
+    images = MultipleFileField('select images (jpg, gif, png only)')
     submit = SubmitField('submit')
 
     # def __init__(self, original_username, *args, **kwargs):

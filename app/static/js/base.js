@@ -76,9 +76,10 @@ menuButton.addEventListener('click', function(e) {
   const uploadedFile = document.querySelector('input[id=images]')
   
   if (uploadedFile) {
+    const showImages = document.querySelector('#uploaded-images');
+    
     uploadedFile.addEventListener('change', function(event) {
-      // <img id="showFileUploaded" width="200px" />
-      const showImages = document.querySelector('#uploaded-images');
+      showImages.replaceChildren()
       for (let file in event.target.files) {
         if (file < event.target.files['length']) {
           let img = document.createElement('img')
