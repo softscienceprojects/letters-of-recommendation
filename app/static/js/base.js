@@ -57,29 +57,41 @@ menuButton.addEventListener('click', function(e) {
     }
 })
 
-// const imageUploaderButton = document.querySelector("#image-upload")
+// const fileUpload = document.querySelector(".form-file-upload")
 
-// if (imageUploaderButton) {
-//     imageUploaderButton.addEventListener("click", async(e) => {
-//         e.preventDefault()
-//         const imageUpload = new ImageUploader({parent: document.querySelector('.post-content')})
+// if (fileUpload) {
+//     let filesSelected = document.querySelector('input[type="file"]')
+//     filesSelected.addEventListener("change", function(e) {
+//         let filenames = []
+//         for (let i=0; i < e.target.files.length; i++) {
+//             filenames.push(e.target.files.item(i).name)
+//             // e.target.files.item(i).size
+//         }
+//         let filenamesDisplay = document.querySelector("#file-uploaded")
+//         filenamesDisplay.innerText = filenames.join(", ");
 //     })
 // }
 
-const fileUpload = document.querySelector(".form-file-upload")
-
-if (fileUpload) {
-    let filesSelected = document.querySelector('input[type="file"]')
-    filesSelected.addEventListener("change", function(e) {
-        let filenames = []
-        for (let i=0; i < e.target.files.length; i++) {
-            filenames.push(e.target.files.item(i).name)
-            // e.target.files.item(i).size
+  // on upload images - show images being uploaded
+  const uploadedFile = document.querySelector('input[id=images]')
+  
+  if (uploadedFile) {
+    uploadedFile.addEventListener('change', function(event) {
+      // <img id="showFileUploaded" width="200px" />
+      const showImages = document.querySelector('#uploaded-images');
+      for (let file in event.target.files) {
+        if (file < event.target.files['length']) {
+          let img = document.createElement('img')
+          img.src = URL.createObjectURL(event.target.files[file]);
+          showImages.appendChild(img)
         }
-        let filenamesDisplay = document.querySelector("#file-uploaded")
-        filenamesDisplay.innerText = filenames.join(", ");
+      }
     })
-}
+  }
+
+
+
+
 
 
 

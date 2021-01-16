@@ -17,8 +17,8 @@ window.initImageEditOptions = function() {
         }
 
     });
-
-  }
+  };
+  
 
   // database call to remove hero from a post
 
