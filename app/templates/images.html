@@ -6,9 +6,9 @@
      
         {% if images %}
             {% if not current_user.isEditor and not public_images %}
-            <div>
-                <h1>No images</h1>
-            </div>
+           
+                <h1 class="color-bone"><em>No images</em></h1>
+           
             {% endif %}
             {% for image in images %}
                 {% if image.is_public == True or current_user.isEditor %}

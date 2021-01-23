@@ -233,13 +233,14 @@ img.profile-picture {
 
 /*   ------------- FONTS ------------- */
 
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
+/* h1, h2, h3, h4, h5, h6 {
+     margin: 0; 
+} */
 
 h1 {
     font-weight: bold;
     padding-bottom: 10px; 
+    /* font-family: 'Atkinson Hyperlegible', 'Arial', sans-serif; */
 }
 
 a {
@@ -883,9 +884,9 @@ i.material-icons.user-option {
         display: none;
     }
 
-    #menu-button:hover {
-        /* background-color: var(--clay); */
-    }
+   /* #menu-button:hover {
+         background-color: var(--clay); 
+    } */
 }
 
 #menu-button {
@@ -929,18 +930,18 @@ i.material-icons.user-option {
     margin: 0.5em;
 }
 
-a.fake-button {
-    /* -webkit-appearance: button;
+/* a.fake-button {
+    -webkit-appearance: button;
     -moz-appearance: button;
-    appearance: button; */
-}
+    appearance: button; 
+} */
 
-.fake-button i {
-    /* margin-right: 10px;
+/* .fake-button i {
+    margin-right: 10px;
     vertical-align: middle;
     font-size: 20px;
-    color: var(--cloud); */
-}
+    color: var(--cloud); 
+} */
 
 a.button-hover-clay:hover {
     background-color: var(--clay) !important;
@@ -957,15 +958,15 @@ a.button-hover-shadow-bone:hover {
 /* ------------- FORMS ----------------- */
 
 @media screen and (min-width: 900px) {
-    form {
-        /* min-width: 500px; */
-    }
+   /*  form {
+        min-width: 500px; 
+    } */
 }
 
 @media screen and (max-width: 899px) {
-    form {
-        /* max-width: 85%; */
-    }
+   /*  form {
+        max-width: 85%; 
+    } */
 }
 
 /* form label {} */

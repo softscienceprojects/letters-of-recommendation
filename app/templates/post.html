@@ -41,7 +41,7 @@
                 </div>
                 <div class="slideshow-caption">
                     {% if image.caption %}
-                        {{ image.caption }} <br />
+                        {{ image.caption | safe }} <br />
                     {% endif %}
                         <span class="slide-number"></span>
                     
