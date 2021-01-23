@@ -400,12 +400,13 @@ nav ul li a:hover {
 }
 
 @media only screen and (max-width: 899px) {
-    .content {
-        /* margin-top: 4em; */
+    .all-header {
+        margin-top: 4em;
     }
 }
 
 .grid-container {
+    height: 100%;
     -moz-columns: 15em;
     -webkit-columns: 15em;
     columns: 15em;
@@ -416,8 +417,8 @@ nav ul li a:hover {
 }
 
 .grid-view-wrapper {
-    margin-top: 3em;
-    height: 100%;
+    /* margin-top: 3em; */
+    /* height: 100%; */
 }
 
 .auth-form {
@@ -429,12 +430,13 @@ nav ul li a:hover {
 
 .all-header {
     text-align: center;
-    margin-top:4em;
 }
 
-/* .all-header h1 {} */
-
-/* .notification {} */
+.notification {
+    margin-top: 1em;
+    font-style: italic;
+    color: var(--clay);
+}
 
 
 .post-leaderboard {
@@ -661,7 +663,7 @@ nav ul li a:hover {
 
 .posts {
     flex: 1 0 auto;
-    margin-top: 3.5em;
+    /* margin-top: 3.5em; */
     display: flex;
     flex-wrap: wrap;
 }
