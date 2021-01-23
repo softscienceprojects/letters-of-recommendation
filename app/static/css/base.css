@@ -93,7 +93,7 @@ body {
 }
 
 #encompass {
-    display: flex;
+    /* display: flex; */
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1; 
     animation-fill-mode: forwards; 
@@ -417,6 +417,7 @@ nav ul li a:hover {
 
 .grid-view-wrapper {
     margin-top: 3em;
+    height: 100%;
 }
 
 .auth-form {

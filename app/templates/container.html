@@ -3,8 +3,28 @@
     {% block container %}
     {{ super () }}
     <div class="content">
-        {% block content %}{% endblock %}
-                
+        <div class="all-header">
+        {% if message %}
+            <div class="notification">
+                {{ message }}
+            </div>
+        {% endif %}
+          {% if request.endpoint == 'main.images' and current_user.isEditor == True %}
+            <div class="user-options-panel">        
+                <a href="{{ url_for('main.images_upload') }}" class="button-base-rounded border-white button-hover-shadow-bone hyperlegible"><i class="material-icons user-option">cloud_upload</i> Upload images</a>
+            </div>
+            {% endif %}
+        </div>
+        {% if request.endpoint in ['main.image_post_slideshow', 'main.images', 'main.users'] %}
+            <div class="grid-view-wrapper">
+            <div class="grid-container">
+        {% endif %}
+            {% block content %}{% endblock %}
+        {% if request.endpoint in ['main.image_post_slideshow', 'main.images', 'main.users'] %}
+            </div>
+            </div>
+        {% endif %}
+
     <footer>
         <div style="margin:auto;text-align:center;">
             <div>
@@ -16,6 +36,7 @@
             </div>
         </div>
     </footer>
+        </div>
     </div>                 
  
     {% endblock %}
