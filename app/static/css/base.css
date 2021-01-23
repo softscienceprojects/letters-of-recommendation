@@ -206,7 +206,7 @@ img {
 .image-for-post {
     width: 100%;
     height: 50vh;
-    background-size: auto;
+    background-size: cover;
 }
 
 .image-for-post a {
@@ -416,10 +416,12 @@ nav ul li a:hover {
     padding: 0.5em 0.5em 5em 0.5em;
 }
 
+
 .grid-view-wrapper {
-    /* margin-top: 3em; */
-    /* height: 100%; */
-}
+    flex-grow: 1;
+    /* margin-top: 3em; 
+    height: 100%;  */
+} 
 
 .auth-form {
     flex: 1 0 auto;
@@ -441,7 +443,7 @@ nav ul li a:hover {
 
 .post-leaderboard {
     display: flex;
-    /* margin: auto; */
+    margin-bottom: 30px;
     background-color: var(--cloud);
 }
 
@@ -663,7 +665,7 @@ nav ul li a:hover {
 
 .posts {
     flex: 1 0 auto;
-    /* margin-top: 3.5em; */
+    margin-top: 3.5em;
     display: flex;
     flex-wrap: wrap;
 }
@@ -729,9 +731,11 @@ nav ul li a:hover {
 }
 
 
+/*
 .user-options-panel > a:not(i.material-icons) {
     color: red;
 }
+*/
 
 .user-options-panel a, #user-options-menu a {
     color: var(--night);
@@ -975,11 +979,13 @@ a.button-hover-shadow-bone:hover {
 
 /* form label {} */
 
+/*
 textarea {
-    /* width: 300px;
+    width: 300px;
     height: 300px;
-    padding: 10px; */
+    padding: 10px; 
 }
+*/
 
 input:focus, textarea:focus, button:focus {
     outline: none !important;
