@@ -94,7 +94,7 @@ def post_new():
     if current_user.isWriter or current_user.isEditor:
         form = PostForm()
         if form.validate_on_submit():
-            post = save_post(title=form.title.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
+            post = save_post(title=form.title.data, intro=form.intro.data, body=form.body.data, author=current_user, datePosted=datetime.utcnow())
             tags = escape(break_up_tags(post, form.tags.data))
             #upload_image(form.images.data, post) ???
             return redirect(url_for('main.post', post_id=post.id))
