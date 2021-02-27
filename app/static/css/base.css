@@ -717,7 +717,18 @@ nav ul li a:hover {
     background-color: var(--cloud);
     padding: 20px;
     text-align: center;
-    top: calc(100vh - 50%);
+    top: calc(100vh - 80%);
+}
+
+.confirm-dialog-button-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 900px) {
+    .confirm-dialog {
+        left: calc(100vw - 80%);
+    }
 }
 
 /* style="z-index: 1500;display: block;position: absolute;top: 50%;left: 50%;width: 200px;background-color: var(--cloud); */
