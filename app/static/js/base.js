@@ -108,7 +108,11 @@ bodyOnload = function() {
         // not really a sustainable solution...
         window.initImageEditOptions()
     }
-    
+  document.body.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('navigation-area') && sessionStorage.getItem('navMenu') === 'open') {
+      closeNav()
+    }
+  })
 }
 
 
