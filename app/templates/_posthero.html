@@ -1,6 +1,9 @@
 {% extends "container.html" %}
 
 {% block content %}
+<div class="user-options-panel">        
+    <a href="{{ url_for('main.images_upload') }}" class="button-base-rounded border-white button-hover-shadow-bone hyperlegible"><i class="material-icons user-option">cloud_upload</i> Upload images</a>
+</div>
 <div class='auth-form'>   
     
     <form action="" method="post" enctype="multipart/form-data" name="selectHero">
