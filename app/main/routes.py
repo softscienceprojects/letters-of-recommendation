@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, redirect, url_for, request, g, jsonify, current_app, flash
+from flask import render_template, redirect, url_for, request, g, jsonify, current_app, flash, session
 from flask_login import current_user, login_required
 from flask_mail import Message
 from markupsafe import escape
@@ -115,6 +115,8 @@ def post(post_id):
 @bp.route('/posts/<post_id>/edit-hero', methods=['GET', 'POST'])
 @login_required
 def post_edit_hero(post_id):
+    session['prev_url'] = 'main.post_edit_hero'
+    session['prev_id'] = post_id
     post = Post.query.filter_by(id=post_id).first_or_404()
     form = PostHero()
     form.selectHeroList.choices = Image.get_all_images_choices() #post.get_hero_image_choices() # fix this post.get_hero_image_choices()
@@ -302,8 +304,14 @@ def goprivate(asset_id):
 @login_required
 def images_upload():
     form = ImageForm()
+    prev_url = session.get('prev_url', '')
+    prev_id = session.get('prev_id', '')
     if form.validate_on_submit():
+        session['prev_url'] = 'main.images_upload'
+        session['prev_id'] = ''
         images = upload_image(form.images.data)
+        if prev_url and prev_id:
+            return redirect(url_for(prev_url, post_id=prev_id))
         return redirect(url_for('main.images'))
 #         if request.files['file'].content_type in ['image/gif', 'image/jpeg', 'image/png']: 
 #             ## 'video/mp4'
