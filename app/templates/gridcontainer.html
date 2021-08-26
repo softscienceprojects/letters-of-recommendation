@@ -13,7 +13,7 @@
             </div>
             {% if request.endpoint == 'main.images' and current_user.isEditor == True %}
             <div class="user-options-panel">        
-                <a href="{{ url_for('main.images_upload') }}" class="button-base-rounded border-white button-hover-shadow-bone hyperlegible"><i class="material-icons user-option">cloud_upload</i> Upload images</a>
+                <a href="{{ url_for('main.images_upload') }}" class="button-base-rounded border-white button-hover-shadow-bone "><i class="material-icons user-option">cloud_upload</i> Upload images</a>
             </div>
             {% endif %}
             <div class="grid-container">
